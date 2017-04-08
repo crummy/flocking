@@ -56,9 +56,4 @@ public class AvoidBoundaries extends Instinct {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
-
-	@Override
-	public String toString() {
-		return "AvoidBoundaries";
-	}
 }

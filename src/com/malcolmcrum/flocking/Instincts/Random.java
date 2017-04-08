@@ -31,9 +31,4 @@ public class Random extends Instinct {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
-
-	@Override
-	public String toString() {
-		return "Random";
-	}
 }

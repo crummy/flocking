@@ -18,6 +18,7 @@ public class Cohesion extends Instinct {
 		Set<Bird> neighbours = getNeighbours();
 		if (neighbours.size() == 0) {
 			desire = Desire.none();
+			return;
 		}
 		for (Bird bird : neighbours) {
 			center.add(bird.position);
@@ -33,8 +34,4 @@ public class Cohesion extends Instinct {
 		return isEnabled;
 	}
 
-	@Override
-	public String toString() {
-		return "MoveTowardsNearby";
-	}
 }

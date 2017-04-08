@@ -45,6 +45,11 @@ public abstract class Instinct {
 		return Float.compare(a.getDesire().strength, b.getDesire().strength);
 	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + "(" + getNeighbours().size() + ")";
+	}
+
 	public static class Desire {
 		public final float strength;
 		public final PVector velocity;

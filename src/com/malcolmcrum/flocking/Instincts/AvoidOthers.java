@@ -46,9 +46,4 @@ public class AvoidOthers extends Instinct {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
-
-	@Override
-	public String toString() {
-		return "AvoidOthers";
-	}
 }
