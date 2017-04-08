@@ -50,15 +50,6 @@ public class Main extends PApplet {
 	}
 
 	@Override
-	public void clear() {
-		stroke(255);
-		fill(255);
-    	stroke(0, 150f);
-		fill(0, 150f);
-		rect(0, 0, width, height);
-	}
-
-	@Override
     public void keyReleased() {
 		inputHandler.keyReleased(key);
 	}
