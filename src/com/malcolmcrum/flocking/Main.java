@@ -14,7 +14,7 @@ public class Main extends PApplet {
 	private BirdRenderer birdRenderer;
 
 	public static void main(String args[]) {
-        PApplet.main("com.malcolmcrum.flocking.Main");
+        PApplet.main(Main.class);
     }
 
     @Override

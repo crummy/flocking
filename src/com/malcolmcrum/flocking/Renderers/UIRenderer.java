@@ -3,16 +3,16 @@ package com.malcolmcrum.flocking.Renderers;
 import com.malcolmcrum.flocking.Instincts.*;
 import processing.core.PApplet;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UIRenderer implements Renderer {
 	private final PApplet graphics;
-	private final Set<String> instructions;
+	private final List<String> instructions;
 
 	public UIRenderer(PApplet graphics) {
 		this.graphics = graphics;
-		this.instructions = new HashSet<>();
+		this.instructions = new ArrayList<>();
 		this.instructions.add("(1) AvoidBoundaries: " + AvoidBoundaries.isEnabled);
 		this.instructions.add("(2) AvoidOthers: " + AvoidOthers.isEnabled);
 		this.instructions.add("(3) ClampSpeed: " + ClampSpeed.isEnabled);
