@@ -2,12 +2,9 @@ package com.malcolmcrum.flocking.Instincts;
 
 import com.malcolmcrum.flocking.Bird;
 
-/**
- * Created by crummy on 08.04.17.
- */
 public class ClampSpeed implements Instinct {
-	private static final float minSpeed = 1;
-	private static final float maxSpeed = 4;
+	private static final float minSpeed = 10;
+	private static final float maxSpeed = 100;
 
 	private final Bird self;
 
@@ -26,5 +23,10 @@ public class ClampSpeed implements Instinct {
 			// we like to go fast!
 			return new Desire(0.1f, self.velocity.normalize(null).mult(maxSpeed));
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "ClampSpeed";
 	}
 }

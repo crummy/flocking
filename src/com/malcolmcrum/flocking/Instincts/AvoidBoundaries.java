@@ -17,7 +17,7 @@ public class AvoidBoundaries implements Instinct {
 	@Override
 	public Desire get() {
 		float strength = 0;
-		PVector awayFromWall = new PVector();
+		PVector awayFromWall = self.velocity;
 		if (self.position.x < boundaries.left) {
 			awayFromWall.x = 10;
 			strength += 0.2f;
@@ -33,5 +33,10 @@ public class AvoidBoundaries implements Instinct {
 			strength += 0.2f;
 		}
 		return new Desire(strength, awayFromWall);
+	}
+
+	@Override
+	public String toString() {
+		return "AvoidBoundaries";
 	}
 }

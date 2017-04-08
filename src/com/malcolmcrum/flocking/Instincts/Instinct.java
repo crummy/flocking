@@ -13,5 +13,10 @@ public interface Instinct {
 			this.strength = strength;
 			this.velocity = velocity;
 		}
+
+		@Override
+		public String toString() {
+			return String.format("{strength: %s, velocity: %s}", strength, velocity);
+		}
 	}
 }

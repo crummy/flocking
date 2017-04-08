@@ -38,10 +38,9 @@ public class Bird {
 	void update() {
 		List<Instinct.Desire> desires = this.instincts.stream().map(Instinct::get).collect(Collectors.toList());
 		float totalStrength = (float)desires.stream().mapToDouble(d -> d.strength).sum();
-		PVector newVelocity = new PVector();
 		desires.forEach(desire -> {
 			float strengthApplied = desire.strength/totalStrength;
-			newVelocity.lerp(PVector.add(velocity, desire.velocity), strengthApplied);
+			velocity.lerp(desire.velocity, strengthApplied);
 		});
 		position.lerp(PVector.add(position, velocity), 0.01f);
 	}

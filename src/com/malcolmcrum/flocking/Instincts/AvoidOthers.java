@@ -49,4 +49,9 @@ public class AvoidOthers implements Instinct {
 	private Set<Bird> getOthers() {
 		return allBirds.stream().filter(bird -> bird != self).collect(Collectors.toSet());
 	}
+
+	@Override
+	public String toString() {
+		return "AvoidOthers";
+	}
 }
