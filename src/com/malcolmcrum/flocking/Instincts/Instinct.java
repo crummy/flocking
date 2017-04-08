@@ -4,6 +4,7 @@ import processing.core.PVector;
 
 public interface Instinct {
 	Desire get();
+	boolean isEnabled();
 
 	class Desire {
 		public final float strength;

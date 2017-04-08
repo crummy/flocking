@@ -1,10 +1,12 @@
 package com.malcolmcrum.flocking;
 
-import processing.core.*;
+import com.malcolmcrum.flocking.Instincts.*;
+import processing.core.PApplet;
 
 public class ExampleApplet extends PApplet {
 
     private Flock flock;
+	private Config config;
 
     public static void main(String args[]) {
         PApplet.main("com.malcolmcrum.flocking.ExampleApplet");
@@ -16,12 +18,13 @@ public class ExampleApplet extends PApplet {
         size(1280, 800);
     }
 
-    @Override
+	@Override
     public void setup() {
         // TODO: Your custom drawing and setup on applet start belongs here
         clear();
-        flock = new Flock(width, height);
-        flock.addBirds(32);
+		config = new Config();
+		flock = new Flock(width, height);
+		flock.addBirds(32);
     }
 
     @Override
@@ -30,9 +33,23 @@ public class ExampleApplet extends PApplet {
         clear();
         stroke(255);
         fill(255);
+        drawUI();
         flock.update();
         flock.getBirds().forEach(this::draw);
     }
+
+	private void drawUI() {
+		text("AvoidBoundaries: " + AvoidBoundaries.isEnabled, 4, 10);
+		text("AvoidOthers: " + AvoidOthers.isEnabled, 4, 20);
+		text("ClampSpeed: " + ClampSpeed.isEnabled, 4, 30);
+		text("MoveTowardsNearby: " + MoveTowardsNearby.isEnabled, 4, 40);
+		text("Random: " + Random.isEnabled, 4, 50);
+	}
+
+	@Override
+    public void keyReleased() {
+		config.keyReleased(key);
+	}
 
     private void draw(Bird bird) {
         int width = 8;

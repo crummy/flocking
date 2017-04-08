@@ -7,6 +7,7 @@ import processing.core.PVector;
 import static processing.core.PConstants.PI;
 
 public class Random implements Instinct {
+	public static boolean isEnabled;
 	private final Bird self;
 
 	public Random(Bird self) {
@@ -21,5 +22,15 @@ public class Random implements Instinct {
 		} else {
 			return Desire.none();
 		}
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	@Override
+	public String toString() {
+		return "Random";
 	}
 }

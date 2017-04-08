@@ -6,10 +6,8 @@ import processing.core.PVector;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by crummy on 08.04.17.
- */
 public class MoveTowardsNearby implements Instinct {
+	public static boolean isEnabled;
 	private final Bird self;
 	private final Set<Bird> allBirds;
 
@@ -31,6 +29,11 @@ public class MoveTowardsNearby implements Instinct {
 
 	private Set<Bird> getOthers() {
 		return allBirds.stream().filter(bird -> bird != self).collect(Collectors.toSet());
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isEnabled;
 	}
 
 	@Override

@@ -12,8 +12,10 @@ import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
 public class AvoidOthers implements Instinct {
+	public static boolean isEnabled = true;
+
 	private static final float dangerCloseDistance = 16;
-	private static final float tooCloseDistance = 64;
+	private static final float tooCloseDistance = 32;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 
 	private final Bird self;
@@ -27,7 +29,7 @@ public class AvoidOthers implements Instinct {
 	@Override
 	public Desire get() {
 		float strength = 0;
-		PVector desiredVelocity = new PVector();
+		PVector awayFromOthers = new PVector();
 		for (Bird other : getOthers()) {
 			float distance = dist(self.position, other.position);
 
@@ -40,14 +42,21 @@ public class AvoidOthers implements Instinct {
 			}
 
 			float angle = angleBetween(self.velocity, other.velocity);
-			desiredVelocity.add(PVector.fromAngle(angle));
+			awayFromOthers.add(PVector.fromAngle(angle));
 		}
 
+		float speed = self.velocity.mag();
+		PVector desiredVelocity = awayFromOthers.normalize().mult(speed);
 		return new Desire(strength, desiredVelocity);
 	}
 
 	private Set<Bird> getOthers() {
 		return allBirds.stream().filter(bird -> bird != self).collect(Collectors.toSet());
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isEnabled;
 	}
 
 	@Override

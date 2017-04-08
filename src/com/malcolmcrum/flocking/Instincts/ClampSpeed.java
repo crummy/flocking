@@ -3,6 +3,8 @@ package com.malcolmcrum.flocking.Instincts;
 import com.malcolmcrum.flocking.Bird;
 
 public class ClampSpeed implements Instinct {
+	public static boolean isEnabled = true;
+
 	private static final float minSpeed = 10;
 	private static final float maxSpeed = 100;
 
@@ -21,8 +23,13 @@ public class ClampSpeed implements Instinct {
 			return new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
 		} else {
 			// we like to go fast!
-			return new Desire(0.1f, self.velocity.normalize(null).mult(maxSpeed));
+			return new Desire(0.05f, self.velocity.normalize(null).mult(maxSpeed));
 		}
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isEnabled;
 	}
 
 	@Override

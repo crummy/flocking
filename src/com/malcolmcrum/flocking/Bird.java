@@ -14,7 +14,6 @@ public class Bird {
 	boolean isTooClose = false;
 
 	private Collection<Instinct> instincts;
-	private int tick = 0;
 
 	Bird(PVector initialPosition, PVector initialVelocity) {
 		this.position = initialPosition;
@@ -27,16 +26,19 @@ public class Bird {
 	}
 
 	void update() {
-		List<Instinct.Desire> desires = this.instincts.stream().map(Instinct::get).collect(Collectors.toList());
+		List<Instinct.Desire> desires = this.instincts.stream()
+				.filter(Instinct::isEnabled)
+				.map(Instinct::get)
+				.collect(Collectors.toList());
 
-		tick++;
-		if (tick % 10 == 0) {
-			float totalStrength = (float) desires.stream().mapToDouble(d -> d.strength).sum();
-			desires.forEach(desire -> {
-				float strengthApplied = desire.strength / totalStrength;
-				velocity.lerp(desire.velocity, strengthApplied * strengthApplied);
-			});
-		}
+		float totalStrength = (float) desires.stream().mapToDouble(d -> d.strength).sum();
+		desires.forEach(desire -> {
+			if (desire.strength > 1) {
+				System.out.println("WARNING! Desire " + desire + " strength is " + desire.strength);
+			}
+			float strengthApplied = desire.strength / totalStrength;
+			velocity.lerp(desire.velocity, strengthApplied * strengthApplied);
+		});
 		position.lerp(PVector.add(position, velocity), 0.05f);
 	}
 }

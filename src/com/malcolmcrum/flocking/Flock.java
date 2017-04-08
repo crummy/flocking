@@ -24,9 +24,9 @@ class Flock {
 			Bird bird = new Bird(initialPosition, initialVelocity);
 			bird.addDesire(new ClampSpeed(bird));
 			bird.addDesire(new AvoidBoundaries(bird, bounds));
-			//bird.addDesire(new AvoidOthers(bird, birds));
-			//bird.addDesire(new MoveTowardsNearby(bird, birds));
-			//bird.addDesire(new Random(bird));
+			bird.addDesire(new AvoidOthers(bird, birds));
+			bird.addDesire(new MoveTowardsNearby(bird, birds));
+			bird.addDesire(new Random(bird));
 			birds.add(bird);
 		}
 	}
