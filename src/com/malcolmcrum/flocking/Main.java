@@ -9,7 +9,7 @@ public class Main extends PApplet {
 	static boolean isPaused = true;
 
 	private Flock flock;
-	private Config config;
+	private InputHandler inputHandler;
 	private UIRenderer ui;
 	private BirdRenderer birdRenderer;
 
@@ -19,15 +19,13 @@ public class Main extends PApplet {
 
     @Override
     public void settings() {
-        // TODO: Customize screen size and so on here
         size(1280, 800);
     }
 
 	@Override
     public void setup() {
-        // TODO: Your custom drawing and setup on applet start belongs here
         clear();
-		config = new Config();
+		inputHandler = new InputHandler(this);
 		flock = new Flock(width, height);
 		flock.addBirds(32);
 		ui = new UIRenderer(this);
@@ -64,6 +62,6 @@ public class Main extends PApplet {
 
 	@Override
     public void keyReleased() {
-		config.keyReleased(key);
+		inputHandler.keyReleased(key);
 	}
 }

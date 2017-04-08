@@ -19,6 +19,7 @@ public class UIRenderer implements Renderer {
 		this.instructions.add("(4) Cohesion: " + Cohesion.isEnabled);
 		this.instructions.add("(5) Random: " + Random.isEnabled);
 		this.instructions.add("(6) Debug info");
+		this.instructions.add("(R) Restart");
 		this.instructions.add("(Space) Pause");
 		this.instructions.add("Click a bird for details");
 	}

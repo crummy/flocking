@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e752a8c-6cb9-4ef9-9031-0329ce15fcb4" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Config.java" afterPath="$PROJECT_DIR$/src/com/malcolmcrum/flocking/InputHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java" afterPath="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/UIRenderer.java" afterPath="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/UIRenderer.java" />
@@ -63,17 +64,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="358">
+              <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#396#397#0" expanded="true" />
-                <element signature="e#436#437#0" expanded="true" />
-                <element signature="e#1048#1049#0" expanded="true" />
-                <element signature="e#1095#1096#0" expanded="true" />
+                <element signature="e#408#409#0" expanded="true" />
+                <element signature="e#448#449#0" expanded="true" />
+                <element signature="e#492#493#0" expanded="true" />
+                <element signature="e#523#524#0" expanded="true" />
+                <element signature="e#946#947#0" expanded="true" />
+                <element signature="e#993#994#0" expanded="true" />
+                <element signature="e#1171#1172#0" expanded="true" />
+                <element signature="e#1207#1208#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UIRenderer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UIRenderer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/UIRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+            <state relative-caret-position="234">
+              <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,15 +118,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClampSpeed.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Instincts/ClampSpeed.java">
+      <file leaf-file-name="InputHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/InputHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+            <state relative-caret-position="320">
+              <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#327#328#0" expanded="true" />
-                <element signature="e#352#353#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -218,7 +221,6 @@
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Instincts/MoveTowardsNearby.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/ExampleApplet.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Flock.java" />
-        <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Config.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Instincts/AvoidBoundaries.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Instincts/AvoidOthers.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Instincts/ClampSpeed.java" />
@@ -229,8 +231,10 @@
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/Renderer.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Bird.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/BirdRenderer.java" />
-        <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java" />
         <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/UIRenderer.java" />
+        <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Config.java" />
+        <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/malcolmcrum/flocking/InputHandler.java" />
       </list>
     </option>
   </component>
@@ -699,7 +703,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491682569447</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fix order">
+      <created>1491683146908</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1491683146908</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -782,7 +793,8 @@
     <MESSAGE value="Fix alignment" />
     <MESSAGE value="Colour birds based on their strongest instinct" />
     <MESSAGE value="Move rendering into renderers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move rendering into renderers" />
+    <MESSAGE value="Fix order" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix order" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1013,16 +1025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Rectangle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -1169,26 +1171,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/UIRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="234">
+          <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#396#397#0" expanded="true" />
-            <element signature="e#436#437#0" expanded="true" />
-            <element signature="e#1048#1049#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Renderers/UIRenderer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/InputHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        <state relative-caret-position="320">
+          <caret line="20" column="42" lean-forward="false" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/malcolmcrum/flocking/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+            <element signature="e#448#449#0" expanded="true" />
+            <element signature="e#492#493#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
+            <element signature="e#946#947#0" expanded="true" />
+            <element signature="e#993#994#0" expanded="true" />
+            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#1207#1208#0" expanded="true" />
           </folding>
         </state>
       </provider>
