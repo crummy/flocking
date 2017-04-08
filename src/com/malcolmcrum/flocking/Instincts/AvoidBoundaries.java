@@ -6,8 +6,12 @@ import processing.core.PVector;
 
 import java.util.Set;
 
+import static processing.core.PConstants.PI;
+
 public class AvoidBoundaries extends Instinct {
 	public static boolean isEnabled = true;
+
+	private static final float turningRate = PI/64;
 
 	private final Bird self;
 	private final Rectangle boundary;
@@ -25,22 +29,22 @@ public class AvoidBoundaries extends Instinct {
 	@Override
 	public void update() {
 
-		PVector awayFromWall = self.velocity.copy();
+		PVector desiredDirection = new PVector();
 		float xStrength = 0;
-		if (self.position.x < boundary.left && self.velocity.x < 0) {
+		if (self.position.x < boundary.left) {
 			xStrength = (boundary.left - self.position.x)/margin;
-			awayFromWall.x += aversion * xStrength;
-		} else if (self.position.x > boundary.right && self.velocity.x > 0) {
+			desiredDirection.x = 1;
+		} else if (self.position.x > boundary.right) {
 			xStrength = (self.position.x - boundary.right)/margin;
-			awayFromWall.x += -aversion * xStrength;
+			desiredDirection.x = -1;
 		}
 		float yStrength = 0;
-		if (self.position.y < boundary.top && self.velocity.y < 0) {
+		if (self.position.y < boundary.top) {
 			yStrength = (boundary.top - self.position.y)/margin;
-			awayFromWall.y += aversion * yStrength;
-		} else if (self.position.y > boundary.bottom && self.velocity.y > 0) {
+			desiredDirection.y = 1;
+		} else if (self.position.y > boundary.bottom) {
 			yStrength = (self.position.y - boundary.bottom)/margin;
-			awayFromWall.y += -aversion * yStrength;
+			desiredDirection.y = -1;
 		}
 
 		float strength = xStrength > yStrength ? xStrength : yStrength;
@@ -49,7 +53,9 @@ public class AvoidBoundaries extends Instinct {
 		} else if (strength < 0) {
 			strength = 0;
 		}
-		desire = new Desire(strength, awayFromWall);
+		float speed = self.velocity.mag();
+		PVector desiredVelocity = PVector.lerp(self.velocity.copy().normalize(), desiredDirection, turningRate).mult(speed);
+		desire = new Desire(strength * strength, desiredVelocity);
 	}
 
 	@Override
