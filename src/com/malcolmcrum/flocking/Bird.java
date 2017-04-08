@@ -42,4 +42,8 @@ public class Bird {
 		});
 		position.lerp(PVector.add(position, velocity), 0.05f);
 	}
+
+	public Collection<Instinct> getInstincts() {
+		return instincts;
+	}
 }

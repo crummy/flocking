@@ -22,7 +22,7 @@ public abstract class Instinct {
 		return true;
 	}
 
-	float getNeighbourRadius() {
+	public float getNeighbourRadius() {
 		return 64;
 	}
 
