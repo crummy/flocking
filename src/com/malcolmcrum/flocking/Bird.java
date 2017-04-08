@@ -1,73 +1,49 @@
+package com.malcolmcrum.flocking;
+
+import com.malcolmcrum.flocking.Desires.Desire;
 import processing.core.PVector;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static processing.core.PApplet.lerp;
 import static processing.core.PConstants.PI;
 import static processing.core.PVector.angleBetween;
-import static processing.core.PVector.dist;
 
-class Bird {
-	PVector position;
-	PVector velocity;
+public class Bird {
+	public PVector position;
+	public PVector velocity;
 	boolean isTooClose = false;
 
-	private static final float tooCloseDistance = 16;
 	private static final float minSpeed = 1;
 	private static final float maxSpeed = 4;
 	private static final float speedLerp = 0.5f;
 
-	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 	private static final float avoidLerp = 0.1f;
 
 	static final float fieldOfView = PI/2; // how wide can a bird see?
 
 	private static final float turnTowardsLerp = 0.1f;
+	private Collection<Desire> desires;
 
 	Bird(PVector initialPosition, PVector initialVelocity) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
+		this.desires = new HashSet<>();
 	}
 
-	private boolean isTooClose(Bird bird) {
-		if (bird == this) {
-			return false;
-		}
-		float distance = dist(position, bird.position);
-		boolean tooClose = distance < tooCloseDistance;
-
-		float velocityAngles = angleBetween(velocity, bird.velocity);
-		boolean onSameCourse = velocityAngles < closeAngle;
-
-		return tooClose && onSameCourse;
+	void addDesire(Desire desire) {
+		desires.add(desire);
 	}
 
-	void update(Set<Bird> others, Rectangle bounds) {
-		isTooClose = false;
-		for (Bird bird : others) {
-			if (isTooClose(bird)) {
-				isTooClose = true;
-				avoid(bird);
-			}
-			if (canSee(bird)) {
-				turnTowards(bird);
-			}
-		}
-		avoidBounds(bounds);
-		updatePosition();
-	}
-
-	private void avoidBounds(Rectangle bounds) {
-		if (position.x < bounds.left && velocity.x < 0) {
-			velocity.x *= -1;
-		} else if (position.x > bounds.right && velocity.x > 0) {
-			velocity.x *= -1;
-		}
-		if (position.y < bounds.top && velocity.y < 0) {
-			velocity.y *= -1;
-		} else if (position.y > bounds.bottom && velocity.y > 0) {
-			velocity.y *= -1;
-		}
+	void update() {
+		List<Desire.Change> changes = desires.stream().map(Desire::get).collect(Collectors.toList());
+		changes.sort((a, b) -> Float.compare(a.desireStrength, b.desireStrength));
+		PVector acceleration = changes.get(0).accelerationChange;
+		velocity.add(acceleration);
+		position.add(velocity);
 	}
 
 	private void turnTowards(Bird bird) {

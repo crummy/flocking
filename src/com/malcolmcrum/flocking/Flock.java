@@ -1,3 +1,7 @@
+package com.malcolmcrum.flocking;
+
+import com.malcolmcrum.flocking.Desires.AvoidBoundaries;
+import com.malcolmcrum.flocking.Desires.AvoidOthers;
 import processing.core.PVector;
 
 import java.util.HashSet;
@@ -20,6 +24,8 @@ class Flock {
 			PVector initialPosition = new PVector(RNG.between(bounds.left, bounds.right), RNG.between(bounds.top, bounds.bottom));
 			PVector initialVelocity = new PVector(RNG.between(-maxInitialSpeed, maxInitialSpeed), RNG.between(-maxInitialSpeed, maxInitialSpeed));
 			Bird bird = new Bird(initialPosition, initialVelocity);
+			bird.addDesire(new AvoidBoundaries(bird, bounds));
+			bird.addDesire(new AvoidOthers(bird, birds));
 			birds.add(bird);
 		}
 	}
@@ -31,7 +37,7 @@ class Flock {
 	void update() {
 		birds.forEach(bird -> {
 			Set<Bird> others = birds.stream().filter(otherBird -> otherBird != bird).collect(Collectors.toSet());
-			bird.update(others, bounds);
+			bird.update();
 		});
 	}
 }

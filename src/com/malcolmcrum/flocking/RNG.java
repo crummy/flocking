@@ -1,3 +1,5 @@
+package com.malcolmcrum.flocking;
+
 import java.util.Random;
 
 class RNG {

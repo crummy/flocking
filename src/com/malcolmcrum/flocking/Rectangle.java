@@ -1,3 +1,5 @@
+package com.malcolmcrum.flocking;
+
 public class Rectangle {
 	public final int left;
 	public final int right;

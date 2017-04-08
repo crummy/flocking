@@ -1,3 +1,5 @@
+package com.malcolmcrum.flocking;
+
 class Assert {
 	static class AssertionFailure extends RuntimeException {
 

@@ -1,3 +1,4 @@
+package com.malcolmcrum.flocking;
 
 import processing.core.*;
 
@@ -6,7 +7,7 @@ public class ExampleApplet extends PApplet {
     private Flock flock;
 
     public static void main(String args[]) {
-        PApplet.main("ExampleApplet");
+        PApplet.main("com.malcolmcrum.flocking.ExampleApplet");
     }
 
     @Override
