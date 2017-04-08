@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 public class Bird {
 	public PVector position;
 	public PVector velocity;
-	boolean isTooClose = false;
 
 	private Collection<Instinct> instincts;
 

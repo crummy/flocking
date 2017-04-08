@@ -6,7 +6,7 @@ import processing.core.PVector;
 import java.util.HashSet;
 import java.util.Set;
 
-class Flock {
+public class Flock {
 	private static final float maxInitialSpeed = 0.5f;
 
 	private final Rectangle bounds;
@@ -31,7 +31,7 @@ class Flock {
 		}
 	}
 
-	Set<Bird> getBirds() {
+	public Set<Bird> getBirds() {
 		return birds;
 	}
 
