@@ -7,6 +7,7 @@ public class Main extends PApplet {
 
     private Flock flock;
 	private Config config;
+	static boolean isPaused = true;
 
     public static void main(String args[]) {
         PApplet.main("com.malcolmcrum.flocking.Main");
@@ -29,11 +30,13 @@ public class Main extends PApplet {
 
     @Override
     public void draw() {
-        clear();
-        stroke(255);
-        fill(255);
-        drawUI();
-        flock.update();
+		clear();
+		stroke(255);
+		fill(255);
+		drawUI();
+		if (isPaused == false) {
+			flock.update();
+		}
         flock.getBirds().forEach(this::draw);
     }
 
@@ -48,7 +51,7 @@ public class Main extends PApplet {
 		text("1. AvoidBoundaries: " + AvoidBoundaries.isEnabled, 4, 10);
 		text("2. AvoidOthers: " + AvoidOthers.isEnabled, 4, 20);
 		text("3. ClampSpeed: " + ClampSpeed.isEnabled, 4, 30);
-		text("4. MoveTowardsNearby: " + Cohesion.isEnabled, 4, 40);
+		text("4. Cohesion: " + Cohesion.isEnabled, 4, 40);
 		text("5. Random: " + Random.isEnabled, 4, 50);
 	}
 

@@ -15,6 +15,7 @@ class Config {
 		settings.put('3', () -> ClampSpeed.isEnabled = !ClampSpeed.isEnabled);
 		settings.put('4', () -> Cohesion.isEnabled = !Cohesion.isEnabled);
 		settings.put('5', () -> Random.isEnabled = !Random.isEnabled);
+		settings.put(' ', () -> Main.isPaused = !Main.isPaused);
 	}
 
 	public void keyReleased(char key) {
