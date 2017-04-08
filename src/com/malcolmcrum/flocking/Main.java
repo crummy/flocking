@@ -3,13 +3,13 @@ package com.malcolmcrum.flocking;
 import com.malcolmcrum.flocking.Instincts.*;
 import processing.core.PApplet;
 
-public class ExampleApplet extends PApplet {
+public class Main extends PApplet {
 
     private Flock flock;
 	private Config config;
 
     public static void main(String args[]) {
-        PApplet.main("com.malcolmcrum.flocking.ExampleApplet");
+        PApplet.main("com.malcolmcrum.flocking.Main");
     }
 
     @Override
@@ -45,11 +45,11 @@ public class ExampleApplet extends PApplet {
 	}
 
 	private void drawUI() {
-		text("AvoidBoundaries: " + AvoidBoundaries.isEnabled, 4, 10);
-		text("AvoidOthers: " + AvoidOthers.isEnabled, 4, 20);
-		text("ClampSpeed: " + ClampSpeed.isEnabled, 4, 30);
-		text("MoveTowardsNearby: " + MoveTowardsNearby.isEnabled, 4, 40);
-		text("Random: " + Random.isEnabled, 4, 50);
+		text("1. AvoidBoundaries: " + AvoidBoundaries.isEnabled, 4, 10);
+		text("2. AvoidOthers: " + AvoidOthers.isEnabled, 4, 20);
+		text("3. ClampSpeed: " + ClampSpeed.isEnabled, 4, 30);
+		text("4. MoveTowardsNearby: " + Cohesion.isEnabled, 4, 40);
+		text("5. Random: " + Random.isEnabled, 4, 50);
 	}
 
 	@Override

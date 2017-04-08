@@ -4,7 +4,9 @@ import com.malcolmcrum.flocking.Bird;
 import com.malcolmcrum.flocking.Rectangle;
 import processing.core.PVector;
 
-public class AvoidBoundaries implements Instinct {
+import java.util.Set;
+
+public class AvoidBoundaries extends Instinct {
 	public static boolean isEnabled = true;
 
 	private final Bird self;
@@ -12,7 +14,8 @@ public class AvoidBoundaries implements Instinct {
 	private final int margin;
 	private final float aversion;
 
-	public AvoidBoundaries(Bird self, Rectangle windowBounds) {
+	public AvoidBoundaries(Bird self, Set<Bird> birds, Rectangle windowBounds) {
+		super(self, birds);
 		this.self = self;
 		this.margin = 256;
 		this.aversion = 2.5f;

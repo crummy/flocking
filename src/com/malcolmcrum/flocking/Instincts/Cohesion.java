@@ -4,31 +4,23 @@ import com.malcolmcrum.flocking.Bird;
 import processing.core.PVector;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class MoveTowardsNearby implements Instinct {
+public class Cohesion extends Instinct {
 	public static boolean isEnabled = true;
-	private final Bird self;
-	private final Set<Bird> allBirds;
 
-	public MoveTowardsNearby(Bird self, Set<Bird> allBirds) {
-		this.self = self;
-
-		this.allBirds = allBirds;
+	public Cohesion(Bird self, Set<Bird> birds) {
+		super(self, birds);
 	}
 
 	@Override
 	public Desire get() {
 		PVector center = new PVector();
-		for (Bird bird : getOthers()) {
+		Set<Bird> neighbours = getNeighbours();
+		for (Bird bird : neighbours) {
 			center.add(bird.position);
 		}
-		center.div(getOthers().size());
+		center.div(neighbours.size());
 		return new Desire(0.01f, PVector.sub(center, self.position));
-	}
-
-	private Set<Bird> getOthers() {
-		return allBirds.stream().filter(bird -> bird != self).collect(Collectors.toSet());
 	}
 
 	@Override

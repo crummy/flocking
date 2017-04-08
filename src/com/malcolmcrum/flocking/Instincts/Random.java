@@ -4,13 +4,16 @@ import com.malcolmcrum.flocking.Bird;
 import com.malcolmcrum.flocking.RNG;
 import processing.core.PVector;
 
+import java.util.Set;
+
 import static processing.core.PConstants.PI;
 
-public class Random implements Instinct {
+public class Random extends Instinct {
 	public static boolean isEnabled = true;
 	private final Bird self;
 
-	public Random(Bird self) {
+	public Random(Bird self, Set<Bird> birds) {
+		super(self, birds);
 		this.self = self;
 	}
 
