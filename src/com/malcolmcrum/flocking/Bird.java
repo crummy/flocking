@@ -1,6 +1,6 @@
 package com.malcolmcrum.flocking;
 
-import com.malcolmcrum.flocking.Desires.Desire;
+import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PVector;
 
 import java.util.Collection;
@@ -26,24 +26,26 @@ public class Bird {
 	static final float fieldOfView = PI/2; // how wide can a bird see?
 
 	private static final float turnTowardsLerp = 0.1f;
-	private Collection<Desire> desires;
+	private Collection<Instinct> instincts;
 
 	Bird(PVector initialPosition, PVector initialVelocity) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
-		this.desires = new HashSet<>();
+		this.instincts = new HashSet<>();
 	}
 
-	void addDesire(Desire desire) {
-		desires.add(desire);
+	void addDesire(Instinct instinct) {
+		instincts.add(instinct);
 	}
 
 	void update() {
-		List<Desire.Change> changes = desires.stream().map(Desire::get).collect(Collectors.toList());
-		changes.sort((a, b) -> Float.compare(a.desireStrength, b.desireStrength));
-		PVector acceleration = changes.get(0).accelerationChange;
-		velocity.add(acceleration);
-		position.add(velocity);
+		List<Instinct.Desire> desires = this.instincts.stream().map(Instinct::get).collect(Collectors.toList());
+		float totalStrength = (float)desires.stream().mapToDouble(d -> d.strength).sum();
+		desires.forEach(desire -> {
+			float strengthApplied = desire.strength/totalStrength;
+			velocity.lerp(PVector.add(velocity, desire.acceleration), strengthApplied);
+		});
+		position.lerp(PVector.add(position, velocity), 0.01f);
 	}
 
 	private void turnTowards(Bird bird) {

@@ -14,8 +14,8 @@ The GNU General Public License is a free, copyleft license for software and othe
 kinds of works.
 
 The licenses for most software and other practical works are designed to take away
-your freedom to share and change the works. By contrast, the GNU General Public
-License is intended to guarantee your freedom to share and change all versions of a
+your freedom to share and instinct the works. By contrast, the GNU General Public
+License is intended to guarantee your freedom to share and instinct all versions of a
 program--to make sure it remains free software for all its users. We, the Free
 Software Foundation, use the GNU General Public License for most of our software; it
 applies also to any other work released this way by its authors. You can apply it to
@@ -24,7 +24,7 @@ your programs, too.
 When we speak of free software, we are referring to freedom, not price. Our General
 Public Licenses are designed to make sure that you have the freedom to distribute
 copies of free software (and charge for them if you wish), that you receive source
-code or can get it if you want it, that you can change the software or use pieces of
+code or can get it if you want it, that you can instinct the software or use pieces of
 it in new free programs, and that you know you can do these things.
 
 To protect your rights, we need to prevent others from denying you these rights or
@@ -48,7 +48,7 @@ be attributed erroneously to authors of previous versions.
 
 Some devices are designed to deny users access to install or run modified versions of
 the software inside them, although the manufacturer can do so. This is fundamentally
-incompatible with the aim of protecting users' freedom to change the software. The
+incompatible with the aim of protecting users' freedom to instinct the software. The
 systematic pattern of such abuse occurs in the area of products for individuals to
 use, which is precisely where it is most unacceptable. Therefore, we have designed
 this version of the GPL to prohibit the practice for those products. If such problems
@@ -546,7 +546,7 @@ END OF TERMS AND CONDITIONS
 
 If you develop a new program, and you want it to be of the greatest possible use to
 the public, the best way to achieve this is to make it free software which everyone
-can redistribute and change under these terms.
+can redistribute and instinct under these terms.
 
 To do so, attach the following notices to the program. It is safest to attach them
 to the start of each source file to most effectively state the exclusion of warranty;

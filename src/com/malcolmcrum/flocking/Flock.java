@@ -1,7 +1,7 @@
 package com.malcolmcrum.flocking;
 
-import com.malcolmcrum.flocking.Desires.AvoidBoundaries;
-import com.malcolmcrum.flocking.Desires.AvoidOthers;
+import com.malcolmcrum.flocking.Instincts.AvoidBoundaries;
+import com.malcolmcrum.flocking.Instincts.AvoidOthers;
 import processing.core.PVector;
 
 import java.util.HashSet;

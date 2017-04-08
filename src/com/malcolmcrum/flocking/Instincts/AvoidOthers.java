@@ -1,4 +1,4 @@
-package com.malcolmcrum.flocking.Desires;
+package com.malcolmcrum.flocking.Instincts;
 
 import com.malcolmcrum.flocking.Bird;
 import processing.core.PVector;
@@ -11,7 +11,7 @@ import static processing.core.PConstants.PI;
 import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
-public class AvoidOthers implements Desire {
+public class AvoidOthers implements Instinct {
 	private static final float dangerCloseDistance = 8;
 	private static final float tooCloseDistance = 16;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
@@ -25,7 +25,7 @@ public class AvoidOthers implements Desire {
 	}
 
 	@Override
-	public Change get() {
+	public Desire get() {
 		float strength = 0;
 		PVector desiredAcceleration = new PVector();
 		for (Bird other : getOthers()) {
@@ -43,7 +43,7 @@ public class AvoidOthers implements Desire {
 			desiredAcceleration.add(PVector.fromAngle(angle));
 		}
 
-		return new Change(strength, desiredAcceleration);
+		return new Desire(strength, desiredAcceleration);
 	}
 
 	private Set<Bird> getOthers() {

@@ -1,10 +1,10 @@
-package com.malcolmcrum.flocking.Desires;
+package com.malcolmcrum.flocking.Instincts;
 
 import com.malcolmcrum.flocking.Bird;
 import com.malcolmcrum.flocking.Rectangle;
 import processing.core.PVector;
 
-public class AvoidBoundaries implements Desire {
+public class AvoidBoundaries implements Instinct {
 	private final Bird self;
 	private final Rectangle boundaries;
 
@@ -15,7 +15,7 @@ public class AvoidBoundaries implements Desire {
 	}
 
 	@Override
-	public Change get() {
+	public Desire get() {
 		float strength = 0;
 		PVector awayFromWall = new PVector();
 		if (self.position.x < boundaries.left) {
@@ -32,6 +32,6 @@ public class AvoidBoundaries implements Desire {
 			awayFromWall.y = -10;
 			strength += 0.2f;
 		}
-		return new Change(strength, awayFromWall);
+		return new Desire(strength, awayFromWall);
 	}
 }
