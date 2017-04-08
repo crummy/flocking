@@ -26,9 +26,11 @@ public class Bird {
 	}
 
 	void update() {
-		List<Instinct.Desire> desires = this.instincts.stream()
+		instincts.forEach(Instinct::update);
+
+		List<Instinct.Desire> desires = instincts.stream()
 				.filter(Instinct::isEnabled)
-				.map(Instinct::get)
+				.map(Instinct::getDesire)
 				.collect(Collectors.toList());
 
 		float totalStrength = (float) desires.stream().mapToDouble(d -> d.strength).sum();

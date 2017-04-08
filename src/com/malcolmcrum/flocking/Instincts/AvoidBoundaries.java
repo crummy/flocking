@@ -23,7 +23,7 @@ public class AvoidBoundaries extends Instinct {
 	}
 
 	@Override
-	public Desire get() {
+	public void update() {
 
 		PVector awayFromWall = self.velocity.copy();
 		float xStrength = 0;
@@ -49,7 +49,7 @@ public class AvoidBoundaries extends Instinct {
 		} else if (strength < 0) {
 			strength = 0;
 		}
-		return new Desire(strength, awayFromWall);
+		desire = new Desire(strength, awayFromWall);
 	}
 
 	@Override

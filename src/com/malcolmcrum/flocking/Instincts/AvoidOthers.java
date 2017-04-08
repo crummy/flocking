@@ -21,7 +21,7 @@ public class AvoidOthers extends Instinct {
 	}
 
 	@Override
-	public Desire get() {
+	public void update() {
 		float strength = 0;
 		PVector awayFromOthers = new PVector();
 		for (Bird other : getNeighbours()) {
@@ -39,7 +39,7 @@ public class AvoidOthers extends Instinct {
 			awayFromOthers.add(PVector.fromAngle(angle + PI));
 		}
 
-		return new Desire(strength, awayFromOthers);
+		desire = new Desire(strength, awayFromOthers);
 	}
 
 	@Override

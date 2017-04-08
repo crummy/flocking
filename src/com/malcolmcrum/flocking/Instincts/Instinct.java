@@ -8,15 +8,20 @@ import java.util.stream.Collectors;
 
 public abstract class Instinct {
 
-	protected final Bird self;
+	final Bird self;
+	Desire desire;
 	private final Set<Bird> otherBirds;
 
-	public Instinct(Bird self, Set<Bird> birds) {
+	Instinct(Bird self, Set<Bird> birds) {
 		this.self = self;
 		this.otherBirds = birds;
 	}
 
-	public abstract Desire get();
+	public abstract void update();
+
+	public Desire getDesire() {
+		return desire;
+	}
 
 	public boolean isEnabled() {
 		return true;
@@ -31,6 +36,13 @@ public abstract class Instinct {
 				.filter(bird -> bird != self)
 				.filter(bird -> PVector.dist(self.position, bird.position) < getNeighbourRadius())
 				.collect(Collectors.toSet());
+	}
+
+	public static int comparator(Instinct a, Instinct b) {
+		if (a.getDesire() == null || b.getDesire() == null) {
+			return 0;
+		}
+		return Float.compare(a.getDesire().strength, b.getDesire().strength);
 	}
 
 	public static class Desire {

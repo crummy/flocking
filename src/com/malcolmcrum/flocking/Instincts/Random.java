@@ -18,12 +18,12 @@ public class Random extends Instinct {
 	}
 
 	@Override
-	public Desire get() {
+	public void update() {
 		if (RNG.between(0, 100) == 1) {
 			float offset = RNG.between(-PI/2, PI/2);
-			return new Desire(0.5f, PVector.fromAngle(self.velocity.heading() + offset));
+			desire = new Desire(0.5f, PVector.fromAngle(self.velocity.heading() + offset));
 		} else {
-			return Desire.none();
+			desire = Desire.none();
 		}
 	}
 

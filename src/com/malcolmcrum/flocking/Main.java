@@ -6,9 +6,11 @@ import processing.core.PVector;
 
 public class Main extends PApplet {
 
-    private Flock flock;
-	private Config config;
 	static boolean isPaused = true;
+	static boolean debugColours = true;
+
+	private Flock flock;
+	private Config config;
 	private Bird selectedBird = null;
 
 	public static void main(String args[]) {
@@ -48,6 +50,7 @@ public class Main extends PApplet {
 	private void drawDebug(Bird bird) {
  		for (Instinct instinct : bird.getInstincts()) {
  			stroke(0, 0, 255);
+ 			noFill();
 			ellipse(bird.position.x, bird.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
 		}
 	}
@@ -73,6 +76,7 @@ public class Main extends PApplet {
 	}
 
 	private void drawInstructions() {
+		fill(255);
 		text("1. AvoidBoundaries: " + AvoidBoundaries.isEnabled, 4, 10);
 		text("2. AvoidOthers: " + AvoidOthers.isEnabled, 4, 20);
 		text("3. ClampSpeed: " + ClampSpeed.isEnabled, 4, 30);
@@ -87,6 +91,18 @@ public class Main extends PApplet {
 	}
 
     private void draw(Bird bird) {
+		if (debugColours && bird.getInstincts() != null) {
+			int greatestDesire = bird.getInstincts().stream().sorted(Instinct::comparator).findFirst().get().toString().hashCode();
+			int r = (greatestDesire & 0xFF0000) >> 16;
+			int g = (greatestDesire & 0x00FF00) >> 8;
+			int b = greatestDesire & 0x0000FF;
+			stroke(r, g, b);
+			fill(r, g, b);
+		} else {
+			stroke(255);
+			fill(255);
+		}
+
         int width = 8;
         int height = 12;
         pushMatrix();
