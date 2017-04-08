@@ -97,7 +97,7 @@ public class Main extends PApplet {
         }
         translate(bird.position.x, bird.position.y);
         rotate(bird.velocity.heading() + PI/2);
-        triangle(0, height, width/2, 0, width, height);
+        triangle(-width/2, height/2, 0, -height/2, width/2, height/2);
         popMatrix();
     }
 }
