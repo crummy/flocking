@@ -71,7 +71,7 @@ public class FlockRenderer implements Renderer {
 		int textX = (int)bird.position.x + 16;
 		int textY = (int)bird.position.y;
 		int spacing = 12;
-		for (Instinct instinct : bird.getInstincts().stream().sorted(Instinct::comparator).collect(Collectors.toList())) {
+		for (Instinct instinct : bird.getInstincts().stream().sorted((a, b) -> Instinct.comparator(b, a)).collect(Collectors.toList())) {
 			setColours(instinct.hashCode());
 			graphics.noFill();
 			graphics.ellipse(bird.position.x, bird.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());

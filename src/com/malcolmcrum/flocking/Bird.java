@@ -33,14 +33,13 @@ public class Bird {
 				.collect(Collectors.toList());
 
 		float totalStrength = (float) desires.stream().mapToDouble(d -> d.strength).sum();
-		desires.forEach(desire -> {
-			if (desire.strength > 1) {
-				System.out.println("WARNING! Desire " + desire + " strength is " + desire.strength);
-			} else if (desire.strength > 0) {
-				float strengthApplied = desire.strength / totalStrength;
-				velocity.lerp(desire.velocity, strengthApplied * strengthApplied);
-			}
-		});
+		desires.stream()
+				.filter(desire -> desire.strength > 0)
+				.forEach(desire -> {
+					Assert.assertTrue(desire.strength <= 1);
+					float strengthApplied = desire.strength / totalStrength;
+					velocity.lerp(desire.velocity, strengthApplied * strengthApplied);
+				});
 		position.lerp(PVector.add(position, velocity), 0.05f);
 	}
 
