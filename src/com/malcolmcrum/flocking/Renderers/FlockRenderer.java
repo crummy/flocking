@@ -8,7 +8,9 @@ import processing.core.PVector;
 
 import java.util.stream.Collectors;
 
+import static processing.core.PConstants.LEFT;
 import static processing.core.PConstants.PI;
+import static processing.core.PConstants.RIGHT;
 
 public class FlockRenderer implements Renderer {
 	public static boolean debugColours = true;
@@ -23,7 +25,7 @@ public class FlockRenderer implements Renderer {
 	}
 
 	public void handleClick(int mouseX, int mouseY) {
-		float minimumDistance = 8;
+		float minimumDistance = 16;
 		PVector click = new PVector(mouseX, mouseY);
 		selectedBird = flock.getBirds().stream()
 				.filter(bird -> PVector.dist(bird.position, click) < minimumDistance)
@@ -86,6 +88,10 @@ public class FlockRenderer implements Renderer {
 		graphics.strokeWeight(2);
 		line(bird.position, PVector.add(bird.position, bird.velocity));
 		graphics.strokeWeight(1);
+
+		graphics.textAlign(RIGHT);
+		graphics.text("Speed: " + bird.velocity.mag(), bird.position.x - 16, bird.position.y);
+		graphics.textAlign(LEFT);
 	}
 
 	private void line(PVector from, PVector to) {
