@@ -12,7 +12,7 @@ import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
 public class AvoidOthers implements Instinct {
-	public static boolean isEnabled = true;
+	public static boolean isEnabled = false;
 
 	private static final float dangerCloseDistance = 16;
 	private static final float tooCloseDistance = 32;

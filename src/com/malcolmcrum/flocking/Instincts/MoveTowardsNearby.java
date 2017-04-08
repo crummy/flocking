@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MoveTowardsNearby implements Instinct {
-	public static boolean isEnabled;
+	public static boolean isEnabled = false;
 	private final Bird self;
 	private final Set<Bird> allBirds;
 
