@@ -18,5 +18,9 @@ public interface Instinct {
 		public String toString() {
 			return String.format("{strength: %s, velocity: %s}", strength, velocity);
 		}
+
+		static Desire none() {
+			return new Desire(0, new PVector());
+		}
 	}
 }

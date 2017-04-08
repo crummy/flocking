@@ -16,12 +16,12 @@ public class ClampSpeed implements Instinct {
 	public Desire get() {
 		float speed = self.velocity.mag();
 		if (speed < minSpeed) {
-			return new Desire(1, self.velocity.normalize(null).mult(minSpeed));
+			return new Desire(0.5f, self.velocity.normalize(null).mult(minSpeed));
 		} else if (speed > maxSpeed) {
-			return new Desire(1, self.velocity.normalize(null).mult(maxSpeed));
+			return new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
 		} else {
 			// we like to go fast!
-			return new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
+			return new Desire(0.1f, self.velocity.normalize(null).mult(maxSpeed));
 		}
 	}
 

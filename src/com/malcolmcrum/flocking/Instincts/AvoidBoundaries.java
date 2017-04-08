@@ -20,17 +20,17 @@ public class AvoidBoundaries implements Instinct {
 		PVector awayFromWall = self.velocity;
 		if (self.position.x < boundaries.left) {
 			awayFromWall.x = 10;
-			strength += 0.2f;
+			strength += 0.5f;
 		} else if (self.position.x > boundaries.right) {
 			awayFromWall.x = -10;
-			strength += 0.2f;
+			strength += 0.5f;
 		}
 		if (self.position.y < boundaries.top) {
 			awayFromWall.y = 10;
-			strength += 0.2f;
+			strength += 0.5f;
 		} else if (self.position.y > boundaries.bottom) {
 			awayFromWall.y = -10;
-			strength += 0.2f;
+			strength += 0.5f;
 		}
 		return new Desire(strength, awayFromWall);
 	}

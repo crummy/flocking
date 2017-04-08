@@ -26,7 +26,7 @@ public class MoveTowardsNearby implements Instinct {
 			center.add(bird.position);
 		}
 		center.div(getOthers().size());
-		return new Desire(0.1f, PVector.sub(center, self.position));
+		return new Desire(0.01f, PVector.sub(center, self.position));
 	}
 
 	private Set<Bird> getOthers() {

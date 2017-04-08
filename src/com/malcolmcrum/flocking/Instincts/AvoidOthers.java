@@ -12,8 +12,8 @@ import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
 public class AvoidOthers implements Instinct {
-	private static final float dangerCloseDistance = 8;
-	private static final float tooCloseDistance = 16;
+	private static final float dangerCloseDistance = 16;
+	private static final float tooCloseDistance = 64;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 
 	private final Bird self;

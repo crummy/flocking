@@ -1,9 +1,6 @@
 package com.malcolmcrum.flocking;
 
-import com.malcolmcrum.flocking.Instincts.AvoidBoundaries;
-import com.malcolmcrum.flocking.Instincts.AvoidOthers;
-import com.malcolmcrum.flocking.Instincts.ClampSpeed;
-import com.malcolmcrum.flocking.Instincts.MoveTowardsNearby;
+import com.malcolmcrum.flocking.Instincts.*;
 import processing.core.PVector;
 
 import java.util.HashSet;
@@ -27,8 +24,9 @@ class Flock {
 			Bird bird = new Bird(initialPosition, initialVelocity);
 			bird.addDesire(new ClampSpeed(bird));
 			bird.addDesire(new AvoidBoundaries(bird, bounds));
-			bird.addDesire(new AvoidOthers(bird, birds));
-			bird.addDesire(new MoveTowardsNearby(bird, birds));
+			//bird.addDesire(new AvoidOthers(bird, birds));
+			//bird.addDesire(new MoveTowardsNearby(bird, birds));
+			//bird.addDesire(new Random(bird));
 			birds.add(bird);
 		}
 	}
