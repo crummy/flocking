@@ -29,7 +29,6 @@ public class ExampleApplet extends PApplet {
 
     @Override
     public void draw() {
-        // TODO: Do your drawing for each frame here
         clear();
         stroke(255);
         fill(255);
@@ -37,6 +36,13 @@ public class ExampleApplet extends PApplet {
         flock.update();
         flock.getBirds().forEach(this::draw);
     }
+
+    @Override
+	public void clear() {
+    	stroke(0, 150f);
+		fill(0, 150f);
+		rect(0, 0, width, height);
+	}
 
 	private void drawUI() {
 		text("AvoidBoundaries: " + AvoidBoundaries.isEnabled, 4, 10);

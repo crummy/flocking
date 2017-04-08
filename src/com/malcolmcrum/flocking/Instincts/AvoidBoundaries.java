@@ -15,7 +15,7 @@ public class AvoidBoundaries implements Instinct {
 	public AvoidBoundaries(Bird self, Rectangle windowBounds) {
 		this.self = self;
 		this.margin = 256;
-		this.aversion = 5f;
+		this.aversion = 2.5f;
 		this.boundary = new Rectangle(windowBounds.left + margin, windowBounds.right - margin, windowBounds.top + margin, windowBounds.bottom - margin);
 	}
 
