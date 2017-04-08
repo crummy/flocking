@@ -5,10 +5,9 @@ import processing.core.PVector;
 
 import java.util.Set;
 
-/**
- * Created by crummy on 09.04.17.
- */
 public class Alignment extends Instinct {
+	public static boolean isEnabled = true;
+
 	public Alignment(Bird self, Set<Bird> birds) {
 		super(self, birds);
 	}
@@ -26,5 +25,10 @@ public class Alignment extends Instinct {
 		}
 		averageVelocity.div(neighbours.size());
 		desire = new Desire(0.1f, averageVelocity);
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isEnabled;
 	}
 }

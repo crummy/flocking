@@ -23,12 +23,10 @@ public abstract class Instinct {
 		return desire;
 	}
 
-	public boolean isEnabled() {
-		return true;
-	}
+	public abstract boolean isEnabled();
 
 	public float getNeighbourRadius() {
-		return 64;
+		return 128;
 	}
 
 	Set<Bird> getNeighbours() {

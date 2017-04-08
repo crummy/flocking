@@ -40,8 +40,8 @@ public class Main extends PApplet {
 
 		clear();
 
-		ui.draw();
 		flockRenderer.draw();
+		ui.draw();
 	}
 
 	@Override
