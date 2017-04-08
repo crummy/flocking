@@ -21,7 +21,7 @@ public class ClampSpeed implements Instinct {
 			return new Desire(1, self.velocity.normalize(null).mult(maxSpeed));
 		} else {
 			// we like to go fast!
-			return new Desire(0.1f, self.velocity.normalize(null).mult(maxSpeed));
+			return new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
 		}
 	}
 

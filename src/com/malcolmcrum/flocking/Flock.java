@@ -3,11 +3,11 @@ package com.malcolmcrum.flocking;
 import com.malcolmcrum.flocking.Instincts.AvoidBoundaries;
 import com.malcolmcrum.flocking.Instincts.AvoidOthers;
 import com.malcolmcrum.flocking.Instincts.ClampSpeed;
+import com.malcolmcrum.flocking.Instincts.MoveTowardsNearby;
 import processing.core.PVector;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 class Flock {
 	private static final float maxInitialSpeed = 0.5f;
@@ -28,6 +28,7 @@ class Flock {
 			bird.addDesire(new ClampSpeed(bird));
 			bird.addDesire(new AvoidBoundaries(bird, bounds));
 			bird.addDesire(new AvoidOthers(bird, birds));
+			bird.addDesire(new MoveTowardsNearby(bird, birds));
 			birds.add(bird);
 		}
 	}
@@ -37,9 +38,6 @@ class Flock {
 	}
 
 	void update() {
-		birds.forEach(bird -> {
-			Set<Bird> others = birds.stream().filter(otherBird -> otherBird != bird).collect(Collectors.toSet());
-			bird.update();
-		});
+		birds.forEach(Bird::update);
 	}
 }
