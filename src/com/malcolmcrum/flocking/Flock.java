@@ -2,6 +2,7 @@ package com.malcolmcrum.flocking;
 
 import com.malcolmcrum.flocking.Instincts.AvoidBoundaries;
 import com.malcolmcrum.flocking.Instincts.AvoidOthers;
+import com.malcolmcrum.flocking.Instincts.ClampSpeed;
 import processing.core.PVector;
 
 import java.util.HashSet;
@@ -24,6 +25,7 @@ class Flock {
 			PVector initialPosition = new PVector(RNG.between(bounds.left, bounds.right), RNG.between(bounds.top, bounds.bottom));
 			PVector initialVelocity = new PVector(RNG.between(-maxInitialSpeed, maxInitialSpeed), RNG.between(-maxInitialSpeed, maxInitialSpeed));
 			Bird bird = new Bird(initialPosition, initialVelocity);
+			bird.addDesire(new ClampSpeed(bird));
 			bird.addDesire(new AvoidBoundaries(bird, bounds));
 			bird.addDesire(new AvoidOthers(bird, birds));
 			birds.add(bird);

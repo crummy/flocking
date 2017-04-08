@@ -27,7 +27,7 @@ public class AvoidOthers implements Instinct {
 	@Override
 	public Desire get() {
 		float strength = 0;
-		PVector desiredAcceleration = new PVector();
+		PVector desiredVelocity = new PVector();
 		for (Bird other : getOthers()) {
 			float distance = dist(self.position, other.position);
 
@@ -40,10 +40,10 @@ public class AvoidOthers implements Instinct {
 			}
 
 			float angle = angleBetween(self.velocity, other.velocity);
-			desiredAcceleration.add(PVector.fromAngle(angle));
+			desiredVelocity.add(PVector.fromAngle(angle));
 		}
 
-		return new Desire(strength, desiredAcceleration);
+		return new Desire(strength, desiredVelocity);
 	}
 
 	private Set<Bird> getOthers() {

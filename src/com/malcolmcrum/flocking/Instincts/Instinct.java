@@ -7,11 +7,11 @@ public interface Instinct {
 
 	class Desire {
 		public final float strength;
-		public final PVector acceleration;
+		public final PVector velocity;
 
-		Desire(float strength, PVector acceleration) {
+		Desire(float strength, PVector velocity) {
 			this.strength = strength;
-			this.acceleration = acceleration;
+			this.velocity = velocity;
 		}
 	}
 }
