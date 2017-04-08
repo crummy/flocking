@@ -1,7 +1,7 @@
 package com.malcolmcrum.flocking;
 
 import com.malcolmcrum.flocking.Instincts.*;
-import com.malcolmcrum.flocking.Renderers.BirdRenderer;
+import com.malcolmcrum.flocking.Renderers.FlockRenderer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ class InputHandler {
 		keyMappings.put('4', () -> Cohesion.isEnabled = !Cohesion.isEnabled);
 		keyMappings.put('5', () -> Random.isEnabled = !Random.isEnabled);
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
-		keyMappings.put('d', () -> BirdRenderer.debugColours = !BirdRenderer.debugColours);
+		keyMappings.put('d', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', main::setup);
 	}
 

@@ -56,7 +56,7 @@ public abstract class Instinct {
 
 		@Override
 		public String toString() {
-			return String.format("{strength: %s, velocity: %s}", strength, velocity);
+			return String.format("{strength: %.2f, speed: %.2f}", strength, velocity.mag());
 		}
 
 		static Desire none() {

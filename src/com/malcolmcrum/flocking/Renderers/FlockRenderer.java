@@ -6,16 +6,18 @@ import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.util.stream.Collectors;
+
 import static processing.core.PConstants.PI;
 
-public class BirdRenderer implements Renderer {
+public class FlockRenderer implements Renderer {
 	public static boolean debugColours = true;
 
 	private final PApplet graphics;
 	private final Flock flock;
 	private Bird selectedBird;
 
-	public BirdRenderer(PApplet graphics, Flock flock) {
+	public FlockRenderer(PApplet graphics, Flock flock) {
 		this.graphics = graphics;
 		this.flock = flock;
 	}
@@ -39,14 +41,18 @@ public class BirdRenderer implements Renderer {
 		}
 	}
 
+	private void setColours(int hash) {
+		int r = (hash & 0xFF0000) >> 16;
+		int g = (hash & 0x00FF00) >> 8;
+		int b = hash & 0x0000FF;
+		graphics.stroke(r, g, b);
+		graphics.fill(r, g, b);
+	}
+
 	private void draw(Bird bird) {
 		if (debugColours && bird.getInstincts() != null) {
 			int greatestDesire = bird.getInstincts().stream().sorted(Instinct::comparator).findFirst().get().toString().hashCode();
-			int r = (greatestDesire & 0xFF0000) >> 16;
-			int g = (greatestDesire & 0x00FF00) >> 8;
-			int b = greatestDesire & 0x0000FF;
-			graphics.stroke(r, g, b);
-			graphics.fill(r, g, b);
+			setColours(greatestDesire);
 		} else {
 			graphics.stroke(255);
 			graphics.fill(255);
@@ -55,7 +61,6 @@ public class BirdRenderer implements Renderer {
 		int width = 8;
 		int height = 12;
 		graphics.pushMatrix();
-		graphics.fill(255, 255);
 		graphics.translate(bird.position.x, bird.position.y);
 		graphics.rotate(bird.velocity.heading() + PI/2);
 		graphics.triangle(-width/2, height/2, 0, -height/2, width/2, height/2);
@@ -63,10 +68,26 @@ public class BirdRenderer implements Renderer {
 	}
 
 	private void drawDebug(Bird bird) {
-		for (Instinct instinct : bird.getInstincts()) {
-			graphics.stroke(0, 0, 255);
+		int textX = (int)bird.position.x + 16;
+		int textY = (int)bird.position.y;
+		int spacing = 12;
+		for (Instinct instinct : bird.getInstincts().stream().sorted(Instinct::comparator).collect(Collectors.toList())) {
+			setColours(instinct.hashCode());
 			graphics.noFill();
 			graphics.ellipse(bird.position.x, bird.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
+			if (instinct.getDesire() != null) {
+				line(bird.position, PVector.add(bird.position, instinct.getDesire().velocity));
+			}
+			graphics.text(instinct.toString() + ": " + instinct.getDesire(), textX, textY);
+			textY += spacing;
 		}
+		graphics.stroke(255);
+		graphics.strokeWeight(2);
+		line(bird.position, PVector.add(bird.position, bird.velocity));
+		graphics.strokeWeight(1);
+	}
+
+	private void line(PVector from, PVector to) {
+		graphics.line(from.x, from.y, to.x, to.y);
 	}
 }
