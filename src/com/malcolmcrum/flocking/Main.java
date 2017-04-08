@@ -27,7 +27,7 @@ public class Main extends PApplet {
         clear();
 		inputHandler = new InputHandler(this);
 		flock = new Flock(width, height);
-		flock.addBirds(32);
+		flock.addBirds(128);
 		ui = new UIRenderer(this);
 		flockRenderer = new FlockRenderer(this, flock);
     }

@@ -51,7 +51,12 @@ public class FlockRenderer implements Renderer {
 
 	private void draw(Bird bird) {
 		if (debugColours && bird.getInstincts() != null) {
-			int greatestDesire = bird.getInstincts().stream().sorted(Instinct::comparator).findFirst().get().toString().hashCode();
+			int greatestDesire = bird.getInstincts()
+					.stream()
+					.sorted((a, b) -> Instinct.comparator(b, a))
+					.findFirst()
+					.get()
+					.getClass().hashCode();
 			setColours(greatestDesire);
 		} else {
 			graphics.stroke(255);
@@ -73,7 +78,7 @@ public class FlockRenderer implements Renderer {
 		int spacing = 12;
 		textY += spacing;
 		for (Instinct instinct : bird.getInstincts().stream().sorted((a, b) -> Instinct.comparator(b, a)).collect(Collectors.toList())) {
-			setColours(instinct.hashCode());
+			setColours(instinct.getClass().hashCode());
 			graphics.noFill();
 			graphics.ellipse(bird.position.x, bird.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
 			if (instinct.getDesire() != null) {

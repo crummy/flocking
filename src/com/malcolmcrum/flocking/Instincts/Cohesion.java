@@ -26,7 +26,7 @@ public class Cohesion extends Instinct {
 		center.div(neighbours.size());
 		PVector towardsCenter = PVector.sub(center, self.position);
 		float distanceToCenter = towardsCenter.mag();
-		desire = new Desire(0.01f, towardsCenter.normalize().mult(distanceToCenter * 0.01f));
+		desire = new Desire(0.1f, towardsCenter.normalize().mult(distanceToCenter * 0.01f));
 	}
 
 	@Override
