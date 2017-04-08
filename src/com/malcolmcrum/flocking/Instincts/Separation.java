@@ -9,14 +9,14 @@ import static processing.core.PConstants.PI;
 import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
-public class AvoidOthers extends Instinct {
+public class Separation extends Instinct {
 	public static boolean isEnabled = false;
 
 	private static final float dangerCloseDistance = 16;
 	private static final float tooCloseDistance = 32;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 
-	public AvoidOthers(Bird self, Set<Bird> birds) {
+	public Separation(Bird self, Set<Bird> birds) {
 		super(self, birds);
 	}
 

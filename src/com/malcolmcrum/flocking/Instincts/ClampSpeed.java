@@ -21,10 +21,10 @@ public class ClampSpeed extends Instinct {
 		float speed = self.velocity.mag();
 		if (speed < minSpeed) {
 			state = State.ACCELERATING;
-			desire = new Desire(0.1f, self.velocity.normalize(null).mult(minSpeed));
+			desire = new Desire(0.5f, self.velocity.normalize(null).mult(minSpeed));
 		} else if (speed > maxSpeed) {
 			state = State.BRAKING;
-			desire = new Desire(0.1f, self.velocity.normalize(null).mult(maxSpeed));
+			desire = new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
 		} else {
 			state = State.COASTING;
 			desire = new Desire(0.01f, self.velocity.normalize(null).mult(minSpeed));

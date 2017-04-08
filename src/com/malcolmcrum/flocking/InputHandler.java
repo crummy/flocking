@@ -12,7 +12,7 @@ class InputHandler {
 	InputHandler(Main main) {
 		keyMappings = new HashMap<>();
 		keyMappings.put('1', () -> AvoidBoundaries.isEnabled = !AvoidBoundaries.isEnabled);
-		keyMappings.put('2', () -> AvoidOthers.isEnabled = !AvoidOthers.isEnabled);
+		keyMappings.put('2', () -> Separation.isEnabled = !Separation.isEnabled);
 		keyMappings.put('3', () -> ClampSpeed.isEnabled = !ClampSpeed.isEnabled);
 		keyMappings.put('4', () -> Cohesion.isEnabled = !Cohesion.isEnabled);
 		keyMappings.put('5', () -> Random.isEnabled = !Random.isEnabled);

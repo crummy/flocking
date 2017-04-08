@@ -19,7 +19,7 @@ public class UIRenderer implements Renderer {
 		x = 4;
 		y = 12;
 		text("(1) AvoidBoundaries: " + AvoidBoundaries.isEnabled);
-		text("(2) AvoidOthers: " + AvoidOthers.isEnabled);
+		text("(2) AvoidOthers: " + Separation.isEnabled);
 		text("(3) ClampSpeed: " + ClampSpeed.isEnabled);
 		text("(4) Cohesion: " + Cohesion.isEnabled);
 		text("(5) Random: " + Random.isEnabled);

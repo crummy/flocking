@@ -28,7 +28,7 @@ public abstract class Instinct {
 	}
 
 	public float getNeighbourRadius() {
-		return 256;
+		return 64;
 	}
 
 	Set<Bird> getNeighbours() {

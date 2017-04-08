@@ -24,9 +24,10 @@ public class Flock {
 			Bird bird = new Bird(initialPosition, initialVelocity);
 			bird.addDesire(new ClampSpeed(bird, birds));
 			bird.addDesire(new AvoidBoundaries(bird, birds, bounds));
-			bird.addDesire(new AvoidOthers(bird, birds));
+			bird.addDesire(new Separation(bird, birds));
 			bird.addDesire(new Cohesion(bird, birds));
 			bird.addDesire(new Random(bird, birds));
+			bird.addDesire(new Alignment(bird, birds));
 			birds.add(bird);
 		}
 	}
