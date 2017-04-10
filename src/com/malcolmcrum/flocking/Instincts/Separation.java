@@ -10,8 +10,6 @@ import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
 public class Separation extends Instinct {
-	public static boolean isEnabled = false;
-
 	private static final float dangerCloseDistance = 16;
 	private static final float tooCloseDistance = 32;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
@@ -40,10 +38,5 @@ public class Separation extends Instinct {
 		}
 
 		return new Desire(strength, awayFromOthers);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return isEnabled;
 	}
 }

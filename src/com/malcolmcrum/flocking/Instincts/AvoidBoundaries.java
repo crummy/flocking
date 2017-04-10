@@ -9,20 +9,17 @@ import java.util.Set;
 import static processing.core.PConstants.PI;
 
 public class AvoidBoundaries extends Instinct {
-	public static boolean isEnabled = true;
 
 	private static final float turningRate = PI/64;
 
 	private final Bird self;
 	private final Rectangle boundary;
 	private final int margin;
-	private final float aversion;
 
 	public AvoidBoundaries(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier, Rectangle windowBounds) {
 		super(self, birds, desireMultiplier);
 		this.self = self;
 		this.margin = 256;
-		this.aversion = 2.5f;
 		this.boundary = new Rectangle(windowBounds.left + margin, windowBounds.right - margin, windowBounds.top + margin, windowBounds.bottom - margin);
 	}
 
@@ -56,10 +53,5 @@ public class AvoidBoundaries extends Instinct {
 		float speed = self.velocity.mag();
 		PVector desiredVelocity = PVector.lerp(self.velocity.copy().normalize(), desiredDirection, turningRate).mult(speed);
 		return new Desire(strength * strength, desiredVelocity);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return isEnabled;
 	}
 }

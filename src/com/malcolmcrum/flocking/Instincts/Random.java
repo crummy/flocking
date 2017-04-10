@@ -9,8 +9,6 @@ import java.util.Set;
 import static processing.core.PConstants.PI;
 
 public class Random extends Instinct {
-	public static boolean isEnabled = true;
-
 	public Random(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
 		super(self, birds, multiplier);
 	}
@@ -21,12 +19,7 @@ public class Random extends Instinct {
 			float offset = RNG.between(-PI/2, PI/2);
 			return new Desire(0.5f, PVector.fromAngle(self.velocity.heading() + offset));
 		} else {
-			return Desire.none();
+			return Desire.none;
 		}
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return isEnabled;
 	}
 }

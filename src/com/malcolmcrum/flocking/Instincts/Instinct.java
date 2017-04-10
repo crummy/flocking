@@ -18,6 +18,7 @@ public abstract class Instinct {
 		this.self = self;
 		this.otherBirds = birds;
 		this.desireMultiplier = desireMultiplier;
+		this.desire = Desire.none;
 	}
 
 	public void update() {
@@ -33,8 +34,6 @@ public abstract class Instinct {
 	public PVector getDesiredVelocity() {
 		return desire.velocity;
 	}
-
-	public abstract boolean isEnabled();
 
 	public float getNeighbourRadius() {
 		return 128;
@@ -57,6 +56,8 @@ public abstract class Instinct {
 	}
 
 	public static class Desire {
+		static Desire none = new Desire(0, new PVector());
+
 		public final float strength;
 		public final PVector velocity;
 
@@ -68,10 +69,6 @@ public abstract class Instinct {
 		@Override
 		public String toString() {
 			return String.format("{strength: %.2f, speed: %.2f}", strength, velocity.mag());
-		}
-
-		static Desire none() {
-			return new Desire(0, new PVector());
 		}
 	}
 

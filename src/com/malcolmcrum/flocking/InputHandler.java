@@ -9,13 +9,14 @@ import java.util.Map;
 class InputHandler {
 	private Map<Character, Runnable> keyMappings;
 
-	InputHandler(Main main) {
+	InputHandler(Main main, Flock flock) {
 		keyMappings = new HashMap<>();
-		keyMappings.put('1', () -> AvoidBoundaries.isEnabled = !AvoidBoundaries.isEnabled);
-		keyMappings.put('2', () -> Separation.isEnabled = !Separation.isEnabled);
-		keyMappings.put('3', () -> ClampSpeed.isEnabled = !ClampSpeed.isEnabled);
-		keyMappings.put('4', () -> Cohesion.isEnabled = !Cohesion.isEnabled);
-		keyMappings.put('5', () -> Random.isEnabled = !Random.isEnabled);
+		keyMappings.put('1', () -> flock.setDesireMultiplier(AvoidBoundaries.class, 1));
+		keyMappings.put('2', () -> flock.setDesireMultiplier(Separation.class, 1));
+		keyMappings.put('3', () -> flock.setDesireMultiplier(ClampSpeed.class, 1));
+		keyMappings.put('4', () -> flock.setDesireMultiplier(Cohesion.class, 1));
+		keyMappings.put('5', () -> flock.setDesireMultiplier(Random.class, 1));
+		keyMappings.put('6', () -> flock.setDesireMultiplier(Alignment.class, 1));
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('d', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', main::setup);

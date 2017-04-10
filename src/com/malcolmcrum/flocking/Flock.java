@@ -56,4 +56,12 @@ public class Flock {
 	void update() {
 		birds.forEach(Bird::update);
 	}
+
+	void setDesireMultiplier(Class<? extends Instinct> instinct, float value) {
+		desireMultipliers.get(instinct).setMultiplier(value);
+	}
+
+	public float getDesireMultiplier(Class<? extends Instinct> instinct) {
+		return desireMultipliers.get(instinct).get();
+	}
 }

@@ -7,7 +7,6 @@ import java.util.Set;
 public class ClampSpeed extends Instinct {
 	private enum State { BRAKING, ACCELERATING, COASTING }
 	private State state;
-	public static boolean isEnabled = true;
 
 	private static final float minSpeed = 90;
 	private static final float maxSpeed = 100;
@@ -29,11 +28,6 @@ public class ClampSpeed extends Instinct {
 			state = State.COASTING;
 			return new Desire(0.01f, self.velocity.normalize(null).mult(minSpeed));
 		}
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return isEnabled;
 	}
 
 	@Override

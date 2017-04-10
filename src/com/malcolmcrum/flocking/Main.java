@@ -25,12 +25,12 @@ public class Main extends PApplet {
 	@Override
     public void setup() {
         clear();
-		inputHandler = new InputHandler(this);
 		flock = new Flock(width, height);
 		flock.addBirds(128);
-		ui = new UIRenderer(this);
+		ui = new UIRenderer(this, flock);
 		flockRenderer = new FlockRenderer(this, flock);
-    }
+		inputHandler = new InputHandler(this, flock);
+	}
 
     @Override
     public void draw() {

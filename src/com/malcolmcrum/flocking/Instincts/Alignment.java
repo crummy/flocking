@@ -6,8 +6,6 @@ import processing.core.PVector;
 import java.util.Set;
 
 public class Alignment extends Instinct {
-	public static boolean isEnabled = true;
-
 	public Alignment(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
 		super(self, birds, multiplier);
 	}
@@ -17,17 +15,12 @@ public class Alignment extends Instinct {
 		PVector averageVelocity = new PVector();
 		Set<Bird> neighbours = getNeighbours();
 		if (neighbours.size() == 0) {
-			return Desire.none();
+			return Desire.none;
 		}
 		for (Bird bird : neighbours) {
 			averageVelocity.add(bird.velocity);
 		}
 		averageVelocity.div(neighbours.size());
 		return new Desire(0.1f, averageVelocity);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return isEnabled;
 	}
 }
