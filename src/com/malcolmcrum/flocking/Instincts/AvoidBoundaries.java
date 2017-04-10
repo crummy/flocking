@@ -18,8 +18,8 @@ public class AvoidBoundaries extends Instinct {
 	private final int margin;
 	private final float aversion;
 
-	public AvoidBoundaries(Bird self, Set<Bird> birds, Rectangle windowBounds) {
-		super(self, birds);
+	public AvoidBoundaries(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier, Rectangle windowBounds) {
+		super(self, birds, desireMultiplier);
 		this.self = self;
 		this.margin = 256;
 		this.aversion = 2.5f;
@@ -27,7 +27,7 @@ public class AvoidBoundaries extends Instinct {
 	}
 
 	@Override
-	public void update() {
+	public Desire calculateDesire() {
 
 		PVector desiredDirection = new PVector();
 		float xStrength = 0;
@@ -55,7 +55,7 @@ public class AvoidBoundaries extends Instinct {
 		}
 		float speed = self.velocity.mag();
 		PVector desiredVelocity = PVector.lerp(self.velocity.copy().normalize(), desiredDirection, turningRate).mult(speed);
-		desire = new Desire(strength * strength, desiredVelocity);
+		return new Desire(strength * strength, desiredVelocity);
 	}
 
 	@Override

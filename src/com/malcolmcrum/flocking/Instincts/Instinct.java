@@ -1,5 +1,6 @@
 package com.malcolmcrum.flocking.Instincts;
 
+import com.malcolmcrum.flocking.Assert;
 import com.malcolmcrum.flocking.Bird;
 import processing.core.PVector;
 
@@ -9,18 +10,28 @@ import java.util.stream.Collectors;
 public abstract class Instinct {
 
 	final Bird self;
-	Desire desire;
+	private Desire desire;
 	private final Set<Bird> otherBirds;
+	private final DesireMultiplier desireMultiplier;
 
-	Instinct(Bird self, Set<Bird> birds) {
+	Instinct(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier) {
 		this.self = self;
 		this.otherBirds = birds;
+		this.desireMultiplier = desireMultiplier;
 	}
 
-	public abstract void update();
+	public void update() {
+		desire = calculateDesire();
+	}
 
-	public Desire getDesire() {
-		return desire;
+	public abstract Desire calculateDesire();
+
+	public float getUrgency() {
+		return desire.strength * desireMultiplier.get();
+	}
+
+	public PVector getDesiredVelocity() {
+		return desire.velocity;
 	}
 
 	public abstract boolean isEnabled();
@@ -37,10 +48,7 @@ public abstract class Instinct {
 	}
 
 	public static int comparator(Instinct a, Instinct b) {
-		if (a.getDesire() == null || b.getDesire() == null) {
-			return 0;
-		}
-		return Float.compare(a.getDesire().strength, b.getDesire().strength);
+		return Float.compare(a.getUrgency(), b.getUrgency());
 	}
 
 	@Override
@@ -64,6 +72,24 @@ public abstract class Instinct {
 
 		static Desire none() {
 			return new Desire(0, new PVector());
+		}
+	}
+
+	public static class DesireMultiplier {
+		private float multiplier;
+
+		public DesireMultiplier(float initialMultiplier) {
+			this.multiplier = initialMultiplier;
+		}
+
+		public float get() {
+			return multiplier;
+		}
+
+		public void setMultiplier(float multiplier) {
+			Assert.assertTrue(multiplier >= 0);
+			Assert.assertTrue(multiplier <= 1);
+			this.multiplier = multiplier;
 		}
 	}
 }

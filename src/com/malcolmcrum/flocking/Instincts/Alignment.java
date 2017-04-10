@@ -8,23 +8,22 @@ import java.util.Set;
 public class Alignment extends Instinct {
 	public static boolean isEnabled = true;
 
-	public Alignment(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public Alignment(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
+		super(self, birds, multiplier);
 	}
 
 	@Override
-	public void update() {
+	public Desire calculateDesire() {
 		PVector averageVelocity = new PVector();
 		Set<Bird> neighbours = getNeighbours();
 		if (neighbours.size() == 0) {
-			desire = Desire.none();
-			return;
+			return Desire.none();
 		}
 		for (Bird bird : neighbours) {
 			averageVelocity.add(bird.velocity);
 		}
 		averageVelocity.div(neighbours.size());
-		desire = new Desire(0.1f, averageVelocity);
+		return new Desire(0.1f, averageVelocity);
 	}
 
 	@Override

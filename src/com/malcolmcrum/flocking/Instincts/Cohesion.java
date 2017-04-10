@@ -8,17 +8,16 @@ import java.util.Set;
 public class Cohesion extends Instinct {
 	public static boolean isEnabled = true;
 
-	public Cohesion(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public Cohesion(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
+		super(self, birds, multiplier);
 	}
 
 	@Override
-	public void update() {
+	public Desire calculateDesire() {
 		PVector center = new PVector();
 		Set<Bird> neighbours = getNeighbours();
 		if (neighbours.size() == 0) {
-			desire = Desire.none();
-			return;
+			return Desire.none();
 		}
 		for (Bird bird : neighbours) {
 			center.add(bird.position);
@@ -26,7 +25,7 @@ public class Cohesion extends Instinct {
 		center.div(neighbours.size());
 		PVector towardsCenter = PVector.sub(center, self.position);
 		float distanceToCenter = towardsCenter.mag();
-		desire = new Desire(0.1f, towardsCenter.normalize().mult(distanceToCenter * 0.01f));
+		return new Desire(0.1f, towardsCenter.normalize().mult(distanceToCenter * 0.01f));
 	}
 
 	@Override

@@ -12,22 +12,22 @@ public class ClampSpeed extends Instinct {
 	private static final float minSpeed = 90;
 	private static final float maxSpeed = 100;
 
-	public ClampSpeed(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public ClampSpeed(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier) {
+		super(self, birds, desireMultiplier);
 	}
 
 	@Override
-	public void update() {
+	public Desire calculateDesire() {
 		float speed = self.velocity.mag();
 		if (speed < minSpeed) {
 			state = State.ACCELERATING;
-			desire = new Desire(0.5f, self.velocity.normalize(null).mult(minSpeed));
+			return new Desire(0.5f, self.velocity.normalize(null).mult(minSpeed));
 		} else if (speed > maxSpeed) {
 			state = State.BRAKING;
-			desire = new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
+			return new Desire(0.5f, self.velocity.normalize(null).mult(maxSpeed));
 		} else {
 			state = State.COASTING;
-			desire = new Desire(0.01f, self.velocity.normalize(null).mult(minSpeed));
+			return new Desire(0.01f, self.velocity.normalize(null).mult(minSpeed));
 		}
 	}
 

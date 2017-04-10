@@ -16,12 +16,12 @@ public class Separation extends Instinct {
 	private static final float tooCloseDistance = 32;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 
-	public Separation(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public Separation(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
+		super(self, birds, multiplier);
 	}
 
 	@Override
-	public void update() {
+	public Desire calculateDesire() {
 		float strength = 0;
 		PVector awayFromOthers = new PVector();
 		for (Bird other : getNeighbours()) {
@@ -39,7 +39,7 @@ public class Separation extends Instinct {
 			awayFromOthers.add(PVector.fromAngle(angle + PI));
 		}
 
-		desire = new Desire(strength, awayFromOthers);
+		return new Desire(strength, awayFromOthers);
 	}
 
 	@Override

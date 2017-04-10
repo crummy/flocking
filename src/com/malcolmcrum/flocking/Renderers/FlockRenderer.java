@@ -81,10 +81,8 @@ public class FlockRenderer implements Renderer {
 			setColours(instinct.getClass().hashCode());
 			graphics.noFill();
 			graphics.ellipse(bird.position.x, bird.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
-			if (instinct.getDesire() != null) {
-				line(bird.position, PVector.add(bird.position, instinct.getDesire().velocity));
-			}
-			graphics.text(instinct.toString() + ": " + instinct.getDesire(), textX, textY);
+			line(bird.position, PVector.add(bird.position, instinct.getDesiredVelocity()));
+			graphics.text(instinct.toString() + ": " + instinct.getDesiredVelocity(), textX, textY);
 			textY += spacing;
 		}
 		graphics.stroke(255);

@@ -1,11 +1,11 @@
 package com.malcolmcrum.flocking;
 
-class Assert {
+public class Assert {
 	static class AssertionFailure extends RuntimeException {
 
 	}
 
-	static void assertTrue(boolean b) {
+	public static void assertTrue(boolean b) {
 		if (b == false) {
 			throw new AssertionFailure();
 		}
