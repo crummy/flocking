@@ -1,5 +1,6 @@
 package com.malcolmcrum.flocking;
 
+import com.malcolmcrum.flocking.UI.DebugBoidRenderer;
 import com.malcolmcrum.flocking.UI.FlockRenderer;
 import com.malcolmcrum.flocking.UI.UIRenderer;
 import processing.core.PApplet;
@@ -11,6 +12,7 @@ public class Main extends PApplet {
 	private Flock flock;
 	private UIRenderer ui;
 	private FlockRenderer flockRenderer;
+	private DebugBoidRenderer debugBoidRenderer;
 
 	public static void main(String args[]) {
         PApplet.main(Main.class);
@@ -28,6 +30,7 @@ public class Main extends PApplet {
 		flock.addBirds(128);
 		ui = new UIRenderer(this, flock);
 		flockRenderer = new FlockRenderer(this, flock);
+		debugBoidRenderer = new DebugBoidRenderer(flock, this);
 	}
 
     @Override
@@ -39,12 +42,13 @@ public class Main extends PApplet {
 		clear();
 
 		flockRenderer.draw();
+		debugBoidRenderer.draw();
 		ui.draw();
 	}
 
 	@Override
 	public void mouseClicked() {
-		flockRenderer.handleClick(mouseX, mouseY);
+		debugBoidRenderer.handleClick(mouseX, mouseY);
 	}
 
 	@Override
