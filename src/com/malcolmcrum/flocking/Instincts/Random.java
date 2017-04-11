@@ -17,7 +17,7 @@ public class Random extends Instinct {
 	public Desire calculateDesire() {
 		if (RNG.between(0, 100) == 1) {
 			float offset = RNG.between(-PI/2, PI/2);
-			return new Desire(0.5f, PVector.fromAngle(self.velocity.heading() + offset));
+			return new Desire(1f, PVector.fromAngle(self.velocity.heading() + offset));
 		} else {
 			return Desire.none;
 		}

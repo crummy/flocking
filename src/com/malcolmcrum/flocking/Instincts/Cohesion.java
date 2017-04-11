@@ -21,9 +21,9 @@ public class Cohesion extends Instinct {
 			center.add(boid.position);
 		}
 		center.div(neighbours.size());
-		PVector towardsCenter = PVector.sub(center, self.position);
-		float distanceToCenter = towardsCenter.mag();
-		return new Desire(0.1f, towardsCenter.normalize().mult(distanceToCenter * 0.01f));
+		PVector towardsNeighbours = PVector.sub(center, self.position);
+		float distanceToCenterOfNeighbours = towardsNeighbours.mag();
+		return new Desire(1f, towardsNeighbours.normalize().mult(distanceToCenterOfNeighbours * 0.01f));
 	}
 
 }

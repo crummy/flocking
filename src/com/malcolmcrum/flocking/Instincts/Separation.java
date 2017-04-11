@@ -20,7 +20,7 @@ public class Separation extends Instinct {
 
 	@Override
 	public Desire calculateDesire() {
-		float strength = 0;
+		float urgency = 0;
 		PVector awayFromOthers = new PVector();
 		for (Boid other : getNeighbours()) {
 			float distance = dist(self.position, other.position);
@@ -28,15 +28,15 @@ public class Separation extends Instinct {
 			float velocityAngles = angleBetween(self.velocity, other.velocity);
 			boolean onSameCourse = velocityAngles < closeAngle;
 			if (distance < dangerCloseDistance && onSameCourse) {
-				strength = 0.5f;
+				urgency = 0.5f;
 			} else if (distance < tooCloseDistance && onSameCourse) {
-				strength = 0.1f;
+				urgency = 0.1f;
 			}
 
 			float angle = angleBetween(self.velocity, other.velocity);
 			awayFromOthers.add(PVector.fromAngle(angle + PI));
 		}
 
-		return new Desire(strength, awayFromOthers);
+		return new Desire(urgency, awayFromOthers);
 	}
 }

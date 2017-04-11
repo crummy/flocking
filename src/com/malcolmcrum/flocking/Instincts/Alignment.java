@@ -21,6 +21,6 @@ public class Alignment extends Instinct {
 			averageVelocity.add(boid.velocity);
 		}
 		averageVelocity.div(neighbours.size());
-		return new Desire(0.1f, averageVelocity);
+		return new Desire(1f, averageVelocity);
 	}
 }
