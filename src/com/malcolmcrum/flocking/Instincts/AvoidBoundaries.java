@@ -10,7 +10,7 @@ import static processing.core.PConstants.PI;
 
 public class AvoidBoundaries extends Instinct {
 
-	private static final float turningRate = PI/64;
+	private static final float turningRate = PI/16;
 
 	private final Boid self;
 	private final Rectangle boundary;
@@ -52,6 +52,6 @@ public class AvoidBoundaries extends Instinct {
 		}
 		float speed = self.velocity.mag();
 		PVector desiredVelocity = PVector.lerp(self.velocity.copy().normalize(), desiredDirection, turningRate).mult(speed);
-		return new Desire(strength * strength, desiredVelocity);
+		return new Desire(strength, desiredVelocity);
 	}
 }
