@@ -53,7 +53,8 @@ public abstract class Instinct {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + "(" + getNeighbours().size() + ")";
+		return String.format("%s (%s): %.0f%% [%.2f, %.2f]", this.getClass().getSimpleName(), getNeighbours().size(),
+				getUrgency(), getDesiredVelocity().x, getDesiredVelocity().y);
 	}
 
 	public static class Desire {

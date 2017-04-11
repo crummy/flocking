@@ -24,7 +24,7 @@ public class FlockRenderer implements Renderer {
 	}
 
 	private void draw(Boid boid) {
-		if (debugColours && boid.getInstincts() != null) {
+		if (debugColours) {
 			int greatestDesire = boid.getInstincts()
 					.stream()
 					.sorted((a, b) -> Instinct.comparator(b, a))
