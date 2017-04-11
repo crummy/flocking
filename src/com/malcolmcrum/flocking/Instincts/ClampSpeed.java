@@ -11,8 +11,8 @@ public class ClampSpeed extends Instinct {
 	private static final float minSpeed = 90;
 	private static final float maxSpeed = 100;
 
-	public ClampSpeed(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier) {
-		super(self, birds, desireMultiplier);
+	public ClampSpeed(Bird self, Set<Bird> birds) {
+		super(self, birds);
 	}
 
 	@Override

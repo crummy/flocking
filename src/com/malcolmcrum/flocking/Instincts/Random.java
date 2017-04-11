@@ -9,8 +9,8 @@ import java.util.Set;
 import static processing.core.PConstants.PI;
 
 public class Random extends Instinct {
-	public Random(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
-		super(self, birds, multiplier);
+	public Random(Bird self, Set<Bird> birds) {
+		super(self, birds);
 	}
 
 	@Override

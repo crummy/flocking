@@ -6,8 +6,8 @@ import processing.core.PVector;
 import java.util.Set;
 
 public class Cohesion extends Instinct {
-	public Cohesion(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
-		super(self, birds, multiplier);
+	public Cohesion(Bird self, Set<Bird> birds) {
+		super(self, birds);
 	}
 
 	@Override

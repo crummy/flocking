@@ -11,12 +11,12 @@ class InputHandler {
 
 	InputHandler(Main main, Flock flock) {
 		keyMappings = new HashMap<>();
-		keyMappings.put('1', () -> flock.setDesireMultiplier(AvoidBoundaries.class, 1));
-		keyMappings.put('2', () -> flock.setDesireMultiplier(Separation.class, 1));
-		keyMappings.put('3', () -> flock.setDesireMultiplier(ClampSpeed.class, 1));
-		keyMappings.put('4', () -> flock.setDesireMultiplier(Cohesion.class, 1));
-		keyMappings.put('5', () -> flock.setDesireMultiplier(Random.class, 1));
-		keyMappings.put('6', () -> flock.setDesireMultiplier(Alignment.class, 1));
+		keyMappings.put('1', () -> flock.getDesireMultipliers().set(AvoidBoundaries.class, 1));
+		keyMappings.put('2', () -> flock.getDesireMultipliers().set(Separation.class, 1));
+		keyMappings.put('3', () -> flock.getDesireMultipliers().set(ClampSpeed.class, 1));
+		keyMappings.put('4', () -> flock.getDesireMultipliers().set(Cohesion.class, 1));
+		keyMappings.put('5', () -> flock.getDesireMultipliers().set(Random.class, 1));
+		keyMappings.put('6', () -> flock.getDesireMultipliers().set(Alignment.class, 1));
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('d', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', main::setup);

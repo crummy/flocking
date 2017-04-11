@@ -14,8 +14,8 @@ public class Separation extends Instinct {
 	private static final float tooCloseDistance = 32;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 
-	public Separation(Bird self, Set<Bird> birds, DesireMultiplier multiplier) {
-		super(self, birds, multiplier);
+	public Separation(Bird self, Set<Bird> birds) {
+		super(self, birds);
 	}
 
 	@Override

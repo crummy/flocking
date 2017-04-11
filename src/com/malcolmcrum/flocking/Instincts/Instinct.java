@@ -4,6 +4,8 @@ import com.malcolmcrum.flocking.Assert;
 import com.malcolmcrum.flocking.Bird;
 import processing.core.PVector;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,12 +14,10 @@ public abstract class Instinct {
 	final Bird self;
 	private Desire desire;
 	private final Set<Bird> otherBirds;
-	private final DesireMultiplier desireMultiplier;
 
-	Instinct(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier) {
+	Instinct(Bird self, Set<Bird> birds) {
 		this.self = self;
 		this.otherBirds = birds;
-		this.desireMultiplier = desireMultiplier;
 		this.desire = Desire.none;
 	}
 
@@ -28,7 +28,7 @@ public abstract class Instinct {
 	public abstract Desire calculateDesire();
 
 	public float getUrgency() {
-		return desire.strength * desireMultiplier.get();
+		return desire.urgency;
 	}
 
 	public PVector getDesiredVelocity() {
@@ -58,35 +58,41 @@ public abstract class Instinct {
 	public static class Desire {
 		static Desire none = new Desire(0, new PVector());
 
-		public final float strength;
-		public final PVector velocity;
+		final float urgency;
+		final PVector velocity;
 
-		Desire(float strength, PVector velocity) {
-			this.strength = strength;
+		Desire(float urgency, PVector velocity) {
+			this.urgency = urgency;
 			this.velocity = velocity;
 		}
 
 		@Override
 		public String toString() {
-			return String.format("{strength: %.2f, speed: %.2f}", strength, velocity.mag());
+			return String.format("{urgency: %.2f, speed: %.2f}", urgency, velocity.mag());
 		}
 	}
 
-	public static class DesireMultiplier {
-		private float multiplier;
+	public static class DesireMultipliers {
+		private Map<Class<? extends Instinct>, Float> multipliers;
 
-		public DesireMultiplier(float initialMultiplier) {
-			this.multiplier = initialMultiplier;
+		public DesireMultipliers() {
+			this.multipliers = new HashMap<>();
+			this.multipliers.put(Alignment.class, 0.5f);
+			this.multipliers.put(AvoidBoundaries.class, 0.5f);
+			this.multipliers.put(ClampSpeed.class, 0.5f);
+			this.multipliers.put(Cohesion.class, 0.5f);
+			this.multipliers.put(Separation.class, 0.5f);
+			this.multipliers.put(Random.class, 0.5f);
 		}
 
-		public float get() {
-			return multiplier;
+		public float get(Class<? extends Instinct> instinct) {
+			return multipliers.get(instinct);
 		}
 
-		public void setMultiplier(float multiplier) {
+		public void set(Class<? extends Instinct> instinct, float multiplier) {
 			Assert.assertTrue(multiplier >= 0);
 			Assert.assertTrue(multiplier <= 1);
-			this.multiplier = multiplier;
+			this.multipliers.put(instinct, multiplier);
 		}
 	}
 }

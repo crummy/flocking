@@ -16,8 +16,8 @@ public class AvoidBoundaries extends Instinct {
 	private final Rectangle boundary;
 	private final int margin;
 
-	public AvoidBoundaries(Bird self, Set<Bird> birds, DesireMultiplier desireMultiplier, Rectangle windowBounds) {
-		super(self, birds, desireMultiplier);
+	public AvoidBoundaries(Bird self, Set<Bird> birds, Rectangle windowBounds) {
+		super(self, birds);
 		this.self = self;
 		this.margin = 256;
 		this.boundary = new Rectangle(windowBounds.left + margin, windowBounds.right - margin, windowBounds.top + margin, windowBounds.bottom - margin);
