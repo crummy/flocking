@@ -170,6 +170,11 @@ public class Menu implements Renderer, InputHandler {
 			return this;
 		}
 
+		public Builder item(Supplier<String> text) {
+			this.items.add(new Item(text));
+			return this;
+		}
+
 		public Builder item(String text) {
 			this.items.add(new Item(text));
 			return this;

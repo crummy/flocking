@@ -5,13 +5,15 @@ import com.malcolmcrum.flocking.UI.FlockRenderer;
 import com.malcolmcrum.flocking.UI.UIRenderer;
 import processing.core.PApplet;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Main extends PApplet {
 
 	public static boolean isPaused = true;
 
-	private Flock flock;
+	private List<Flock> flocks;
 	private UIRenderer ui;
-	private FlockRenderer flockRenderer;
 	private DebugBoidRenderer debugBoidRenderer;
 
 	public static void main(String args[]) {
@@ -26,22 +28,28 @@ public class Main extends PApplet {
 	@Override
     public void setup() {
         clear();
-		flock = new Flock(width, height);
+        flocks = new LinkedList<>();
+
+        Flock flock = new Flock(width, height);
+		Flock enemyFlock = new Flock(width, height);
 		flock.addBoids(128);
-		ui = new UIRenderer(this, flock);
-		flockRenderer = new FlockRenderer(this, flock);
+		enemyFlock.addBoids(16);
+		flocks.add(enemyFlock);
+		flocks.add(flock);
+
+		ui = new UIRenderer(this, flocks);
 		debugBoidRenderer = new DebugBoidRenderer(flock, this);
 	}
 
     @Override
     public void draw() {
 		if (isPaused == false) {
-			flock.update();
+			flocks.forEach(Flock::update);
 		}
 
 		clear();
 
-		flockRenderer.draw();
+		flocks.forEach(flock -> new FlockRenderer(this, flock).draw());
 		debugBoidRenderer.draw();
 		ui.draw();
 	}

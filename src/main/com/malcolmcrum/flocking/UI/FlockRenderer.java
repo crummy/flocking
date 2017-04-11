@@ -8,7 +8,7 @@ import processing.core.PApplet;
 import static processing.core.PConstants.PI;
 
 public class FlockRenderer implements Renderer {
-	public static boolean debugColours = true;
+	static boolean debugColours = false;
 
 	private final PApplet graphics;
 	private final Flock flock;
@@ -33,8 +33,7 @@ public class FlockRenderer implements Renderer {
 					.getClass().hashCode();
 			setColours(greatestDesire, graphics);
 		} else {
-			graphics.stroke(255);
-			graphics.fill(255);
+			setColours(flock.hashCode(), graphics);
 		}
 
 		int width = 8;

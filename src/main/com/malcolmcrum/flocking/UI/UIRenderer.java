@@ -7,6 +7,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
@@ -16,20 +17,23 @@ public class UIRenderer implements Renderer, InputHandler {
 	private final Menu flockMenu;
 	private final Menu debugMenu;
 	private final PApplet graphics;
-	private final Flock flock;
+	private final List<Flock> flocks;
+	private int selectedFlockIndex;
 
 	private final static float adjustmentIncrement = 0.01f;
 	private Set<Character> keysDown;
 
-	public UIRenderer(PApplet graphics, Flock flock) {
+	public UIRenderer(PApplet graphics, List<Flock> flocks) {
 		this.graphics = graphics;
-		this.flock = flock;
+		this.flocks = flocks;
+		this.selectedFlockIndex = 0;
 		this.keysDown = ConcurrentHashMap.newKeySet();
 
 		flockMenu = new Menu.Builder(graphics)
 				.coords(8, 12)
 				.lineSpacing(0, 16)
 				.textSize(14)
+				.item(() -> "Flock " + selectedFlockIndex)
 				.item(instinctMenuItem(AvoidBoundaries.class), adjustUrgency(AvoidBoundaries.class))
 				.item(instinctMenuItem(Separation.class), adjustUrgency(Separation.class))
 				.item(instinctMenuItem(Accelerate.class), adjustUrgency(Accelerate.class))
@@ -45,6 +49,7 @@ public class UIRenderer implements Renderer, InputHandler {
 				.alignment(PConstants.RIGHT)
 				.item("(c) Debug colours")
 				.item("(R) Restart")
+				.item("(Tab) Change flocks")
 				.item("(Space) Pause")
 				.item("Click a boid for details")
 				.build();
@@ -53,27 +58,28 @@ public class UIRenderer implements Renderer, InputHandler {
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('c', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
+		keyMappings.put('\t', () -> 	selectedFlockIndex = (selectedFlockIndex + 1) % flocks.size());
 	}
 
 	private InputHandler adjustUrgency(Class<? extends Instinct> instinct) {
 		return new InputHandler() {
 			@Override
 			public void rightPressed() {
-				float currentUrgency = flock.getDesireMultipliers().get(instinct);
+				float currentUrgency = getSelectedFlock().getDesireMultipliers().get(instinct);
 				if (currentUrgency < 1) {
 					float newUrgency = currentUrgency + adjustmentIncrement;
 					newUrgency = newUrgency > 1 ? 1 : newUrgency;
-					flock.getDesireMultipliers().set(instinct, newUrgency);
+					getSelectedFlock().getDesireMultipliers().set(instinct, newUrgency);
 				}
 			}
 
 			@Override
 			public void leftPressed() {
-				float currentUrgency = flock.getDesireMultipliers().get(instinct);
+				float currentUrgency = getSelectedFlock().getDesireMultipliers().get(instinct);
 				if (currentUrgency > 0) {
 					float newUrgency = currentUrgency - adjustmentIncrement;
 					newUrgency = newUrgency < 0 ? 0 : newUrgency;
-					flock.getDesireMultipliers().set(instinct, newUrgency);
+					getSelectedFlock().getDesireMultipliers().set(instinct, newUrgency);
 				}
 			}
 		};
@@ -81,8 +87,12 @@ public class UIRenderer implements Renderer, InputHandler {
 
 	private Supplier<String> instinctMenuItem(Class<? extends Instinct> instinct) {
 		return () -> {
-			setColours(instinct.hashCode(), graphics);
-			return String.format("%s: %.0f%%", instinct.getSimpleName(), flock.getDesireMultipliers().get(instinct) * 100);
+			if (FlockRenderer.debugColours) {
+				setColours(instinct.hashCode(), graphics);
+			} else {
+				graphics.fill(255);
+			}
+			return String.format("%s: %.0f%%", instinct.getSimpleName(), getSelectedFlock().getDesireMultipliers().get(instinct) * 100);
 		};
 	}
 
@@ -106,5 +116,9 @@ public class UIRenderer implements Renderer, InputHandler {
 		flockMenu.draw();
 		debugMenu.draw();
 		keysDown.forEach(flockMenu::keyPressed);
+	}
+
+	private Flock getSelectedFlock() {
+		return flocks.get(selectedFlockIndex);
 	}
 }
