@@ -33,7 +33,10 @@ public class UIRenderer implements Renderer, InputHandler {
 				.coords(8, 12)
 				.lineSpacing(0, 16)
 				.textSize(14)
-				.item(() -> "Flock " + selectedFlockIndex)
+				.item(() -> {
+					setColours(getSelectedFlock().hashCode(), graphics);
+					return "Flock " + selectedFlockIndex + ": " + getSelectedFlock().getBoids().size() + " boids";
+				})
 				.item(instinctMenuItem(AvoidBoundaries.class), adjustUrgency(AvoidBoundaries.class))
 				.item(instinctMenuItem(Separation.class), adjustUrgency(Separation.class))
 				.item(instinctMenuItem(Accelerate.class), adjustUrgency(Accelerate.class))
@@ -58,7 +61,11 @@ public class UIRenderer implements Renderer, InputHandler {
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('c', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
-		keyMappings.put('\t', () -> 	selectedFlockIndex = (selectedFlockIndex + 1) % flocks.size());
+		keyMappings.put('\t', this::selectNextFlock);
+	}
+
+	private void selectNextFlock() {
+		selectedFlockIndex = (selectedFlockIndex + 1) % flocks.size();
 	}
 
 	private InputHandler adjustUrgency(Class<? extends Instinct> instinct) {
