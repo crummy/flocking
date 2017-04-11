@@ -13,7 +13,7 @@ public class Boid {
 	public PVector position;
 	public PVector velocity;
 	private final Instinct.DesireMultipliers desireMultipliers;
-	private final float fieldOfView = 3*PI/2;
+	public static final float fieldOfView = 3*PI/2;
 
 	private final Collection<Instinct> instincts;
 

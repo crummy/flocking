@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static processing.core.PConstants.LEFT;
+import static processing.core.PConstants.PIE;
 import static processing.core.PConstants.RIGHT;
 
 public class DebugBoidRenderer implements Renderer, InputHandler {
@@ -52,7 +53,8 @@ public class DebugBoidRenderer implements Renderer, InputHandler {
 		for (Instinct instinct : activeInstincts) {
 			setColours(instinct.getClass().hashCode(), graphics);
 			graphics.noFill();
-			graphics.ellipse(boid.position.x, boid.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
+			graphics.arc(boid.position.x, boid.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius(),
+					-Boid.fieldOfView/2 + boid.velocity.heading(), Boid.fieldOfView/2 + boid.velocity.heading(), PIE);
 			line(boid.position, PVector.add(boid.position, instinct.getDesiredVelocity()));
 			graphics.text(instinct.toString() + ": " + instinct.getDesiredVelocity(), textX, textY);
 			textY += spacing;
