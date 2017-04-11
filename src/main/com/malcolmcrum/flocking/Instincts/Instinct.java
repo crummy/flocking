@@ -54,7 +54,7 @@ public abstract class Instinct {
 	@Override
 	public String toString() {
 		return String.format("%s (%s): %.0f%% [%.2f, %.2f]", this.getClass().getSimpleName(), getNeighbours().size(),
-				getUrgency(), getDesiredVelocity().x, getDesiredVelocity().y);
+				getUrgency() * 100, getDesiredVelocity().x, getDesiredVelocity().y);
 	}
 
 	public static class Desire {
@@ -82,7 +82,7 @@ public abstract class Instinct {
 			this.multipliers.put(Alignment.class, 0.5f);
 			this.multipliers.put(AvoidBoundaries.class, 1f);
 			this.multipliers.put(Accelerate.class, 0.5f);
-			this.multipliers.put(Cohesion.class, 0.5f);
+			this.multipliers.put(Cohesion.class, 0.01f);
 			this.multipliers.put(Separation.class, 0.5f);
 			this.multipliers.put(Random.class, 0.5f);
 		}

@@ -24,6 +24,11 @@ public class AvoidBoundaries extends Instinct {
 	}
 
 	@Override
+	public float getNeighbourRadius() {
+		return 256;
+	}
+
+	@Override
 	public Desire calculateDesire() {
 
 		PVector desiredDirection = new PVector();
