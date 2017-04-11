@@ -3,7 +3,7 @@ package com.malcolmcrum.flocking.UI;
 public interface InputHandler {
 
 	default void keyReleased(char key) {
-		switch (key) {
+		switch (Character.toUpperCase(key)) {
 		case 'A':
 			handleLeft();
 			break;

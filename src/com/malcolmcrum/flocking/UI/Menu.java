@@ -46,23 +46,30 @@ public class Menu implements Renderer, InputHandler {
 
 	@Override
 	public void keyReleased(char key) {
-		getSelectedItem().ifPresent(item -> keyReleased(key));
+		InputHandler.super.keyReleased(key);
+		getSelectedItem().ifPresent(item -> item.keyReleased(key));
 	}
 
-	void selectNext() {
+	private void selectNext() {
 		select(selectedItemIndex + 1);
 	}
 
-	void selectPrevious() {
+	private void selectPrevious() {
 		select(selectedItemIndex - 1);
 	}
 
-	public void select(int index) {
-		selectedItemIndex = index % items.size();
+	private void select(int index) {
+		if (index < 0) {
+			selectedItemIndex = items.size() - 1;
+		} else if (index >= items.size()) {
+			selectedItemIndex = 0;
+		} else {
+			selectedItemIndex = index;
+		}
 	}
 
 	public Optional<Item> getSelectedItem() {
-		if (selectedItemIndex == -1) {
+		if (selectedItemIndex < 0) {
 			return Optional.empty();
 		} else {
 			Item selection = items.get(selectedItemIndex);
@@ -91,7 +98,7 @@ public class Menu implements Renderer, InputHandler {
 		return getSelectedItem().isPresent() && getSelectedItem().get() == item;
 	}
 
-	public static class Item {
+	public static class Item implements InputHandler {
 		private final Supplier<String> text;
 		private final InputHandler handler;
 
@@ -114,7 +121,8 @@ public class Menu implements Renderer, InputHandler {
 			return text.get();
 		}
 
-		public void handleKey(Character key) {
+		@Override
+		public void keyReleased(char key) {
 			if (handler != null) {
 				handler.keyReleased(key);
 			}
@@ -159,7 +167,7 @@ public class Menu implements Renderer, InputHandler {
 		}
 
 		public Builder item(Supplier<String> text, InputHandler inputHandler) {
-			this.items.add(new Item(text));
+			this.items.add(new Item(text, inputHandler));
 			return this;
 		}
 

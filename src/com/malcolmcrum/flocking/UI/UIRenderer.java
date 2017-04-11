@@ -39,7 +39,7 @@ public class UIRenderer implements Renderer, InputHandler {
 				.lineSpacing(0, 16)
 				.textSize(14)
 				.alignment(PConstants.RIGHT)
-				.item("(D) Debug info")
+				.item("(c) Debug colours")
 				.item("(R) Restart")
 				.item("(Space) Pause")
 				.item("Click a boid for details")
@@ -53,7 +53,7 @@ public class UIRenderer implements Renderer, InputHandler {
 		keyMappings.put('5', () -> flock.getDesireMultipliers().set(Random.class, 1));
 		keyMappings.put('6', () -> flock.getDesireMultipliers().set(Alignment.class, 1));
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
-		keyMappings.put('d', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
+		keyMappings.put('c', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
 	}
 
@@ -73,7 +73,7 @@ public class UIRenderer implements Renderer, InputHandler {
 			public void handleLeft() {
 				float currentUrgency = flock.getDesireMultipliers().get(instinct);
 				if (currentUrgency > 0) {
-					float newUrgency = currentUrgency + adjustmentIncrement;
+					float newUrgency = currentUrgency - adjustmentIncrement;
 					newUrgency = newUrgency < 0 ? 0 : newUrgency;
 					flock.getDesireMultipliers().set(instinct, newUrgency);
 				}
