@@ -5,27 +5,52 @@ public interface InputHandler {
 	default void keyReleased(char key) {
 		switch (Character.toUpperCase(key)) {
 		case 'A':
-			handleLeft();
+			leftReleased();
 			break;
 		case 'D':
-			handleRight();
+			rightReleased();
 			break;
 		case 'W':
-			handleUp();
+			upReleased();
 			break;
 		case 'S':
-			handleDown();
+			downReleased();
 			break;
 		}
 	}
 
-	default void handleUp() {}
+	default void upReleased() {}
 
-	default void handleDown() {}
+	default void downReleased() {}
 
-	default void handleRight() {}
+	default void rightReleased() {}
 
-	default void handleLeft() {}
+	default void leftReleased() {}
 
 	default void handleClick(int x, int y) {}
+
+	default void keyPressed(char key) {
+		switch (Character.toUpperCase(key)) {
+		case 'A':
+			leftPressed();
+			break;
+		case 'D':
+			rightPressed();
+			break;
+		case 'W':
+			upPressed();
+			break;
+		case 'S':
+			downPressed();
+			break;
+		}
+	}
+
+	default void downPressed() {}
+
+	default void upPressed() {}
+
+	default void rightPressed() {}
+
+	default void leftPressed() {}
 }

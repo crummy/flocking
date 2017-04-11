@@ -55,4 +55,9 @@ public class Main extends PApplet {
     public void keyReleased() {
 		ui.keyReleased(key);
 	}
+
+	@Override
+	public void keyPressed() {
+		ui.keyPressed(key);
+	}
 }

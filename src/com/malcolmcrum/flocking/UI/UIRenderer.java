@@ -7,6 +7,8 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 import java.util.HashMap;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class UIRenderer implements Renderer, InputHandler {
@@ -16,11 +18,13 @@ public class UIRenderer implements Renderer, InputHandler {
 	private final PApplet graphics;
 	private final Flock flock;
 
-	private final static float adjustmentIncrement = 0.05f;
+	private final static float adjustmentIncrement = 0.01f;
+	private Set<Character> keysDown;
 
 	public UIRenderer(PApplet graphics, Flock flock) {
 		this.graphics = graphics;
 		this.flock = flock;
+		this.keysDown = ConcurrentHashMap.newKeySet();
 
 		flockMenu = new Menu.Builder(graphics)
 				.coords(8, 12)
@@ -46,12 +50,6 @@ public class UIRenderer implements Renderer, InputHandler {
 				.build();
 
 		keyMappings = new HashMap<>();
-		keyMappings.put('1', () -> flock.getDesireMultipliers().set(AvoidBoundaries.class, 1));
-		keyMappings.put('2', () -> flock.getDesireMultipliers().set(Separation.class, 1));
-		keyMappings.put('3', () -> flock.getDesireMultipliers().set(ClampSpeed.class, 1));
-		keyMappings.put('4', () -> flock.getDesireMultipliers().set(Cohesion.class, 1));
-		keyMappings.put('5', () -> flock.getDesireMultipliers().set(Random.class, 1));
-		keyMappings.put('6', () -> flock.getDesireMultipliers().set(Alignment.class, 1));
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('c', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
@@ -60,7 +58,7 @@ public class UIRenderer implements Renderer, InputHandler {
 	private InputHandler adjustUrgency(Class<? extends Instinct> instinct) {
 		return new InputHandler() {
 			@Override
-			public void handleRight() {
+			public void rightPressed() {
 				float currentUrgency = flock.getDesireMultipliers().get(instinct);
 				if (currentUrgency < 1) {
 					float newUrgency = currentUrgency + adjustmentIncrement;
@@ -70,7 +68,7 @@ public class UIRenderer implements Renderer, InputHandler {
 			}
 
 			@Override
-			public void handleLeft() {
+			public void leftPressed() {
 				float currentUrgency = flock.getDesireMultipliers().get(instinct);
 				if (currentUrgency > 0) {
 					float newUrgency = currentUrgency - adjustmentIncrement;
@@ -84,13 +82,14 @@ public class UIRenderer implements Renderer, InputHandler {
 	private Supplier<String> instinctMenuItem(Class<? extends Instinct> instinct) {
 		return () -> {
 			setColours(instinct.hashCode(), graphics);
-			return instinct.getSimpleName() + ": " + flock.getDesireMultipliers().get(instinct);
+			return String.format("%s: %.0f%%", instinct.getSimpleName(), flock.getDesireMultipliers().get(instinct) * 100);
 		};
 	}
 
 
 	@Override
 	public void keyReleased(char key) {
+		keysDown.remove(key);
 		if (keyMappings.containsKey(key)) {
 			keyMappings.get(key).run();
 		}
@@ -98,8 +97,14 @@ public class UIRenderer implements Renderer, InputHandler {
 	}
 
 	@Override
+	public void keyPressed(char key) {
+		keysDown.add(key);
+	}
+
+	@Override
 	public void draw() {
 		flockMenu.draw();
 		debugMenu.draw();
+		keysDown.forEach(flockMenu::keyPressed);
 	}
 }

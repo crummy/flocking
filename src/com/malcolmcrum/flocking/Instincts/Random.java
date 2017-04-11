@@ -15,7 +15,7 @@ public class Random extends Instinct {
 
 	@Override
 	public Desire calculateDesire() {
-		if (RNG.between(0, 100) == 1) {
+		if (RNG.between(0, 10) == 1) {
 			float offset = RNG.between(-PI/2, PI/2);
 			return new Desire(1f, PVector.fromAngle(self.velocity.heading() + offset));
 		} else {

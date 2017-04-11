@@ -35,19 +35,18 @@ public class Menu implements Renderer, InputHandler {
 	}
 
 	@Override
-	public void handleUp() {
+	public void upReleased() {
 		selectPrevious();
 	}
 
 	@Override
-	public void handleDown() {
+	public void downReleased() {
 		selectNext();
 	}
 
 	@Override
-	public void keyReleased(char key) {
-		InputHandler.super.keyReleased(key);
-		getSelectedItem().ifPresent(item -> item.keyReleased(key));
+	public void keyPressed(char key) {
+		getSelectedItem().ifPresent(item -> item.keyPressed(key));
 	}
 
 	private void selectNext() {
@@ -122,9 +121,9 @@ public class Menu implements Renderer, InputHandler {
 		}
 
 		@Override
-		public void keyReleased(char key) {
+		public void keyPressed(char key) {
 			if (handler != null) {
-				handler.keyReleased(key);
+				handler.keyPressed(key);
 			}
 		}
 	}

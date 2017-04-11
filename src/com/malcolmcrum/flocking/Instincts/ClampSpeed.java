@@ -8,8 +8,8 @@ public class ClampSpeed extends Instinct {
 	private enum State { BRAKING, ACCELERATING, COASTING }
 	private State state;
 
-	private static final float minSpeed = 90;
-	private static final float maxSpeed = 100;
+	private static final float minSpeed = 50;
+	private static final float maxSpeed = 200;
 
 	public ClampSpeed(Boid self, Set<Boid> boids) {
 		super(self, boids);
