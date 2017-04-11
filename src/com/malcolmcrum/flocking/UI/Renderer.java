@@ -1,4 +1,4 @@
-package com.malcolmcrum.flocking.Renderers;
+package com.malcolmcrum.flocking.UI;
 
 public interface Renderer {
 	void draw();

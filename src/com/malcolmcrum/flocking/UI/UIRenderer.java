@@ -1,12 +1,16 @@
-package com.malcolmcrum.flocking.Renderers;
+package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Flock;
 import com.malcolmcrum.flocking.Instincts.*;
+import com.malcolmcrum.flocking.Main;
 import processing.core.PApplet;
 
-public class UIRenderer implements Renderer {
+import java.util.HashMap;
+
+public class UIRenderer implements Renderer, KeyHandler {
 	private final PApplet graphics;
 	private final Flock flock;
+	private final HashMap<Character, Runnable> keyMappings;
 	private int x;
 	private int y;
 	private static final int spacing = 12;
@@ -14,6 +18,16 @@ public class UIRenderer implements Renderer {
 	public UIRenderer(PApplet graphics, Flock flock) {
 		this.graphics = graphics;
 		this.flock = flock;
+		keyMappings = new HashMap<>();
+		keyMappings.put('1', () -> flock.getDesireMultipliers().set(AvoidBoundaries.class, 1));
+		keyMappings.put('2', () -> flock.getDesireMultipliers().set(Separation.class, 1));
+		keyMappings.put('3', () -> flock.getDesireMultipliers().set(ClampSpeed.class, 1));
+		keyMappings.put('4', () -> flock.getDesireMultipliers().set(Cohesion.class, 1));
+		keyMappings.put('5', () -> flock.getDesireMultipliers().set(Random.class, 1));
+		keyMappings.put('6', () -> flock.getDesireMultipliers().set(Alignment.class, 1));
+		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
+		keyMappings.put('d', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
+		keyMappings.put('r', graphics::setup);
 	}
 
 	@Override
@@ -37,5 +51,12 @@ public class UIRenderer implements Renderer {
 	private void text(String string) {
 		graphics.text(string, x, y);
 		y += spacing;
+	}
+
+	@Override
+	public void keyReleased(char key) {
+		if (keyMappings.containsKey(key)) {
+			keyMappings.get(key).run();
+		}
 	}
 }

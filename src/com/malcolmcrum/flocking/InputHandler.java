@@ -1,7 +1,7 @@
 package com.malcolmcrum.flocking;
 
 import com.malcolmcrum.flocking.Instincts.*;
-import com.malcolmcrum.flocking.Renderers.FlockRenderer;
+import com.malcolmcrum.flocking.UI.FlockRenderer;
 
 import java.util.HashMap;
 import java.util.Map;

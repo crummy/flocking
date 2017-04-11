@@ -1,15 +1,14 @@
 package com.malcolmcrum.flocking;
 
-import com.malcolmcrum.flocking.Renderers.FlockRenderer;
-import com.malcolmcrum.flocking.Renderers.UIRenderer;
+import com.malcolmcrum.flocking.UI.FlockRenderer;
+import com.malcolmcrum.flocking.UI.UIRenderer;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
 
-	static boolean isPaused = true;
+	public static boolean isPaused = true;
 
 	private Flock flock;
-	private InputHandler inputHandler;
 	private UIRenderer ui;
 	private FlockRenderer flockRenderer;
 
@@ -29,7 +28,6 @@ public class Main extends PApplet {
 		flock.addBirds(128);
 		ui = new UIRenderer(this, flock);
 		flockRenderer = new FlockRenderer(this, flock);
-		inputHandler = new InputHandler(this, flock);
 	}
 
     @Override
@@ -51,6 +49,6 @@ public class Main extends PApplet {
 
 	@Override
     public void keyReleased() {
-		inputHandler.keyReleased(key);
+		ui.keyReleased(key);
 	}
 }

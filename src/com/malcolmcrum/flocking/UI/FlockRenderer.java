@@ -1,4 +1,4 @@
-package com.malcolmcrum.flocking.Renderers;
+package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.Flock;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static processing.core.PConstants.*;
 
-public class FlockRenderer implements Renderer {
+public class FlockRenderer implements Renderer, ClickHandler {
 	public static boolean debugColours = true;
 
 	private final PApplet graphics;
@@ -22,6 +22,7 @@ public class FlockRenderer implements Renderer {
 		this.flock = flock;
 	}
 
+	@Override
 	public void handleClick(int mouseX, int mouseY) {
 		float minimumDistance = 16;
 		PVector click = new PVector(mouseX, mouseY);
