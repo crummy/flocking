@@ -9,16 +9,42 @@ import processing.core.PConstants;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-public class UIRenderer implements Renderer, KeyHandler {
+public class UIRenderer implements Renderer, InputHandler {
 	private final HashMap<Character, Runnable> keyMappings;
-	private final MenuRenderer flockMenu;
-	private final MenuRenderer debugMenu;
+	private final Menu flockMenu;
+	private final Menu debugMenu;
 	private final PApplet graphics;
 	private final Flock flock;
+
+	private final static float adjustmentIncrement = 0.05f;
 
 	public UIRenderer(PApplet graphics, Flock flock) {
 		this.graphics = graphics;
 		this.flock = flock;
+
+		flockMenu = new Menu.Builder(graphics)
+				.coords(8, 12)
+				.lineSpacing(0, 16)
+				.textSize(14)
+				.item(instinctMenuItem(AvoidBoundaries.class), adjustUrgency(AvoidBoundaries.class))
+				.item(instinctMenuItem(Separation.class), adjustUrgency(Separation.class))
+				.item(instinctMenuItem(ClampSpeed.class), adjustUrgency(ClampSpeed.class))
+				.item(instinctMenuItem(Cohesion.class), adjustUrgency(Cohesion.class))
+				.item(instinctMenuItem(Random.class), adjustUrgency(Random.class))
+				.item(instinctMenuItem(Alignment.class), adjustUrgency(Alignment.class))
+				.build();
+
+		debugMenu = new Menu.Builder(graphics)
+				.coords(graphics.width - 8, 12)
+				.lineSpacing(0, 16)
+				.textSize(14)
+				.alignment(PConstants.RIGHT)
+				.item("(D) Debug info")
+				.item("(R) Restart")
+				.item("(Space) Pause")
+				.item("Click a boid for details")
+				.build();
+
 		keyMappings = new HashMap<>();
 		keyMappings.put('1', () -> flock.getDesireMultipliers().set(AvoidBoundaries.class, 1));
 		keyMappings.put('2', () -> flock.getDesireMultipliers().set(Separation.class, 1));
@@ -29,29 +55,30 @@ public class UIRenderer implements Renderer, KeyHandler {
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('d', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
+	}
 
-		flockMenu = new MenuRenderer.Builder(graphics)
-				.coords(8, 12)
-				.lineSpacing(0, 16)
-				.textSize(14)
-				.text(instinctMenuItem(AvoidBoundaries.class))
-				.text(instinctMenuItem(Separation.class))
-				.text(instinctMenuItem(ClampSpeed.class))
-				.text(instinctMenuItem(Cohesion.class))
-				.text(instinctMenuItem(Random.class))
-				.text(instinctMenuItem(Alignment.class))
-				.build();
+	private InputHandler adjustUrgency(Class<? extends Instinct> instinct) {
+		return new InputHandler() {
+			@Override
+			public void handleRight() {
+				float currentUrgency = flock.getDesireMultipliers().get(instinct);
+				if (currentUrgency < 1) {
+					float newUrgency = currentUrgency + adjustmentIncrement;
+					newUrgency = newUrgency > 1 ? 1 : newUrgency;
+					flock.getDesireMultipliers().set(instinct, newUrgency);
+				}
+			}
 
-		debugMenu = new MenuRenderer.Builder(graphics)
-				.coords(graphics.width - 8, 12)
-				.lineSpacing(0, 16)
-				.textSize(14)
-				.alignment(PConstants.RIGHT)
-				.text("(D) Debug info")
-				.text("(R) Restart")
-				.text("(Space) Pause")
-				.text("Click a boid for details")
-				.build();
+			@Override
+			public void handleLeft() {
+				float currentUrgency = flock.getDesireMultipliers().get(instinct);
+				if (currentUrgency > 0) {
+					float newUrgency = currentUrgency + adjustmentIncrement;
+					newUrgency = newUrgency < 0 ? 0 : newUrgency;
+					flock.getDesireMultipliers().set(instinct, newUrgency);
+				}
+			}
+		};
 	}
 
 	private Supplier<String> instinctMenuItem(Class<? extends Instinct> instinct) {
@@ -67,6 +94,7 @@ public class UIRenderer implements Renderer, KeyHandler {
 		if (keyMappings.containsKey(key)) {
 			keyMappings.get(key).run();
 		}
+		flockMenu.keyReleased(key);
 	}
 
 	@Override

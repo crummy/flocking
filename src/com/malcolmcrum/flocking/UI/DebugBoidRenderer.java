@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import static processing.core.PConstants.LEFT;
 import static processing.core.PConstants.RIGHT;
 
-public class DebugBoidRenderer implements Renderer, ClickHandler {
+public class DebugBoidRenderer implements Renderer, InputHandler {
 	private final Flock flock;
 	private final PApplet graphics;
 	private Boid boid;
