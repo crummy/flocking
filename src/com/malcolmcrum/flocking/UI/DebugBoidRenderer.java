@@ -35,6 +35,7 @@ public class DebugBoidRenderer implements Renderer, ClickHandler {
 
 	@Override
 	public void draw() {
+		graphics.textAlign(LEFT);
 		if (boid == null) {
 			return;
 		}
