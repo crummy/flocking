@@ -1,6 +1,6 @@
 package com.malcolmcrum.flocking.Instincts;
 
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 import processing.core.PVector;
 
 import java.util.Set;
@@ -14,15 +14,15 @@ public class Separation extends Instinct {
 	private static final float tooCloseDistance = 32;
 	private static final float closeAngle = PI/4; // if angle between two close birds is outside this, we don't consider them close - they'll be gone soon
 
-	public Separation(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public Separation(Boid self, Set<Boid> boids) {
+		super(self, boids);
 	}
 
 	@Override
 	public Desire calculateDesire() {
 		float strength = 0;
 		PVector awayFromOthers = new PVector();
-		for (Bird other : getNeighbours()) {
+		for (Boid other : getNeighbours()) {
 			float distance = dist(self.position, other.position);
 
 			float velocityAngles = angleBetween(self.velocity, other.velocity);

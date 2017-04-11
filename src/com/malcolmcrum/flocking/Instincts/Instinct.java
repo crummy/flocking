@@ -1,7 +1,7 @@
 package com.malcolmcrum.flocking.Instincts;
 
 import com.malcolmcrum.flocking.Assert;
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 import processing.core.PVector;
 
 import java.util.HashMap;
@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 
 public abstract class Instinct {
 
-	final Bird self;
+	final Boid self;
 	private Desire desire;
-	private final Set<Bird> otherBirds;
+	private final Set<Boid> otherBoids;
 
-	Instinct(Bird self, Set<Bird> birds) {
+	Instinct(Boid self, Set<Boid> boids) {
 		this.self = self;
-		this.otherBirds = birds;
+		this.otherBoids = boids;
 		this.desire = Desire.none;
 	}
 
@@ -39,8 +39,8 @@ public abstract class Instinct {
 		return 128;
 	}
 
-	Set<Bird> getNeighbours() {
-		return otherBirds.stream()
+	Set<Boid> getNeighbours() {
+		return otherBoids.stream()
 				.filter(bird -> bird != self)
 				.filter(bird -> PVector.dist(self.position, bird.position) < getNeighbourRadius())
 				.collect(Collectors.toSet());

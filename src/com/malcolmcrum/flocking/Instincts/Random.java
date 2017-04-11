@@ -1,6 +1,6 @@
 package com.malcolmcrum.flocking.Instincts;
 
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.RNG;
 import processing.core.PVector;
 
@@ -9,8 +9,8 @@ import java.util.Set;
 import static processing.core.PConstants.PI;
 
 public class Random extends Instinct {
-	public Random(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public Random(Boid self, Set<Boid> boids) {
+		super(self, boids);
 	}
 
 	@Override

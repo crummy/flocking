@@ -1,6 +1,6 @@
 package com.malcolmcrum.flocking.Instincts;
 
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 
 import java.util.Set;
 
@@ -11,8 +11,8 @@ public class ClampSpeed extends Instinct {
 	private static final float minSpeed = 90;
 	private static final float maxSpeed = 100;
 
-	public ClampSpeed(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public ClampSpeed(Boid self, Set<Boid> boids) {
+		super(self, boids);
 	}
 
 	@Override

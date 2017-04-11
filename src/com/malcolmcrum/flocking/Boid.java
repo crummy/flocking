@@ -6,14 +6,14 @@ import processing.core.PVector;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class Bird {
+public class Boid {
 	public PVector position;
 	public PVector velocity;
 	private final Instinct.DesireMultipliers desireMultipliers;
 
 	private final Collection<Instinct> instincts;
 
-	Bird(PVector initialPosition, PVector initialVelocity, Instinct.DesireMultipliers desireMultipliers) {
+	Boid(PVector initialPosition, PVector initialVelocity, Instinct.DesireMultipliers desireMultipliers) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
 		this.desireMultipliers = desireMultipliers;

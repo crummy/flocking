@@ -12,12 +12,12 @@ public class Flock {
 	private static final float maxInitialSpeed = 0.5f;
 
 	private final Rectangle bounds;
-	private final Set<Bird> birds;
+	private final Set<Boid> boids;
 	private final DesireMultipliers desireMultipliers;
 
 	Flock(int width, int height) {
 		desireMultipliers = new DesireMultipliers();
-		birds = new HashSet<>();
+		boids = new HashSet<>();
 		bounds = new Rectangle(0, width, 0, height);
 	}
 
@@ -25,23 +25,23 @@ public class Flock {
 		for (int i = 0; i < count; ++i) {
 			PVector initialPosition = new PVector(RNG.between(bounds.left, bounds.right), RNG.between(bounds.top, bounds.bottom));
 			PVector initialVelocity = new PVector(RNG.between(-maxInitialSpeed, maxInitialSpeed), RNG.between(-maxInitialSpeed, maxInitialSpeed));
-			Bird bird = new Bird(initialPosition, initialVelocity, desireMultipliers);
-			bird.addDesire(new ClampSpeed(bird, birds));
-			bird.addDesire(new AvoidBoundaries(bird, birds, bounds));
-			bird.addDesire(new Separation(bird, birds));
-			bird.addDesire(new Cohesion(bird, birds));
-			bird.addDesire(new Random(bird, birds));
-			bird.addDesire(new Alignment(bird, birds));
-			birds.add(bird);
+			Boid boid = new Boid(initialPosition, initialVelocity, desireMultipliers);
+			boid.addDesire(new ClampSpeed(boid, boids));
+			boid.addDesire(new AvoidBoundaries(boid, boids, bounds));
+			boid.addDesire(new Separation(boid, boids));
+			boid.addDesire(new Cohesion(boid, boids));
+			boid.addDesire(new Random(boid, boids));
+			boid.addDesire(new Alignment(boid, boids));
+			boids.add(boid);
 		}
 	}
 
-	public Set<Bird> getBirds() {
-		return birds;
+	public Set<Boid> getBoids() {
+		return boids;
 	}
 
 	void update() {
-		birds.forEach(Bird::update);
+		boids.forEach(Boid::update);
 	}
 
 	public DesireMultipliers getDesireMultipliers() {

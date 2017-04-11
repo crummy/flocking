@@ -21,12 +21,12 @@ public class UIRenderer implements Renderer {
 		graphics.fill(255);
 		x = 4;
 		y = 12;
-		text("(1) " + AvoidBoundaries.class.getSimpleName() + ": " + flock.getDesireMultiplier(AvoidBoundaries.class));
-		text("(2) " + Separation.class.getSimpleName() + ": " + flock.getDesireMultiplier(Separation.class));
-		text("(3) " + ClampSpeed.class.getSimpleName() + ": " + flock.getDesireMultiplier(ClampSpeed.class));
-		text("(4) " + Cohesion.class.getSimpleName() + ": " + flock.getDesireMultiplier(Cohesion.class));
-		text("(5) " + Random.class.getSimpleName() + ": " + flock.getDesireMultiplier(Random.class));
-		text("(6) " + Alignment.class.getSimpleName() + ": " + flock.getDesireMultiplier(Alignment.class));
+		text("(1) " + AvoidBoundaries.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(AvoidBoundaries.class));
+		text("(2) " + Separation.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Separation.class));
+		text("(3) " + ClampSpeed.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(ClampSpeed.class));
+		text("(4) " + Cohesion.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Cohesion.class));
+		text("(5) " + Random.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Random.class));
+		text("(6) " + Alignment.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Alignment.class));
 		text("(D) Debug info");
 		text("(R) Restart");
 		text("(Space) Pause");

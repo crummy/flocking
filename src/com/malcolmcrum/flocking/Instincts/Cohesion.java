@@ -1,24 +1,24 @@
 package com.malcolmcrum.flocking.Instincts;
 
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 import processing.core.PVector;
 
 import java.util.Set;
 
 public class Cohesion extends Instinct {
-	public Cohesion(Bird self, Set<Bird> birds) {
-		super(self, birds);
+	public Cohesion(Boid self, Set<Boid> boids) {
+		super(self, boids);
 	}
 
 	@Override
 	public Desire calculateDesire() {
 		PVector center = new PVector();
-		Set<Bird> neighbours = getNeighbours();
+		Set<Boid> neighbours = getNeighbours();
 		if (neighbours.size() == 0) {
 			return Desire.none;
 		}
-		for (Bird bird : neighbours) {
-			center.add(bird.position);
+		for (Boid boid : neighbours) {
+			center.add(boid.position);
 		}
 		center.div(neighbours.size());
 		PVector towardsCenter = PVector.sub(center, self.position);

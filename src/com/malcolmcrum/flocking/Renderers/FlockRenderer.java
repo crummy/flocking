@@ -1,6 +1,6 @@
 package com.malcolmcrum.flocking.Renderers;
 
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.Flock;
 import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PApplet;
@@ -15,7 +15,7 @@ public class FlockRenderer implements Renderer {
 
 	private final PApplet graphics;
 	private final Flock flock;
-	private Bird selectedBird;
+	private Boid selectedBoid;
 
 	public FlockRenderer(PApplet graphics, Flock flock) {
 		this.graphics = graphics;
@@ -25,7 +25,7 @@ public class FlockRenderer implements Renderer {
 	public void handleClick(int mouseX, int mouseY) {
 		float minimumDistance = 16;
 		PVector click = new PVector(mouseX, mouseY);
-		selectedBird = flock.getBirds().stream()
+		selectedBoid = flock.getBoids().stream()
 				.filter(bird -> PVector.dist(bird.position, click) < minimumDistance)
 				.sorted((a, b) -> Float.compare(PVector.dist(a.position, click), PVector.dist(b.position, click)))
 				.findFirst()
@@ -34,10 +34,10 @@ public class FlockRenderer implements Renderer {
 
 	@Override
 	public void draw() {
-		flock.getBirds().forEach(this::draw);
+		flock.getBoids().forEach(this::draw);
 
-		if (selectedBird != null) {
-			drawDebug(selectedBird);
+		if (selectedBoid != null) {
+			drawDebug(selectedBoid);
 		}
 	}
 
@@ -49,9 +49,9 @@ public class FlockRenderer implements Renderer {
 		graphics.fill(r, g, b);
 	}
 
-	private void draw(Bird bird) {
-		if (debugColours && bird.getInstincts() != null) {
-			int greatestDesire = bird.getInstincts()
+	private void draw(Boid boid) {
+		if (debugColours && boid.getInstincts() != null) {
+			int greatestDesire = boid.getInstincts()
 					.stream()
 					.sorted((a, b) -> Instinct.comparator(b, a))
 					.findFirst()
@@ -66,33 +66,33 @@ public class FlockRenderer implements Renderer {
 		int width = 8;
 		int height = 12;
 		graphics.pushMatrix();
-		graphics.translate(bird.position.x, bird.position.y);
-		graphics.rotate(bird.velocity.heading() + PI/2);
+		graphics.translate(boid.position.x, boid.position.y);
+		graphics.rotate(boid.velocity.heading() + PI/2);
 		graphics.triangle(-width/2, height/2, 0, -height/2, width/2, height/2);
 		graphics.popMatrix();
 	}
 
-	private void drawDebug(Bird bird) {
-		int textX = (int)bird.position.x + 16;
-		int textY = (int)bird.position.y;
+	private void drawDebug(Boid boid) {
+		int textX = (int) boid.position.x + 16;
+		int textY = (int) boid.position.y;
 		int spacing = 12;
 		textY += spacing;
-		for (Instinct instinct : bird.getInstincts().stream().sorted((a, b) -> Instinct.comparator(b, a)).collect(Collectors.toList())) {
+		for (Instinct instinct : boid.getInstincts().stream().sorted((a, b) -> Instinct.comparator(b, a)).collect(Collectors.toList())) {
 			setColours(instinct.getClass().hashCode());
 			graphics.noFill();
-			graphics.ellipse(bird.position.x, bird.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
-			line(bird.position, PVector.add(bird.position, instinct.getDesiredVelocity()));
+			graphics.ellipse(boid.position.x, boid.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius());
+			line(boid.position, PVector.add(boid.position, instinct.getDesiredVelocity()));
 			graphics.text(instinct.toString() + ": " + instinct.getDesiredVelocity(), textX, textY);
 			textY += spacing;
 		}
 		graphics.stroke(255);
 		graphics.strokeWeight(2);
-		line(bird.position, PVector.add(bird.position, bird.velocity));
+		line(boid.position, PVector.add(boid.position, boid.velocity));
 		graphics.strokeWeight(1);
 
 		graphics.textAlign(RIGHT);
 		graphics.fill(255);
-		graphics.text("Speed: " + bird.velocity.mag(), bird.position.x - 16, bird.position.y);
+		graphics.text("Speed: " + boid.velocity.mag(), boid.position.x - 16, boid.position.y);
 		graphics.textAlign(LEFT);
 	}
 

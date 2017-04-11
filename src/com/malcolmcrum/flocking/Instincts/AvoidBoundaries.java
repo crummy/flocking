@@ -1,6 +1,6 @@
 package com.malcolmcrum.flocking.Instincts;
 
-import com.malcolmcrum.flocking.Bird;
+import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.Rectangle;
 import processing.core.PVector;
 
@@ -12,12 +12,12 @@ public class AvoidBoundaries extends Instinct {
 
 	private static final float turningRate = PI/64;
 
-	private final Bird self;
+	private final Boid self;
 	private final Rectangle boundary;
 	private final int margin;
 
-	public AvoidBoundaries(Bird self, Set<Bird> birds, Rectangle windowBounds) {
-		super(self, birds);
+	public AvoidBoundaries(Boid self, Set<Boid> boids, Rectangle windowBounds) {
+		super(self, boids);
 		this.self = self;
 		this.margin = 256;
 		this.boundary = new Rectangle(windowBounds.left + margin, windowBounds.right - margin, windowBounds.top + margin, windowBounds.bottom - margin);
