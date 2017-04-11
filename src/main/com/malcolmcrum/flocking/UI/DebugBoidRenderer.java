@@ -27,7 +27,7 @@ public class DebugBoidRenderer implements Renderer, InputHandler {
 		float minimumDistance = 16;
 		PVector click = new PVector(mouseX, mouseY);
 		boid = flock.getBoids().stream()
-				.filter(bird -> PVector.dist(bird.position, click) < minimumDistance)
+				.filter(boid -> PVector.dist(boid.position, click) < minimumDistance)
 				.sorted((a, b) -> Float.compare(PVector.dist(a.position, click), PVector.dist(b.position, click)))
 				.findFirst()
 				.orElse(null);

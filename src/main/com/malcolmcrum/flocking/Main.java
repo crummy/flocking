@@ -27,7 +27,7 @@ public class Main extends PApplet {
     public void setup() {
         clear();
 		flock = new Flock(width, height);
-		flock.addBirds(128);
+		flock.addBoids(128);
 		ui = new UIRenderer(this, flock);
 		flockRenderer = new FlockRenderer(this, flock);
 		debugBoidRenderer = new DebugBoidRenderer(flock, this);

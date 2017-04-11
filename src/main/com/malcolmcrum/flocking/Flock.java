@@ -21,7 +21,7 @@ public class Flock {
 		bounds = new Rectangle(0, width, 0, height);
 	}
 
-	void addBirds(int count) {
+	void addBoids(int count) {
 		for (int i = 0; i < count; ++i) {
 			PVector initialPosition = new PVector(RNG.between(bounds.left, bounds.right), RNG.between(bounds.top, bounds.bottom));
 			PVector initialVelocity = new PVector(RNG.between(-maxInitialSpeed, maxInitialSpeed), RNG.between(-maxInitialSpeed, maxInitialSpeed));

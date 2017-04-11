@@ -41,8 +41,9 @@ public abstract class Instinct {
 
 	Set<Boid> getNeighbours() {
 		return otherBoids.stream()
-				.filter(bird -> bird != self)
-				.filter(bird -> PVector.dist(self.position, bird.position) < getNeighbourRadius())
+				.filter(boid -> boid != self)
+				.filter(boid -> PVector.dist(self.position, boid.position) < getNeighbourRadius())
+				.filter(self::canSee)
 				.collect(Collectors.toSet());
 	}
 

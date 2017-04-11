@@ -6,10 +6,14 @@ import processing.core.PVector;
 import java.util.Collection;
 import java.util.HashSet;
 
+import static processing.core.PConstants.PI;
+import static processing.core.PConstants.TWO_PI;
+
 public class Boid {
 	public PVector position;
 	public PVector velocity;
 	private final Instinct.DesireMultipliers desireMultipliers;
+	private final float fieldOfView = 3*PI/2;
 
 	private final Collection<Instinct> instincts;
 
@@ -41,5 +45,12 @@ public class Boid {
 
 	public Collection<Instinct> getInstincts() {
 		return instincts;
+	}
+
+	public boolean canSee(Boid other) {
+		PVector towardsOther = PVector.sub(other.position, position);
+		float angle = PVector.angleBetween(towardsOther, velocity);
+		angle = angle < 0 ? angle + TWO_PI : angle;
+		return angle < fieldOfView/2;
 	}
 }
