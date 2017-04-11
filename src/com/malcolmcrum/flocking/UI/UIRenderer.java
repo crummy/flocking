@@ -32,7 +32,7 @@ public class UIRenderer implements Renderer, InputHandler {
 				.textSize(14)
 				.item(instinctMenuItem(AvoidBoundaries.class), adjustUrgency(AvoidBoundaries.class))
 				.item(instinctMenuItem(Separation.class), adjustUrgency(Separation.class))
-				.item(instinctMenuItem(ClampSpeed.class), adjustUrgency(ClampSpeed.class))
+				.item(instinctMenuItem(Accelerate.class), adjustUrgency(Accelerate.class))
 				.item(instinctMenuItem(Cohesion.class), adjustUrgency(Cohesion.class))
 				.item(instinctMenuItem(Random.class), adjustUrgency(Random.class))
 				.item(instinctMenuItem(Alignment.class), adjustUrgency(Alignment.class))

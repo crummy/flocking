@@ -79,7 +79,7 @@ public abstract class Instinct {
 			this.multipliers = new HashMap<>();
 			this.multipliers.put(Alignment.class, 0.5f);
 			this.multipliers.put(AvoidBoundaries.class, 1f);
-			this.multipliers.put(ClampSpeed.class, 0.5f);
+			this.multipliers.put(Accelerate.class, 0.5f);
 			this.multipliers.put(Cohesion.class, 0.5f);
 			this.multipliers.put(Separation.class, 0.5f);
 			this.multipliers.put(Random.class, 0.5f);
