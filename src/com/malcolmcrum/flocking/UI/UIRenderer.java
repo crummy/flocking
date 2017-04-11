@@ -7,13 +7,18 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 public class UIRenderer implements Renderer, KeyHandler {
 	private final HashMap<Character, Runnable> keyMappings;
 	private final MenuRenderer flockMenu;
 	private final MenuRenderer debugMenu;
+	private final PApplet graphics;
+	private final Flock flock;
 
 	public UIRenderer(PApplet graphics, Flock flock) {
+		this.graphics = graphics;
+		this.flock = flock;
 		keyMappings = new HashMap<>();
 		keyMappings.put('1', () -> flock.getDesireMultipliers().set(AvoidBoundaries.class, 1));
 		keyMappings.put('2', () -> flock.getDesireMultipliers().set(Separation.class, 1));
@@ -29,12 +34,12 @@ public class UIRenderer implements Renderer, KeyHandler {
 				.coords(8, 12)
 				.lineSpacing(0, 16)
 				.textSize(14)
-				.text(() -> AvoidBoundaries.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(AvoidBoundaries.class))
-				.text(() -> Separation.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Separation.class))
-				.text(() -> ClampSpeed.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(ClampSpeed.class))
-				.text(() -> Cohesion.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Cohesion.class))
-				.text(() -> Random.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Random.class))
-				.text(() -> Alignment.class.getSimpleName() + ": " + flock.getDesireMultipliers().get(Alignment.class))
+				.text(instinctMenuItem(AvoidBoundaries.class))
+				.text(instinctMenuItem(Separation.class))
+				.text(instinctMenuItem(ClampSpeed.class))
+				.text(instinctMenuItem(Cohesion.class))
+				.text(instinctMenuItem(Random.class))
+				.text(instinctMenuItem(Alignment.class))
 				.build();
 
 		debugMenu = new MenuRenderer.Builder(graphics)
@@ -48,6 +53,14 @@ public class UIRenderer implements Renderer, KeyHandler {
 				.text("Click a boid for details")
 				.build();
 	}
+
+	private Supplier<String> instinctMenuItem(Class<? extends Instinct> instinct) {
+		return () -> {
+			setColours(instinct.hashCode(), graphics);
+			return instinct.getSimpleName() + ": " + flock.getDesireMultipliers().get(instinct);
+		};
+	}
+
 
 	@Override
 	public void keyReleased(char key) {
