@@ -35,7 +35,7 @@ public class UIRenderer implements Renderer, InputHandler {
 				.textSize(14)
 				.item(() -> {
 					setColours(getSelectedFlock().hashCode(), graphics);
-					return "Flock " + selectedFlockIndex + ": " + getSelectedFlock().getBoids().size() + " boids";
+					return "Flock " + (selectedFlockIndex+1) + ": " + getSelectedFlock().getBoids().size() + " boids";
 				})
 				.item(instinctMenuItem(AvoidBoundaries.class), adjustUrgency(AvoidBoundaries.class))
 				.item(instinctMenuItem(Separation.class), adjustUrgency(Separation.class))

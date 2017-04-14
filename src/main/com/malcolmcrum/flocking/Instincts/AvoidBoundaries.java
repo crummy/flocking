@@ -14,13 +14,11 @@ public class AvoidBoundaries extends Instinct {
 
 	private final Boid self;
 	private final Rectangle boundary;
-	private final int margin;
 
 	public AvoidBoundaries(Boid self, Set<Boid> boids, Rectangle windowBounds) {
 		super(self, boids);
 		this.self = self;
-		this.margin = 256;
-		this.boundary = new Rectangle(windowBounds.left + margin, windowBounds.right - margin, windowBounds.top + margin, windowBounds.bottom - margin);
+		this.boundary = windowBounds;
 	}
 
 	@Override
@@ -30,22 +28,22 @@ public class AvoidBoundaries extends Instinct {
 
 	@Override
 	public Desire calculateDesire() {
-
+		float margin = getNeighbourRadius();
 		PVector desiredDirection = new PVector();
 		float xStrength = 0;
-		if (self.position.x < boundary.left) {
-			xStrength = (boundary.left - self.position.x)/margin;
+		if (self.position.x < boundary.left + margin) {
+			xStrength = (self.position.x - boundary.left)/margin;
 			desiredDirection.x = 1;
-		} else if (self.position.x > boundary.right) {
-			xStrength = (self.position.x - boundary.right)/margin;
+		} else if (self.position.x > boundary.right - margin) {
+			xStrength = (boundary.right - self.position.x)/margin;
 			desiredDirection.x = -1;
 		}
 		float yStrength = 0;
-		if (self.position.y < boundary.top) {
-			yStrength = (boundary.top - self.position.y)/margin;
+		if (self.position.y < boundary.top + margin) {
+			yStrength = (self.position.y - boundary.top)/margin;
 			desiredDirection.y = 1;
-		} else if (self.position.y > boundary.bottom) {
-			yStrength = (self.position.y - boundary.bottom)/margin;
+		} else if (self.position.y > boundary.bottom - margin) {
+			yStrength = (boundary.bottom - self.position.y)/margin;
 			desiredDirection.y = -1;
 		}
 
