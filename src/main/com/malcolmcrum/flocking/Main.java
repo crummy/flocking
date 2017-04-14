@@ -38,7 +38,7 @@ public class Main extends PApplet {
 		flocks.add(flock);
 
 		ui = new UIRenderer(this, flocks);
-		debugBoidRenderer = new DebugBoidRenderer(flock, this);
+		debugBoidRenderer = new DebugBoidRenderer(this, flocks);
 	}
 
     @Override

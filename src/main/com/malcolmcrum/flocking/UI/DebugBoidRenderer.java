@@ -10,25 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static processing.core.PConstants.LEFT;
-import static processing.core.PConstants.PIE;
-import static processing.core.PConstants.RIGHT;
+import static processing.core.PConstants.*;
 
 public class DebugBoidRenderer implements Renderer, InputHandler {
-	private final Flock flock;
 	private final PApplet graphics;
+	private final List<Flock> flocks;
 	private Boid boid;
 
-	public DebugBoidRenderer(Flock flock, PApplet graphics) {
-		this.flock = flock;
+	public DebugBoidRenderer(PApplet graphics, List<Flock> flocks) {
 		this.graphics = graphics;
+		this.flocks = flocks;
 	}
 
 	@Override
 	public void handleClick(int mouseX, int mouseY) {
 		float minimumDistance = 16;
 		PVector click = new PVector(mouseX, mouseY);
-		boid = flock.getBoids().stream()
+		boid = flocks.stream()
+				.flatMap(flock -> flock.getBoids().stream())
 				.filter(boid -> PVector.dist(boid.position, click) < minimumDistance)
 				.sorted((a, b) -> Float.compare(PVector.dist(a.position, click), PVector.dist(b.position, click)))
 				.findFirst()
