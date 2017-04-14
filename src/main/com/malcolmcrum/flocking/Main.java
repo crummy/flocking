@@ -30,10 +30,14 @@ public class Main extends PApplet {
         clear();
         flocks = new LinkedList<>();
 
-        Flock flock = new Flock(width, height);
-		Flock enemyFlock = new Flock(width, height);
-		flock.addBoids(128);
-		enemyFlock.addBoids(16);
+        Flock flock = new Flock.Builder(width, height)
+				.initialBoids(128)
+				.withDefaultInstincts()
+				.create();
+		Flock enemyFlock = new Flock.Builder(width, height)
+				.initialBoids(16)
+				.withDefaultInstincts()
+				.create();
 		flocks.add(enemyFlock);
 		flocks.add(flock);
 

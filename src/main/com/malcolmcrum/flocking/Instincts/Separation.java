@@ -11,19 +11,19 @@ import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
 public class Separation extends Instinct {
-	public Separation(Boid self, Set<Boid> boids) {
-		super(self, boids);
+	public Separation(Set<Boid> flock) {
+		super(flock);
 	}
 
 	@Override
-	public Desire calculateDesire() {
+	public Desire calculateDesire(Boid boid) {
 		PVector awayFromOthers = new PVector();
-		for (Boid other : getNeighbours()) {
-			float distance = dist(self.position, other.position);
+		for (Boid neighbour : getNeighbours(boid)) {
+			float distance = dist(boid.position, neighbour.position);
 
 			float urgency = map(distance, 0, getNeighbourRadius(), 1, 0);
 
-			float angle = angleBetween(self.velocity, other.velocity);
+			float angle = angleBetween(boid.velocity, neighbour.velocity);
 			awayFromOthers.add(PVector.fromAngle(angle + PI).mult(urgency*urgency));
 		}
 

@@ -4,7 +4,8 @@ import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PVector;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static processing.core.PConstants.PI;
 import static processing.core.PConstants.TWO_PI;
@@ -12,35 +13,25 @@ import static processing.core.PConstants.TWO_PI;
 public class Boid {
 	public PVector position;
 	public PVector velocity;
-	private final Instinct.DesireMultipliers desireMultipliers;
 	public static final float fieldOfView = 3*PI/2;
 
 	private final Collection<Instinct> instincts;
 
-	Boid(PVector initialPosition, PVector initialVelocity, Instinct.DesireMultipliers desireMultipliers) {
+	Boid(PVector initialPosition, PVector initialVelocity, Set<Instinct> instincts) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
-		this.desireMultipliers = desireMultipliers;
-		this.instincts = new HashSet<>();
-	}
-
-	void addDesire(Instinct instinct) {
-		instincts.add(instinct);
+		this.instincts = instincts;
 	}
 
 	void update() {
-		instincts.forEach(Instinct::update);
-		float totalUrgency = (float) instincts.stream()
-				.mapToDouble(Instinct::getUrgency)
-				.sum();
-		instincts.stream()
-				.filter(instinct -> instinct.getUrgency() > 0)
-				.forEach(instinct -> {
-					float desireMultiplier = desireMultipliers.get(instinct.getClass());
-					float balancedUrgency = (instinct.getUrgency() * desireMultiplier) / totalUrgency;
-					velocity.lerp(instinct.getDesiredVelocity(), balancedUrgency);
-				});
-		position.lerp(PVector.add(position, velocity), 0.05f);
+		Collection<Instinct.Desire> desires = instincts.stream()
+				.map(instinct -> instinct.calculateWeightedDesire(this))
+				.collect(Collectors.toSet());
+		float totalUrgency = (float)desires.stream().mapToDouble(desire -> desire.urgency).sum();
+		desires.forEach(desire -> {
+			float balancedUrgency = desire.urgency / totalUrgency;
+			velocity.lerp(desire.velocity, balancedUrgency);
+		});
 	}
 
 	public Collection<Instinct> getInstincts() {
