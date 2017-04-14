@@ -39,8 +39,8 @@ public class Main extends PApplet {
 		flocks.add(enemyFlock);
 		flocks.add(flock);
 
-		instinctMenu = new InstinctMenu(this, 12, flocks);
-		settingsMenu = new SettingsMenu(this, 12);
+		instinctMenu = new InstinctMenu(this, 14, flocks);
+		settingsMenu = new SettingsMenu(this, 14);
 		debugBoidRenderer = new DebugBoidRenderer(this, flocks);
 	}
 
@@ -66,11 +66,11 @@ public class Main extends PApplet {
 	@Override
     public void keyReleased() {
 		instinctMenu.keyReleased(key);
-		settingsMenu.keyReleased(key);
 	}
 
 	@Override
 	public void keyPressed() {
 		instinctMenu.keyPressed(key);
+		settingsMenu.keyPressed(key);
 	}
 }

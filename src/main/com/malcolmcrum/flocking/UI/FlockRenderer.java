@@ -24,13 +24,11 @@ public class FlockRenderer implements Renderer {
 
 	private void draw(Boid boid) {
 		if (debugColours) {
-			int greatestDesire = boid.getDesires()
+			boid.getDesires()
 					.stream()
 					.sorted((a, b) -> Float.compare(b.urgency, a.urgency))
 					.findFirst()
-					.get()
-					.name.hashCode();
-			setColours(greatestDesire, graphics);
+					.ifPresent(desire -> setColours(desire.name.hashCode(), graphics));
 		} else {
 			setColours(flock.hashCode(), graphics);
 		}

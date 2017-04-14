@@ -41,10 +41,6 @@ public class Flock {
 		return instinct;
 	}
 
-	public float getWeight(Class<? extends Instinct> instinct) {
-		return instincts.stream().filter(i -> i.getClass().equals(instinct)).findAny().get().getWeight();
-	}
-
 	public Set<Instinct> getInstincts() {
 		return instincts;
 	}

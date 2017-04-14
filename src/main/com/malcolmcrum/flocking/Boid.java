@@ -4,6 +4,7 @@ import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PVector;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,17 +23,19 @@ public class Boid {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
 		this.instincts = instincts;
+		this.desires = new HashSet<>();
 	}
 
 	void update() {
 		desires = instincts.stream()
-				.map(instinct -> new Desire(instinct.getClass().getName(), instinct.calculateWeightedImpulse(this), instinct.getNeighbourRadius()))
+				.map(instinct -> new Desire(instinct.getClass().getSimpleName(), instinct.calculateWeightedImpulse(this), instinct.getNeighbourRadius()))
 				.collect(Collectors.toSet());
 		float totalUrgency = (float) desires.stream().mapToDouble(desire -> desire.urgency).sum();
 		desires.forEach(desire -> {
 			float balancedUrgency = desire.urgency / totalUrgency;
 			velocity.lerp(desire.velocity, balancedUrgency);
 		});
+		position.lerp(PVector.add(position, velocity), 0.05f);
 	}
 
 	public Collection<Desire> getDesires() {
@@ -60,6 +63,11 @@ public class Boid {
 			this.velocity = impulse.velocity;
 			this.urgency = impulse.urgency;
 			this.radius = radius;
+		}
+
+		@Override
+		public String toString() {
+			return String.format("%s: %.0f%% (%.1f %.1f)", name, urgency * 1, velocity.x, velocity.y);
 		}
 	}
 }

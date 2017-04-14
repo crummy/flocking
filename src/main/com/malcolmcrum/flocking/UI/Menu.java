@@ -2,8 +2,6 @@ package com.malcolmcrum.flocking.UI;
 
 import processing.core.PApplet;
 
-import java.util.function.Supplier;
-
 public abstract class Menu implements Renderer {
 	private final PApplet graphics;
 	private final int startX;
@@ -38,36 +36,5 @@ public abstract class Menu implements Renderer {
 		graphics.text(s, x, y);
 		x += xStep;
 		y += yStep;
-	}
-
-	public static class Item implements InputHandler {
-		private final Supplier<String> text;
-		private final InputHandler handler;
-
-		public Item(Supplier<String> text, InputHandler inputHandler) {
-			this.text = text;
-			this.handler = inputHandler;
-		}
-
-		public Item(Supplier<String> text) {
-			this.text = text;
-			this.handler = null;
-		}
-
-		public Item(String text) {
-			this.text = () -> text;
-			this.handler = null;
-		}
-
-		public String getText() {
-			return text.get();
-		}
-
-		@Override
-		public void keyPressed(char key) {
-			if (handler != null) {
-				handler.keyPressed(key);
-			}
-		}
 	}
 }
