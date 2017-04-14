@@ -11,16 +11,16 @@ public class Alignment extends Instinct {
 	}
 
 	@Override
-	public Desire calculateDesire(Boid boid) {
+	public Impulse calculateImpulse(Boid boid) {
 		PVector averageVelocity = new PVector();
 		Set<Boid> neighbours = getNeighbours(boid);
 		if (neighbours.size() == 0) {
-			return Desire.none;
+			return Impulse.none;
 		}
 		for (Boid neighbour : neighbours) {
 			averageVelocity.add(neighbour.velocity);
 		}
 		averageVelocity.div(neighbours.size());
-		return new Desire(1f, averageVelocity);
+		return new Impulse(1f, averageVelocity);
 	}
 }

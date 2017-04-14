@@ -14,12 +14,12 @@ public class Random extends Instinct {
 	}
 
 	@Override
-	public Desire calculateDesire(Boid boid) {
+	public Impulse calculateImpulse(Boid boid) {
 		if (RNG.between(0, 10) == 1) {
 			float offset = RNG.between(-PI/2, PI/2);
-			return new Desire(1f, PVector.fromAngle(boid.velocity.heading() + offset));
+			return new Impulse(1f, PVector.fromAngle(boid.velocity.heading() + offset));
 		} else {
-			return Desire.none;
+			return Impulse.none;
 		}
 	}
 }

@@ -16,14 +16,14 @@ public class Accelerate extends Instinct {
 	}
 
 	@Override
-	public Desire calculateDesire(Boid boid) {
+	public Impulse calculateImpulse(Boid boid) {
 		float speed = boid.velocity.mag();
 		float urgency = map(speed, 0, maxSpeed, 1, 0);
 		PVector desiredVelocity = boid.velocity.normalize(null).mult(maxSpeed);
 		if (urgency < 0) {
-			return Desire.none;
+			return Impulse.none;
 		} else {
-			return new Desire(urgency, desiredVelocity);
+			return new Impulse(urgency, desiredVelocity);
 		}
 	}
 }

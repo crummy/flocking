@@ -11,11 +11,11 @@ public class Cohesion extends Instinct {
 	}
 
 	@Override
-	public Desire calculateDesire(Boid boid) {
+	public Impulse calculateImpulse(Boid boid) {
 		PVector center = new PVector();
 		Set<Boid> neighbours = getNeighbours(boid);
 		if (neighbours.size() == 0) {
-			return Desire.none;
+			return Impulse.none;
 		}
 		for (Boid neighbour : neighbours) {
 			center.add(neighbour.position);
@@ -23,7 +23,7 @@ public class Cohesion extends Instinct {
 		center.div(neighbours.size());
 		PVector towardsNeighbours = PVector.sub(center, boid.position);
 		float distanceToCenterOfNeighbours = towardsNeighbours.mag();
-		return new Desire(1f, towardsNeighbours.normalize().mult(distanceToCenterOfNeighbours * 0.01f));
+		return new Impulse(1f, towardsNeighbours.normalize().mult(distanceToCenterOfNeighbours * 0.01f));
 	}
 
 }

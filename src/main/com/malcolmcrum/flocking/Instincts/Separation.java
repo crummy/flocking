@@ -16,7 +16,7 @@ public class Separation extends Instinct {
 	}
 
 	@Override
-	public Desire calculateDesire(Boid boid) {
+	public Impulse calculateImpulse(Boid boid) {
 		PVector awayFromOthers = new PVector();
 		for (Boid neighbour : getNeighbours(boid)) {
 			float distance = dist(boid.position, neighbour.position);
@@ -27,6 +27,6 @@ public class Separation extends Instinct {
 			awayFromOthers.add(PVector.fromAngle(angle + PI).mult(urgency*urgency));
 		}
 
-		return new Desire(1, awayFromOthers);
+		return new Impulse(1, awayFromOthers);
 	}
 }

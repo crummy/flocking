@@ -2,7 +2,6 @@ package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.Flock;
-import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -45,13 +44,13 @@ public class DebugBoidRenderer implements Renderer, InputHandler {
 		int textY = (int) boid.position.y;
 		int spacing = 16;
 		textY += spacing;
-		for (Instinct instinct : getActiveInstincts()) {
-			setColours(instinct.getClass().hashCode(), graphics);
+		for (Boid.Desire desire : getActiveDesires()) {
+			setColours(desire.name.hashCode(), graphics);
 			graphics.noFill();
-			graphics.arc(boid.position.x, boid.position.y, instinct.getNeighbourRadius(), instinct.getNeighbourRadius(),
+			graphics.arc(boid.position.x, boid.position.y, desire.radius, desire.radius,
 					-Boid.fieldOfView/2 + boid.velocity.heading(), Boid.fieldOfView/2 + boid.velocity.heading(), PIE);
-			line(boid.position, PVector.add(boid.position, instinct.getDesiredVelocity()));
-			graphics.text(instinct.toString(), textX, textY);
+			line(boid.position, PVector.add(boid.position, desire.velocity));
+			graphics.text(desire.toString(), textX, textY);
 			textY += spacing;
 		}
 		graphics.stroke(255);
@@ -65,14 +64,13 @@ public class DebugBoidRenderer implements Renderer, InputHandler {
 		graphics.textAlign(LEFT);
 	}
 
-	private List<Instinct> getActiveInstincts() {
+	private List<Boid.Desire> getActiveDesires() {
 		if (boid == null) {
 			return new ArrayList<>();
 		} else {
-			return boid.getInstincts()
-					.stream()
-					.filter(instinct -> instinct.getUrgency() > 0)
-					.sorted((a, b) -> Instinct.comparator(b, a))
+			return boid.getDesires().stream()
+					.filter(desire -> desire.urgency > 0)
+					.sorted((a, b) -> Float.compare(b.urgency, a.urgency))
 					.collect(Collectors.toList());
 		}
 	}

@@ -1,20 +1,18 @@
 package com.malcolmcrum.flocking;
 
-import com.malcolmcrum.flocking.UI.DebugBoidRenderer;
-import com.malcolmcrum.flocking.UI.FlockRenderer;
-import com.malcolmcrum.flocking.UI.UIRenderer;
+import com.malcolmcrum.flocking.UI.*;
 import processing.core.PApplet;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Main extends PApplet {
 
 	public static boolean isPaused = true;
 
 	private List<Flock> flocks;
-	private UIRenderer ui;
 	private DebugBoidRenderer debugBoidRenderer;
+	private SettingsMenu settingsMenu;
+	private InstinctMenu instinctMenu;
 
 	public static void main(String args[]) {
         PApplet.main(Main.class);
@@ -41,7 +39,8 @@ public class Main extends PApplet {
 		flocks.add(enemyFlock);
 		flocks.add(flock);
 
-		ui = new UIRenderer(this, flocks);
+		instinctMenu = new InstinctMenu(this, 12, flocks);
+		settingsMenu = new SettingsMenu(this, 12);
 		debugBoidRenderer = new DebugBoidRenderer(this, flocks);
 	}
 
@@ -55,7 +54,8 @@ public class Main extends PApplet {
 
 		flocks.forEach(flock -> new FlockRenderer(this, flock).draw());
 		debugBoidRenderer.draw();
-		ui.draw();
+		settingsMenu.draw();
+		instinctMenu.draw();
 	}
 
 	@Override
@@ -65,11 +65,12 @@ public class Main extends PApplet {
 
 	@Override
     public void keyReleased() {
-		ui.keyReleased(key);
+		instinctMenu.keyReleased(key);
+		settingsMenu.keyReleased(key);
 	}
 
 	@Override
 	public void keyPressed() {
-		ui.keyPressed(key);
+		instinctMenu.keyPressed(key);
 	}
 }

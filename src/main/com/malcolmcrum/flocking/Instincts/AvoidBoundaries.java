@@ -25,7 +25,7 @@ public class AvoidBoundaries extends Instinct {
 	}
 
 	@Override
-	public Desire calculateDesire(Boid boid) {
+	public Impulse calculateImpulse(Boid boid) {
 		float margin = getNeighbourRadius();
 		PVector desiredDirection = new PVector();
 		float xStrength = 0;
@@ -53,6 +53,6 @@ public class AvoidBoundaries extends Instinct {
 		}
 		float speed = boid.velocity.mag();
 		PVector desiredVelocity = PVector.lerp(boid.velocity.copy().normalize(), desiredDirection, turningRate).mult(speed);
-		return new Desire(strength, desiredVelocity);
+		return new Impulse(strength, desiredVelocity);
 	}
 }

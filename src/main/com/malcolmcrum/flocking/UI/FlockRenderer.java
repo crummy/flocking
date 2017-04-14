@@ -2,7 +2,6 @@ package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.Flock;
-import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PApplet;
 
 import static processing.core.PConstants.PI;
@@ -25,12 +24,12 @@ public class FlockRenderer implements Renderer {
 
 	private void draw(Boid boid) {
 		if (debugColours) {
-			int greatestDesire = boid.getInstincts()
+			int greatestDesire = boid.getDesires()
 					.stream()
-					.sorted((a, b) -> Instinct.comparator(b, a))
+					.sorted((a, b) -> Float.compare(b.urgency, a.urgency))
 					.findFirst()
 					.get()
-					.getClass().hashCode();
+					.name.hashCode();
 			setColours(greatestDesire, graphics);
 		} else {
 			setColours(flock.hashCode(), graphics);

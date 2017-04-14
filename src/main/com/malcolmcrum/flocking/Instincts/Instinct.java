@@ -27,12 +27,12 @@ public abstract class Instinct {
 		return weight;
 	}
 
-	public Desire calculateWeightedDesire(Boid self) {
-		Desire desire = calculateDesire(self);
-		return new Desire(desire.urgency * weight, desire.velocity);
+	public Impulse calculateWeightedImpulse(Boid self) {
+		Impulse impulse = calculateImpulse(self);
+		return new Impulse(impulse.urgency * weight, impulse.velocity);
 	}
 
-	abstract Desire calculateDesire(Boid self);
+	abstract Impulse calculateImpulse(Boid self);
 
 	public float getNeighbourRadius() {
 		return 128;
@@ -46,13 +46,13 @@ public abstract class Instinct {
 				.collect(Collectors.toSet());
 	}
 
-	public static class Desire {
-		static Desire none = new Desire(0, new PVector());
+	public static class Impulse {
+		static Impulse none = new Impulse(0, new PVector());
 
 		public final float urgency;
 		public final PVector velocity;
 
-		Desire(float urgency, PVector velocity) {
+		Impulse(float urgency, PVector velocity) {
 			this.urgency = urgency;
 			this.velocity = velocity;
 		}
