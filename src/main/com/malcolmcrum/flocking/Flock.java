@@ -3,7 +3,9 @@ package com.malcolmcrum.flocking;
 import com.malcolmcrum.flocking.Instincts.*;
 import processing.core.PVector;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Flock {
@@ -13,11 +15,11 @@ public class Flock {
 	private String name;
 	private final Rectangle bounds;
 	private final Set<Boid> boids;
-	private final Set<Instinct> instincts;
+	private final List<Instinct> instincts;
 
 	private Flock(int width, int height) {
 		this.name = "Flock " + ++totalFlocks;
-		this.instincts = new HashSet<>();
+		this.instincts = new ArrayList<>();
 		this.boids = new HashSet<>();
 		this.bounds = new Rectangle(0, width, 0, height);
 	}
@@ -44,7 +46,7 @@ public class Flock {
 		return instinct;
 	}
 
-	public Set<Instinct> getInstincts() {
+	public List<Instinct> getInstincts() {
 		return instincts;
 	}
 

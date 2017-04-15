@@ -9,6 +9,7 @@ import processing.core.PConstants;
 import java.util.ArrayList;
 
 public class InstinctMenu extends Menu implements InputHandler {
+	private static final float adjustmentIncrement = 0.01f;
 	private int selectedInstinctIndex;
 
 	public InstinctMenu(PApplet graphics, int textSize) {
@@ -26,6 +27,27 @@ public class InstinctMenu extends Menu implements InputHandler {
 					String prefix = isSelected(instinct) ? "> " : "";
 					text(prefix + instinct.getClass().getSimpleName() + ": " + (instinct.getWeight()*100) + "%");
 				});
+	}
+	
+	@Override
+	public void leftPressed() {
+		adjustWeight(-adjustmentIncrement);
+	}
+
+	@Override
+	public void rightPressed() {
+		adjustWeight(adjustmentIncrement);
+	}
+
+	private void adjustWeight(float amount) {
+		float weight = getSelectedInstinct().getWeight();
+		float newWeight = weight + amount;
+		if (newWeight < 0) {
+			newWeight = 0;
+		} else if (newWeight > 1) {
+			newWeight = 1;
+		}
+		getSelectedInstinct().setWeight(newWeight);
 	}
 
 	@Override
@@ -69,5 +91,9 @@ public class InstinctMenu extends Menu implements InputHandler {
 		} else {
 			selectedInstinctIndex = index;
 		}
+	}
+
+	private Instinct getSelectedInstinct() {
+		return FlockManager.getSelectedFlock().getInstincts().get(selectedInstinctIndex);
 	}
 }

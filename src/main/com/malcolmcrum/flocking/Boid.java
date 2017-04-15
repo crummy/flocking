@@ -5,7 +5,6 @@ import processing.core.PVector;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static processing.core.PConstants.PI;
@@ -19,7 +18,7 @@ public class Boid {
 	private final Collection<Instinct> instincts;
 	private Collection<Desire> desires; // stored on each frame so we can read it later for debug purposes
 
-	Boid(PVector initialPosition, PVector initialVelocity, Set<Instinct> instincts) {
+	Boid(PVector initialPosition, PVector initialVelocity, Collection<Instinct> instincts) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
 		this.instincts = instincts;
