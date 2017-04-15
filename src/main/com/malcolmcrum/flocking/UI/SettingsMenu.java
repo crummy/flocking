@@ -11,6 +11,9 @@ import java.util.List;
 
 public class SettingsMenu extends Menu implements InputHandler {
 
+	/**
+	 * Mappings of LOWERCASE characters to outputs. Put an uppercase char in here and it won't work.
+	 */
 	private final HashMap<Character, Runnable> keyMappings;
 	private List<String> items;
 
@@ -40,7 +43,7 @@ public class SettingsMenu extends Menu implements InputHandler {
 
 	@Override
 	public void keyPressed(char key) {
-		if (keyMappings.containsKey(key)) {
+		if (keyMappings.containsKey(Character.toLowerCase(key))) {
 			keyMappings.get(key).run();
 		}
 	}
