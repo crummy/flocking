@@ -30,18 +30,18 @@ public class AvoidBoundaries extends Instinct {
 		PVector desiredDirection = new PVector();
 		float xStrength = 0;
 		if (boid.position.x < boundary.left + margin) {
-			xStrength = (boid.position.x - boundary.left)/margin;
+			xStrength = ((margin - boundary.left) - boid.position.x)/margin;
 			desiredDirection.x = 1;
 		} else if (boid.position.x > boundary.right - margin) {
-			xStrength = (boundary.right - boid.position.x)/margin;
+			xStrength = (boid.position.x - (boundary.right - margin))/margin;
 			desiredDirection.x = -1;
 		}
 		float yStrength = 0;
 		if (boid.position.y < boundary.top + margin) {
-			yStrength = (boid.position.y - boundary.top)/margin;
+			yStrength = ((margin - boundary.top) - boid.position.y)/margin;
 			desiredDirection.y = 1;
 		} else if (boid.position.y > boundary.bottom - margin) {
-			yStrength = (boundary.bottom - boid.position.y)/margin;
+			yStrength = (boid.position.y - (boundary.top - margin))/margin;
 			desiredDirection.y = -1;
 		}
 

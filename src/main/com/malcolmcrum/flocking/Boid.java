@@ -67,7 +67,7 @@ public class Boid {
 
 		@Override
 		public String toString() {
-			return String.format("%s: %.0f%% (%.1f %.1f)", name, urgency * 1, velocity.x, velocity.y);
+			return String.format("%s: %.0f%% (%.1f %.1f)", name, urgency * 100, velocity.x, velocity.y);
 		}
 	}
 }
