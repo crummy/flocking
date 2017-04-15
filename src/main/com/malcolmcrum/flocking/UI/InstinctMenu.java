@@ -25,7 +25,7 @@ public class InstinctMenu extends Menu implements InputHandler {
 		flock.getInstincts()
 				.forEach(instinct -> {
 					String prefix = isSelected(instinct) ? "> " : "";
-					text(prefix + instinct.getClass().getSimpleName() + ": " + (instinct.getWeight()*100) + "%");
+					text(String.format("%s%s: %.0f%%", prefix, instinct.getClass().getSimpleName(), instinct.getWeight()*100));
 				});
 	}
 	
