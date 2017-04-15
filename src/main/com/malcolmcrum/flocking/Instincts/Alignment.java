@@ -11,6 +11,11 @@ public class Alignment extends Instinct {
 	}
 
 	@Override
+	public float getNeighbourRadius() {
+		return 64;
+	}
+
+	@Override
 	public Impulse calculateImpulse(Boid boid) {
 		PVector averageVelocity = new PVector();
 		Set<Boid> neighbours = getNeighbours(boid);

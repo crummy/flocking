@@ -59,7 +59,7 @@ public class Flock {
 		}
 		public Builder withDefaultInstincts() {
 			flock.addInstinct(new Accelerate(flock.boids)).setWeight(0.5f);
-			flock.addInstinct(new Alignment(flock.boids)).setWeight(0.5f);
+			flock.addInstinct(new Alignment(flock.boids)).setWeight(0.1f);
 			flock.addInstinct(new AvoidBoundaries(flock.boids, flock.bounds)).setWeight(1f);
 			flock.addInstinct(new Cohesion(flock.boids)).setWeight(0.1f);
 			flock.addInstinct(new Random(flock.boids)).setWeight(0.1f);
