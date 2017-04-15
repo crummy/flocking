@@ -28,8 +28,8 @@ public class SettingsMenu extends Menu implements InputHandler {
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('c', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
-		keyMappings.put('-', FlockManager::addBoidToFlock);
-		keyMappings.put('+', FlockManager::removeBoidFromFlock);
+		keyMappings.put('+', FlockManager::addBoidToFlock);
+		keyMappings.put('-', FlockManager::removeBoidFromFlock);
 	}
 
 	@Override
