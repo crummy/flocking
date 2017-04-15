@@ -14,7 +14,7 @@ public class InstinctMenu extends Menu implements InputHandler {
 	private int selectedInstinctIndex;
 
 	public InstinctMenu(PApplet graphics, int textSize, List<Flock> flocks) {
-		super(graphics, 8, 12, PConstants.LEFT, textSize, 0, textSize + 4);
+		super(graphics, 8, 12, PConstants.LEFT, textSize, 0, textSize + 4, Colour.WHITE);
 		this.flock = flocks.get(0);
 		this.flocks = flocks;
 		this.selectedInstinctIndex = 0;
@@ -23,7 +23,7 @@ public class InstinctMenu extends Menu implements InputHandler {
 	@Override
 	public void draw() {
 		super.draw();
-		text("Flock " + (selectedInstinctIndex + 1) + " (" + flock.getBoids().size() + " boids)");
+		text("Flock " + (flocks.indexOf(flock) + 1) + " (" + flock.getBoids().size() + " boids)");
 		flock.getInstincts()
 				.forEach(instinct -> {
 					String prefix = isSelected(instinct) ? "> " : "";
@@ -32,12 +32,12 @@ public class InstinctMenu extends Menu implements InputHandler {
 	}
 
 	@Override
-	public void upReleased() {
+	public void upPressed() {
 		selectPrevious();
 	}
 
 	@Override
-	public void downReleased() {
+	public void downPressed() {
 		selectNext();
 	}
 

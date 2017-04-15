@@ -14,7 +14,7 @@ public class SettingsMenu extends Menu implements InputHandler {
 	private List<String> items;
 
 	public SettingsMenu(PApplet graphics, int textSize) {
-		super(graphics, graphics.width - 8, 12, PConstants.RIGHT, textSize, 0, textSize + 4);
+		super(graphics, graphics.width - 8, 12, PConstants.RIGHT, textSize, 0, textSize + 4, Colour.WHITE);
 		items = new ArrayList<>();
 		items.add("    C: Debug colours");
 		items.add("    R: Restart");
