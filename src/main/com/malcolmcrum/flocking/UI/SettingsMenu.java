@@ -1,5 +1,6 @@
 package com.malcolmcrum.flocking.UI;
 
+import com.malcolmcrum.flocking.FlockManager;
 import com.malcolmcrum.flocking.Main;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -16,6 +17,7 @@ public class SettingsMenu extends Menu implements InputHandler {
 	public SettingsMenu(PApplet graphics, int textSize) {
 		super(graphics, graphics.width - 8, 12, PConstants.RIGHT, textSize, 0, textSize + 4, Colour.WHITE);
 		items = new ArrayList<>();
+		items.add("  +/-: Add/remove boids");
 		items.add("    C: Debug colours");
 		items.add("    R: Restart");
 		items.add("  TAB: Change flocks");
@@ -26,6 +28,8 @@ public class SettingsMenu extends Menu implements InputHandler {
 		keyMappings.put(' ', () -> Main.isPaused = !Main.isPaused);
 		keyMappings.put('c', () -> FlockRenderer.debugColours = !FlockRenderer.debugColours);
 		keyMappings.put('r', graphics::setup);
+		keyMappings.put('-', FlockManager::addBoidToFlock);
+		keyMappings.put('+', FlockManager::removeBoidFromFlock);
 	}
 
 	@Override

@@ -1,29 +1,26 @@
 package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Flock;
+import com.malcolmcrum.flocking.FlockManager;
 import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class InstinctMenu extends Menu implements InputHandler {
-	private List<Flock> flocks;
-	private Flock flock;
 	private int selectedInstinctIndex;
 
-	public InstinctMenu(PApplet graphics, int textSize, List<Flock> flocks) {
+	public InstinctMenu(PApplet graphics, int textSize) {
 		super(graphics, 8, 12, PConstants.LEFT, textSize, 0, textSize + 4, Colour.WHITE);
-		this.flock = flocks.get(0);
-		this.flocks = flocks;
 		this.selectedInstinctIndex = 0;
 	}
 
 	@Override
 	public void draw() {
 		super.draw();
-		text("Flock " + (flocks.indexOf(flock) + 1) + " (" + flock.getBoids().size() + " boids)");
+		Flock flock = FlockManager.getSelectedFlock();
+		text(flock.getName() + " (" + flock.getBoids().size() + " boids)");
 		flock.getInstincts()
 				.forEach(instinct -> {
 					String prefix = isSelected(instinct) ? "> " : "";
@@ -45,12 +42,7 @@ public class InstinctMenu extends Menu implements InputHandler {
 	public void keyPressed(char key) {
 		InputHandler.super.keyPressed(key);
 		if (key == '\t') {
-			int currentSelection = flocks.indexOf(flock);
-			int nextSelection = currentSelection + 1;
-			if (nextSelection > flocks.size() - 1) {
-				nextSelection = 0;
-			}
-			flock = flocks.get(nextSelection);
+			FlockManager.selectNextFlock();
 		}
 	}
 
@@ -62,11 +54,14 @@ public class InstinctMenu extends Menu implements InputHandler {
 		select(selectedInstinctIndex - 1);
 	}
 
+	// TODO improve this
 	private boolean isSelected(Instinct instinct) {
+		Flock flock = FlockManager.getSelectedFlock();
 		return new ArrayList<>(flock.getInstincts()).get(selectedInstinctIndex).equals(instinct);
 	}
 
 	private void select(int index) {
+		Flock flock = FlockManager.getSelectedFlock();
 		if (index < 0) {
 			selectedInstinctIndex = flock.getInstincts().size() - 1;
 		} else if (index >= flock.getInstincts().size()) {

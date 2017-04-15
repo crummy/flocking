@@ -1,15 +1,15 @@
 package com.malcolmcrum.flocking;
 
-import com.malcolmcrum.flocking.UI.*;
+import com.malcolmcrum.flocking.UI.DebugBoidRenderer;
+import com.malcolmcrum.flocking.UI.InstinctMenu;
+import com.malcolmcrum.flocking.UI.SettingsMenu;
 import processing.core.PApplet;
-
-import java.util.*;
 
 public class Main extends PApplet {
 
 	public static boolean isPaused = true;
 
-	private List<Flock> flocks;
+	private FlockManager flocks;
 	private DebugBoidRenderer debugBoidRenderer;
 	private SettingsMenu settingsMenu;
 	private InstinctMenu instinctMenu;
@@ -26,7 +26,7 @@ public class Main extends PApplet {
 	@Override
     public void setup() {
         clear();
-        flocks = new LinkedList<>();
+        flocks = new FlockManager(this);
 
         Flock flock = new Flock.Builder(width, height)
 				.initialBoids(128)
@@ -39,20 +39,20 @@ public class Main extends PApplet {
 		flocks.add(enemyFlock);
 		flocks.add(flock);
 
-		instinctMenu = new InstinctMenu(this, 14, flocks);
+		instinctMenu = new InstinctMenu(this, 14);
 		settingsMenu = new SettingsMenu(this, 14);
-		debugBoidRenderer = new DebugBoidRenderer(this, flocks);
+		debugBoidRenderer = new DebugBoidRenderer(this);
 	}
 
     @Override
     public void draw() {
 		if (isPaused == false) {
-			flocks.forEach(Flock::update);
+			flocks.update();
 		}
 
 		clear();
 
-		flocks.forEach(flock -> new FlockRenderer(this, flock).draw());
+		flocks.draw();
 		debugBoidRenderer.draw();
 		settingsMenu.draw();
 		instinctMenu.draw();
@@ -72,5 +72,13 @@ public class Main extends PApplet {
 	public void keyPressed() {
 		instinctMenu.keyPressed(key);
 		settingsMenu.keyPressed(key);
+	}
+
+	public void addBoidToFlock() {
+
+	}
+
+	public void removeBoidFromFlock() {
+
 	}
 }

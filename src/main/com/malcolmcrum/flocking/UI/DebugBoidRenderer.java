@@ -1,7 +1,7 @@
 package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Boid;
-import com.malcolmcrum.flocking.Flock;
+import com.malcolmcrum.flocking.FlockManager;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -13,19 +13,17 @@ import static processing.core.PConstants.*;
 
 public class DebugBoidRenderer implements Renderer, InputHandler {
 	private final PApplet graphics;
-	private final List<Flock> flocks;
 	private Boid boid;
 
-	public DebugBoidRenderer(PApplet graphics, List<Flock> flocks) {
+	public DebugBoidRenderer(PApplet graphics) {
 		this.graphics = graphics;
-		this.flocks = flocks;
 	}
 
 	@Override
 	public void handleClick(int mouseX, int mouseY) {
 		float minimumDistance = 16;
 		PVector click = new PVector(mouseX, mouseY);
-		boid = flocks.stream()
+		boid = FlockManager.getFlocks().stream()
 				.flatMap(flock -> flock.getBoids().stream())
 				.filter(boid -> PVector.dist(boid.position, click) < minimumDistance)
 				.sorted((a, b) -> Float.compare(PVector.dist(a.position, click), PVector.dist(b.position, click)))
