@@ -3,6 +3,7 @@ package com.malcolmcrum.flocking.Instincts;
 import com.malcolmcrum.flocking.Boid;
 import processing.core.PVector;
 
+import java.util.Collection;
 import java.util.Set;
 
 import static processing.core.PApplet.map;
@@ -18,7 +19,12 @@ public class Separation extends Instinct {
 	@Override
 	public Impulse calculateImpulse(Boid boid) {
 		PVector awayFromOthers = new PVector();
-		for (Boid neighbour : getNeighbours(boid)) {
+		Collection<Boid> neighbours = getNeighbours(boid);
+		if (neighbours.size() == 0) {
+			return Impulse.none;
+		}
+
+		for (Boid neighbour : neighbours) {
 			float distance = dist(boid.position, neighbour.position);
 
 			float urgency = map(distance, 0, getNeighbourRadius(), 1, 0);

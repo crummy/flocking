@@ -64,21 +64,8 @@ public class Main extends PApplet {
 	}
 
 	@Override
-    public void keyReleased() {
-		instinctMenu.keyReleased(key);
-	}
-
-	@Override
 	public void keyPressed() {
 		instinctMenu.keyPressed(key);
 		settingsMenu.keyPressed(key);
-	}
-
-	public void addBoidToFlock() {
-
-	}
-
-	public void removeBoidFromFlock() {
-
 	}
 }
