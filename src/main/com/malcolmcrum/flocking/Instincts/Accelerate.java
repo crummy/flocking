@@ -18,6 +18,10 @@ public class Accelerate extends Instinct {
 	@Override
 	public Impulse calculateImpulse(Boid boid) {
 		float speed = boid.velocity.mag();
+		if (speed != speed) {
+			return Impulse.none;
+		}
+
 		float urgency = map(speed, 0, maxSpeed, 1, 0);
 		PVector desiredVelocity = boid.velocity.normalize(null).mult(maxSpeed);
 		if (urgency < 0) {
