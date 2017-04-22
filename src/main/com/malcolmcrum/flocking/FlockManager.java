@@ -37,7 +37,8 @@ public class FlockManager {
 		shader.set("totalBoids", allBoids.size());
 		shader.set("boids", boidPositions);
 		graphics.shader(shader);
-		//graphics.rect(0, 0, graphics.width, graphics.height);
+		graphics.background(0);
+		graphics.rect(0, 0, graphics.width, graphics.height);
 		flocks.forEach(flock -> new FlockRenderer(graphics, flock).draw());
 	}
 
