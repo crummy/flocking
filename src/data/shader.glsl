@@ -2,20 +2,24 @@
 // uniform - variables set in Processing sketch using shader.set()
 // varying - variables set by Processing itself
 
-// mouse position normalized
-uniform vec2 inp;
+uniform float totalBoids;
+uniform vec2[1024] boids;
 
-uniform float width;
-uniform float height;
-varying vec2 position;
-
-#define TWO_PI (6.28318530718)
+float distanceToNearest() {
+    float nearest = 9999.0;
+    for (int i = 0; i < 1024; ++i) {
+        vec2 boid = boids[i];
+        vec2 pixel = gl_FragCoord.xy;
+        float dist = distance(pixel, boid);
+        if (dist < nearest) {
+            nearest = dist;
+        }
+    }
+    return nearest;
+}
 
 void main() {
-    vec4 solidRed = vec4(gl_FragCoord.x/width,gl_FragCoord.y/height,0.0,1.0);
-    gl_FragColor = solidRed;
-    //vec4 col = texture2D(texture,vertTexCoord.xy); // take color from texture
-    //float lumaang =  TWO_PI*(0.2126 * col.r + 0.7152 * col.g + 0.0722 * col.b); // calculate luma
-    //vec2 off = vec2(2.0*inp.x*sin(lumaang),2.0*inp.y*cos(lumaang)); // calculate offset vector from luma angle
-    //gl_FragColor = vec4(texture2D(texture, fract(vertTexCoord.st+off)).rgb,1.0); // set color from texture from current position + offest. Wrapped.
+    float d = distanceToNearest();
+    vec4 colour = vec4(d / 255, d / 255, d / 255, 1.0);
+    gl_FragColor = colour;
 }

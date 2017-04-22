@@ -6,6 +6,7 @@ import processing.opengl.PShader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FlockManager {
 	private static List<Flock> flocks = new ArrayList<>();
@@ -16,8 +17,6 @@ public class FlockManager {
 	FlockManager(PApplet graphics) {
 		this.graphics = graphics;
 		this.shader = graphics.loadShader("shader.glsl");
-		this.shader.set("width", (float)graphics.width);
-		this.shader.set("height", (float)graphics.height);
 	}
 
 	public static List<Flock> getFlocks() {
@@ -29,6 +28,13 @@ public class FlockManager {
 	}
 
 	void draw() {
+		List<Boid> allBoids = flocks.stream().flatMap(flock -> flock.getBoids().stream()).collect(Collectors.toList());
+		float[] boidPositions = new float[allBoids.size() * 2];
+		for (int i = 0; i < allBoids.size(); ++i ) {
+			boidPositions[i * 2] = allBoids.get(i).position.x;
+			boidPositions[i * 2 + 1] = allBoids.get(i).position.y;
+		}
+		shader.set("boids", boidPositions);
 		graphics.shader(shader);
 		flocks.forEach(flock -> new FlockRenderer(graphics, flock).draw());
 	}
