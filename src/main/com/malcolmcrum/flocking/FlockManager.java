@@ -34,8 +34,10 @@ public class FlockManager {
 			boidPositions[i * 2] = allBoids.get(i).position.x;
 			boidPositions[i * 2 + 1] = allBoids.get(i).position.y;
 		}
+		shader.set("totalBoids", allBoids.size());
 		shader.set("boids", boidPositions);
 		graphics.shader(shader);
+		//graphics.rect(0, 0, graphics.width, graphics.height);
 		flocks.forEach(flock -> new FlockRenderer(graphics, flock).draw());
 	}
 
