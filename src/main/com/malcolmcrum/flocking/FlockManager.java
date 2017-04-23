@@ -28,17 +28,21 @@ public class FlockManager {
 	}
 
 	void draw() {
-		List<Boid> allBoids = flocks.stream().flatMap(flock -> flock.getBoids().stream()).collect(Collectors.toList());
-		float[] boidPositions = new float[allBoids.size() * 2];
-		for (int i = 0; i < allBoids.size(); ++i ) {
-			boidPositions[i * 2] = allBoids.get(i).position.x;
-			boidPositions[i * 2 + 1] = allBoids.get(i).position.y;
+		if (FlockRenderer.debugColours == false) {
+			List<Boid> allBoids = flocks.stream().flatMap(flock -> flock.getBoids().stream()).collect(Collectors.toList());
+			float[] boidPositions = new float[allBoids.size() * 2];
+			for (int i = 0; i < allBoids.size(); ++i) {
+				boidPositions[i * 2] = allBoids.get(i).position.x;
+				boidPositions[i * 2 + 1] = allBoids.get(i).position.y;
+			}
+			shader.set("totalBoids", allBoids.size());
+			shader.set("boids", boidPositions);
+			graphics.shader(shader);
+			graphics.background(0);
+			graphics.rect(0, 0, graphics.width, graphics.height);
+		} else {
+			this.graphics.resetShader();
 		}
-		shader.set("totalBoids", allBoids.size());
-		shader.set("boids", boidPositions);
-		graphics.shader(shader);
-		graphics.background(0);
-		graphics.rect(0, 0, graphics.width, graphics.height);
 		flocks.forEach(flock -> new FlockRenderer(graphics, flock).draw());
 	}
 

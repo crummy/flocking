@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import static processing.core.PConstants.PI;
 
 public class FlockRenderer implements Renderer {
-	static boolean debugColours = false;
+	public static boolean debugColours = false;
 
 	private final PApplet graphics;
 	private final Flock flock;

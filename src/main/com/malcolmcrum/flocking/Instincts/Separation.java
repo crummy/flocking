@@ -33,6 +33,6 @@ public class Separation extends Instinct {
 			awayFromOthers.add(PVector.fromAngle(angle + PI).mult(urgency*urgency));
 		}
 
-		return new Impulse(1, awayFromOthers);
+		return new Impulse(0.1f, awayFromOthers);
 	}
 }

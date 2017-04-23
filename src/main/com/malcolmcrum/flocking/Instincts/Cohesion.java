@@ -23,7 +23,7 @@ public class Cohesion extends Instinct {
 		center.div(neighbours.size());
 		PVector towardsNeighbours = PVector.sub(center, boid.position);
 		float distanceToCenterOfNeighbours = towardsNeighbours.mag();
-		return new Impulse(0.5f, towardsNeighbours.normalize().mult(distanceToCenterOfNeighbours * 0.01f));
+		return new Impulse(0.1f, towardsNeighbours.normalize().mult(distanceToCenterOfNeighbours * 0.01f));
 	}
 
 }
