@@ -33,7 +33,7 @@ public class FlockManager {
 			float[] boidPositions = new float[allBoids.size() * 2];
 			for (int i = 0; i < allBoids.size(); ++i) {
 				boidPositions[i * 2] = allBoids.get(i).position.x;
-				boidPositions[i * 2 + 1] = allBoids.get(i).position.y;
+				boidPositions[i * 2 + 1] = graphics.height - allBoids.get(i).position.y; // negate it to handle coordinate change
 			}
 			shader.set("totalBoids", allBoids.size());
 			shader.set("boids", boidPositions);
