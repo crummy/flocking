@@ -16,7 +16,7 @@ float distanceToNearest() {
         vec2 pixel = gl_FragCoord.xy;
         float dist = length(pixel - boid);
         if (isnan(dist) || isinf(dist)) {
-            dist = 9999.9;
+            err = 1;
         }
         nearest = min(nearest, dist);
     }
@@ -26,7 +26,6 @@ float distanceToNearest() {
 void main() {
     float d = distanceToNearest();
     vec4 colour = vec4(d / 255.0, d / 255.0, d / 255.0, 1.0);
-    //vec4 colour = vec4(boids[0] / 255.0, boids[1] / 255.0, boids[2] / 255.0, 1.0);
     if (err != 0) {
         colour = vec4(1.0, 0.0, 0.0, 1.0);
     }
