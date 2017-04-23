@@ -25,7 +25,8 @@ float distanceToNearest() {
 
 void main() {
     float d = distanceToNearest();
-    vec4 colour = vec4(d / 255.0, d / 255.0, d / 255.0, 1.0);
+    d = 1.0 / d;
+    vec4 colour = vec4(d, d, d, 1.0);
     if (err != 0) {
         colour = vec4(1.0, 0.0, 0.0, 1.0);
     }
