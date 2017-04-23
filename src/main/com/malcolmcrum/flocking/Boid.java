@@ -28,6 +28,7 @@ public class Boid {
 	void update() {
 		desires = instincts.stream()
 				.map(instinct -> new Desire(instinct.getClass().getSimpleName(), instinct.calculateWeightedImpulse(this), instinct.getNeighbourRadius()))
+				.filter(desire -> desire.urgency > 0)
 				.collect(Collectors.toSet());
 		float totalUrgency = (float) desires.stream().mapToDouble(desire -> desire.urgency).sum();
 		desires.forEach(desire -> {
