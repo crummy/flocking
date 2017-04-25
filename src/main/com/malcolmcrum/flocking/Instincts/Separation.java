@@ -1,14 +1,12 @@
 package com.malcolmcrum.flocking.Instincts;
 
 import com.malcolmcrum.flocking.Boid;
+import processing.core.PApplet;
 import processing.core.PVector;
 
-import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
-import static processing.core.PApplet.map;
-import static processing.core.PConstants.PI;
-import static processing.core.PVector.angleBetween;
 import static processing.core.PVector.dist;
 
 public class Separation extends Instinct {
@@ -18,21 +16,17 @@ public class Separation extends Instinct {
 
 	@Override
 	public Impulse calculateImpulse(Boid boid) {
-		PVector awayFromOthers = new PVector();
-		Collection<Boid> neighbours = getNeighbours(boid);
-		if (neighbours.size() == 0) {
+		Optional<Boid> nearestNeighbour = getNeighbours(boid).stream()
+				.sorted((a, b) -> Float.compare(dist(a.position, boid.position), dist(b.position, boid.position)))
+				.findFirst();
+		if (nearestNeighbour.isPresent()) {
+			Boid neighbour = nearestNeighbour.get();
+			float distance = dist(boid.position, neighbour.position);
+			PVector away = PVector.sub(boid.position, neighbour.position).normalize();
+			float urgency = PApplet.pow((distance - getNeighbourRadius())/getNeighbourRadius() * 3, 2);
+			return new Impulse(1f, away.mult(urgency));
+		} else {
 			return Impulse.none;
 		}
-
-		for (Boid neighbour : neighbours) {
-			float distance = dist(boid.position, neighbour.position);
-
-			float urgency = map(distance, 0, getNeighbourRadius(), 1, 0);
-
-			float angle = angleBetween(boid.velocity, neighbour.velocity);
-			awayFromOthers.add(PVector.fromAngle(angle + PI).mult(urgency*urgency));
-		}
-
-		return new Impulse(0.5f, awayFromOthers);
 	}
 }

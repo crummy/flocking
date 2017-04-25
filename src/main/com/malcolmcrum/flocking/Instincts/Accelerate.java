@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Accelerate extends Instinct {
 
-	static final float maxSpeed = 50;
+	static final float maxSpeed = 200;
 	static final float acceleration = 0.85f;
 
 	public Accelerate(Set<Boid> flock) {

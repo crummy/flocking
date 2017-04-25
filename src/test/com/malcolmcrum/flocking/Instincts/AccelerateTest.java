@@ -11,7 +11,7 @@ import java.util.HashSet;
 class AccelerateTest {
 
 	@Test
-	public void testDeceleration() {
+	void testDeceleration() {
 		PVector velocityBefore = new PVector(Accelerate.maxSpeed + 1, Accelerate.maxSpeed + 1);
 		Boid boid = new Boid(new PVector(0, 0), velocityBefore, new HashSet<>());
 		Instinct accelerate = new Accelerate(Collections.singleton(boid));
@@ -22,7 +22,7 @@ class AccelerateTest {
 	}
 
 	@Test
-	public void testAcceleration() {
+	void testAcceleration() {
 		PVector velocity = new PVector(Accelerate.maxSpeed - 1, Accelerate.maxSpeed - 1);
 		Boid boid = new Boid(new PVector(0, 0), velocity, new HashSet<>());
 		Instinct accelerate = new Accelerate(Collections.singleton(boid));
