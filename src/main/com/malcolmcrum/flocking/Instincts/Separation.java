@@ -15,6 +15,11 @@ public class Separation extends Instinct {
 	}
 
 	@Override
+	public float getNeighbourRadius() {
+		return 16;
+	}
+
+	@Override
 	public PVector calculateImpulse(Boid boid) {
 		Optional<Boid> nearestNeighbour = getNeighbours(boid).stream()
 				.sorted((a, b) -> Float.compare(dist(a.position, boid.position), dist(b.position, boid.position)))

@@ -35,7 +35,7 @@ public class AvoidBoundaries extends Instinct {
 		if (boid.position.y < boundary.top + margin) {
 			y = (margin - boundary.top) - boid.position.y;
 		} else if (boid.position.y > boundary.bottom - margin) {
-			y = (boundary.top - margin) - boid.position.y;
+			y = (boundary.bottom - margin) - boid.position.y;
 		}
 
 		if (Float.isInfinite(x) || Float.isInfinite(y)) {

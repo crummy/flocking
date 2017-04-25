@@ -28,20 +28,4 @@ public abstract class Instinct {
 				.collect(Collectors.toSet());
 	}
 
-	public static class Impulse {
-		static Impulse none = new Impulse(0, new PVector());
-
-		public final float urgency;
-		public final PVector velocity;
-
-		Impulse(float urgency, PVector velocity) {
-			this.urgency = urgency;
-			this.velocity = velocity;
-		}
-
-		@Override
-		public String toString() {
-			return String.format("{urgency: %.2f, speed: %.2f}", urgency, velocity.mag());
-		}
-	}
 }
