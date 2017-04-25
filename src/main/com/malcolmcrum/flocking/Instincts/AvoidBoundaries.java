@@ -6,11 +6,7 @@ import processing.core.PVector;
 
 import java.util.Set;
 
-import static processing.core.PConstants.PI;
-
 public class AvoidBoundaries extends Instinct {
-
-	private static final float turningRate = PI/16;
 
 	private final Rectangle boundary;
 
@@ -21,38 +17,32 @@ public class AvoidBoundaries extends Instinct {
 
 	@Override
 	public float getNeighbourRadius() {
-		return 256;
+		return 128;
 	}
 
 	@Override
 	public Impulse calculateImpulse(Boid boid) {
 		float margin = getNeighbourRadius();
-		PVector desiredDirection = new PVector();
-		float xStrength = 0;
+
+		float x = 0;
 		if (boid.position.x < boundary.left + margin) {
-			xStrength = ((margin - boundary.left) - boid.position.x)/margin;
-			desiredDirection.x = 1;
+			x = (margin - boundary.left) - boid.position.x;
 		} else if (boid.position.x > boundary.right - margin) {
-			xStrength = (boid.position.x - (boundary.right - margin))/margin;
-			desiredDirection.x = -1;
-		}
-		float yStrength = 0;
-		if (boid.position.y < boundary.top + margin) {
-			yStrength = ((margin - boundary.top) - boid.position.y)/margin;
-			desiredDirection.y = 1;
-		} else if (boid.position.y > boundary.bottom - margin) {
-			yStrength = (boid.position.y - (boundary.top - margin))/margin;
-			desiredDirection.y = -1;
+			x = (boundary.right - margin) - boid.position.x;
 		}
 
-		float strength = xStrength > yStrength ? xStrength : yStrength;
-		if (strength > 1) { // out of bounds
-			strength = 1;
-		} else if (strength < 0) {
-			strength = 0;
+		float y = 0;
+		if (boid.position.y < boundary.top + margin) {
+			y = (margin - boundary.top) - boid.position.y;
+		} else if (boid.position.y > boundary.bottom - margin) {
+			y = (boundary.top - margin) - boid.position.y;
 		}
-		float speed = boid.velocity.mag();
-		PVector desiredVelocity = PVector.lerp(boid.velocity.copy().normalize(), desiredDirection, turningRate).mult(speed);
-		return new Impulse(strength, desiredVelocity);
+
+		if (Float.isInfinite(x) || Float.isInfinite(y)) {
+			throw new RuntimeException();
+		}
+
+		PVector desiredDirection = new PVector(x, y);
+		return new Impulse(1f, desiredDirection);
 	}
 }

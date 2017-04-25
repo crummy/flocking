@@ -10,6 +10,8 @@ public class Alignment extends Instinct {
 		super(flock);
 	}
 
+	private static final float factor = 0.25f;
+
 	@Override
 	public float getNeighbourRadius() {
 		return 64;
@@ -23,7 +25,7 @@ public class Alignment extends Instinct {
 			return Impulse.none;
 		}
 		for (Boid neighbour : neighbours) {
-			averageVelocity.add(neighbour.velocity);
+			averageVelocity.add(PVector.mult(neighbour.velocity, factor));
 		}
 		averageVelocity.div(neighbours.size());
 		return new Impulse(1f, averageVelocity);

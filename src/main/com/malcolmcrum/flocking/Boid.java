@@ -18,7 +18,7 @@ public class Boid {
 	private final Collection<Instinct> instincts;
 	private Collection<Desire> desires; // stored on each frame so we can read it later for debug purposes
 
-	Boid(PVector initialPosition, PVector initialVelocity, Collection<Instinct> instincts) {
+	public Boid(PVector initialPosition, PVector initialVelocity, Collection<Instinct> instincts) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
 		this.instincts = instincts;
@@ -28,13 +28,13 @@ public class Boid {
 	void update() {
 		desires = instincts.stream()
 				.map(instinct -> new Desire(instinct.getClass().getSimpleName(), instinct.calculateWeightedImpulse(this), instinct.getNeighbourRadius()))
-				.filter(desire -> desire.urgency > 0)
 				.collect(Collectors.toSet());
-		float totalUrgency = (float) desires.stream().mapToDouble(desire -> desire.urgency).sum();
-		desires.forEach(desire -> {
-			float balancedUrgency = desire.urgency / totalUrgency;
-			velocity.lerp(desire.velocity, balancedUrgency);
-		});
+		velocity.x = 0;
+		velocity.y = 0;
+		desires.forEach(desire -> velocity.add(desire.velocity));
+		if (Float.isInfinite(velocity.x)  || Float.isNaN(velocity.x)) {
+			throw new RuntimeException();
+		}
 		position.lerp(PVector.add(position, velocity), 0.05f);
 	}
 
