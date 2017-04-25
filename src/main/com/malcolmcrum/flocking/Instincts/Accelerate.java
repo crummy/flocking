@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Accelerate extends Instinct {
 
-	static final float maxSpeed = 200;
+	static final float maxSpeed = 100;
 	static final float acceleration = 0.85f;
 
 	public Accelerate(Set<Boid> flock) {
@@ -16,7 +16,7 @@ public class Accelerate extends Instinct {
 	}
 
 	@Override
-	public Impulse calculateImpulse(Boid boid) {
+	public PVector calculateImpulse(Boid boid) {
 		if (boid.velocity.x == 0 && boid.velocity.y == 0) {
 			throw new RuntimeException();
 		}
@@ -26,6 +26,6 @@ public class Accelerate extends Instinct {
 		if (Float.isInfinite(desiredVelocity.x)) {
 			throw new RuntimeException();
 		}
-		return new Impulse(1f, desiredVelocity);
+		return desiredVelocity;
 	}
 }

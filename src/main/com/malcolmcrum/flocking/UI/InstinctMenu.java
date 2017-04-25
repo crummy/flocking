@@ -25,29 +25,16 @@ public class InstinctMenu extends Menu implements InputHandler {
 		flock.getInstincts()
 				.forEach(instinct -> {
 					String prefix = isSelected(instinct) ? "> " : "";
-					text(String.format("%s%s: %.0f%%", prefix, instinct.getClass().getSimpleName(), instinct.getWeight()*100));
+					text(String.format("%s%s", prefix, instinct.getClass().getSimpleName()));
 				});
 	}
 	
 	@Override
 	public void leftPressed() {
-		adjustWeight(-adjustmentIncrement);
 	}
 
 	@Override
 	public void rightPressed() {
-		adjustWeight(adjustmentIncrement);
-	}
-
-	private void adjustWeight(float amount) {
-		float weight = getSelectedInstinct().getWeight();
-		float newWeight = weight + amount;
-		if (newWeight < 0) {
-			newWeight = 0;
-		} else if (newWeight > 1) {
-			newWeight = 1;
-		}
-		getSelectedInstinct().setWeight(newWeight);
 	}
 
 	@Override

@@ -67,8 +67,8 @@ public class DebugBoidRenderer implements Renderer, InputHandler {
 			return new ArrayList<>();
 		} else {
 			return boid.getDesires().stream()
-					.filter(desire -> desire.urgency > 0)
-					.sorted((a, b) -> Float.compare(b.urgency, a.urgency))
+					.filter(desire -> desire.velocity.mag() > 0)
+					.sorted((a, b) -> Float.compare(b.velocity.magSq(), a.velocity.magSq()))
 					.collect(Collectors.toList());
 		}
 	}

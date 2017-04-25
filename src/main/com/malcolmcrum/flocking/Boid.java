@@ -27,7 +27,7 @@ public class Boid {
 
 	void update() {
 		desires = instincts.stream()
-				.map(instinct -> new Desire(instinct.getClass().getSimpleName(), instinct.calculateWeightedImpulse(this), instinct.getNeighbourRadius()))
+				.map(instinct -> new Desire(instinct.getClass().getSimpleName(), instinct.calculateImpulse(this), instinct.getNeighbourRadius()))
 				.collect(Collectors.toSet());
 		velocity.x = 0;
 		velocity.y = 0;
@@ -55,19 +55,17 @@ public class Boid {
 	public class Desire {
 		public final String name;
 		public final PVector velocity;
-		public final float urgency;
 		public final float radius;
 
-		public Desire(String name, Instinct.Impulse impulse, float radius) {
+		Desire(String name, PVector velocity, float radius) {
 			this.name = name;
-			this.velocity = impulse.velocity;
-			this.urgency = impulse.urgency;
+			this.velocity = velocity;
 			this.radius = radius;
 		}
 
 		@Override
 		public String toString() {
-			return String.format("%s: %.0f%% (%.1f %.1f)", name, urgency * 100, velocity.x, velocity.y);
+			return String.format("%s: (%.1f %.1f)", name, velocity.x, velocity.y);
 		}
 	}
 }

@@ -72,12 +72,12 @@ public class Flock {
 		}
 
 		public Builder withDefaultInstincts() {
-			flock.addInstinct(new Accelerate(flock.boids)).setWeight(0.5f);
-			flock.addInstinct(new Alignment(flock.boids)).setWeight(0.1f);
-			flock.addInstinct(new AvoidBoundaries(flock.boids, flock.bounds)).setWeight(1f);
-			flock.addInstinct(new Cohesion(flock.boids)).setWeight(0.1f);
-			flock.addInstinct(new Random(flock.boids)).setWeight(0.1f);
-			flock.addInstinct(new Separation(flock.boids)).setWeight(0.5f);
+			flock.addInstinct(new Accelerate(flock.boids));
+			flock.addInstinct(new Alignment(flock.boids));
+			flock.addInstinct(new AvoidBoundaries(flock.boids, flock.bounds));
+			flock.addInstinct(new Cohesion(flock.boids));
+			flock.addInstinct(new Random(flock.boids));
+			flock.addInstinct(new Separation(flock.boids));
 			return this;
 		}
 

@@ -15,7 +15,7 @@ public class Separation extends Instinct {
 	}
 
 	@Override
-	public Impulse calculateImpulse(Boid boid) {
+	public PVector calculateImpulse(Boid boid) {
 		Optional<Boid> nearestNeighbour = getNeighbours(boid).stream()
 				.sorted((a, b) -> Float.compare(dist(a.position, boid.position), dist(b.position, boid.position)))
 				.findFirst();
@@ -24,9 +24,9 @@ public class Separation extends Instinct {
 			float distance = dist(boid.position, neighbour.position);
 			PVector away = PVector.sub(boid.position, neighbour.position).normalize();
 			float urgency = PApplet.pow((distance - getNeighbourRadius())/getNeighbourRadius() * 3, 2);
-			return new Impulse(1f, away.mult(urgency));
+			return away.mult(urgency);
 		} else {
-			return Impulse.none;
+			return new PVector(0, 0);
 		}
 	}
 }

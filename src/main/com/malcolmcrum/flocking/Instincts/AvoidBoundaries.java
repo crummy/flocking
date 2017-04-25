@@ -17,11 +17,11 @@ public class AvoidBoundaries extends Instinct {
 
 	@Override
 	public float getNeighbourRadius() {
-		return 128;
+		return 256;
 	}
 
 	@Override
-	public Impulse calculateImpulse(Boid boid) {
+	public PVector calculateImpulse(Boid boid) {
 		float margin = getNeighbourRadius();
 
 		float x = 0;
@@ -42,7 +42,6 @@ public class AvoidBoundaries extends Instinct {
 			throw new RuntimeException();
 		}
 
-		PVector desiredDirection = new PVector(x, y);
-		return new Impulse(1f, desiredDirection);
+		return new PVector(x*0.1f, y*0.1f);
 	}
 }

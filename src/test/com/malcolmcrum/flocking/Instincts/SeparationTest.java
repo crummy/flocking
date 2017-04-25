@@ -18,9 +18,8 @@ class SeparationTest {
 		flock.add(neighbour);
 		flock.add(boid);
 		Instinct separation = new Separation(flock);
-		Instinct.Impulse impulse = separation.calculateImpulse(boid);
 
-		PVector velocityAfter = impulse.velocity;
+		PVector velocityAfter = separation.calculateImpulse(boid);
 		Assertions.assertTrue(velocityBefore.y > velocityAfter.y);
 	}
 }

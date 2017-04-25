@@ -26,7 +26,7 @@ public class FlockRenderer implements Renderer {
 		if (debugColours) {
 			boid.getDesires()
 					.stream()
-					.sorted((a, b) -> Float.compare(b.urgency, a.urgency))
+					.sorted((a, b) -> Float.compare(b.velocity.magSq(), a.velocity.magSq()))
 					.findFirst()
 					.ifPresent(desire -> setColours(desire.name.hashCode(), graphics));
 		} else {

@@ -1,6 +1,5 @@
 package com.malcolmcrum.flocking.Instincts;
 
-import com.malcolmcrum.flocking.Assert;
 import com.malcolmcrum.flocking.Boid;
 import processing.core.PVector;
 
@@ -10,29 +9,12 @@ import java.util.stream.Collectors;
 public abstract class Instinct {
 
 	private final Set<Boid> flock;
-	private float weight;
 
 	Instinct(Set<Boid> flock) {
 		this.flock = flock;
-		this.weight = 0.5f;
 	}
 
-	public void setWeight(float weight) {
-		Assert.assertTrue(weight >= 0);
-		Assert.assertTrue(weight <= 1);
-		this.weight = weight;
-	}
-
-	public float getWeight() {
-		return weight;
-	}
-
-	public Impulse calculateWeightedImpulse(Boid self) {
-		Impulse impulse = calculateImpulse(self);
-		return new Impulse(impulse.urgency * weight, impulse.velocity);
-	}
-
-	abstract Impulse calculateImpulse(Boid self);
+	public abstract PVector calculateImpulse(Boid self);
 
 	public float getNeighbourRadius() {
 		return 128;

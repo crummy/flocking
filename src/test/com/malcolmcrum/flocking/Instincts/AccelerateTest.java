@@ -15,9 +15,8 @@ class AccelerateTest {
 		PVector velocityBefore = new PVector(Accelerate.maxSpeed + 1, Accelerate.maxSpeed + 1);
 		Boid boid = new Boid(new PVector(0, 0), velocityBefore, new HashSet<>());
 		Instinct accelerate = new Accelerate(Collections.singleton(boid));
-		Instinct.Impulse impulse = accelerate.calculateImpulse(boid);
+		PVector velocityAfter = accelerate.calculateImpulse(boid);
 
-		PVector velocityAfter = impulse.velocity;
 		Assertions.assertTrue(velocityBefore.mag() < velocityAfter.mag());
 	}
 
@@ -26,9 +25,8 @@ class AccelerateTest {
 		PVector velocity = new PVector(Accelerate.maxSpeed - 1, Accelerate.maxSpeed - 1);
 		Boid boid = new Boid(new PVector(0, 0), velocity, new HashSet<>());
 		Instinct accelerate = new Accelerate(Collections.singleton(boid));
-		Instinct.Impulse impulse = accelerate.calculateImpulse(boid);
 
-		PVector velocityAfter = impulse.velocity;
+		PVector velocityAfter = accelerate.calculateImpulse(boid);
 		Assertions.assertTrue(velocity.mag() > velocityAfter.mag());
 	}
 
