@@ -17,7 +17,7 @@ public class AvoidBoundaries extends Instinct {
 
 	@Override
 	public float getNeighbourRadius() {
-		return 256;
+		return 64;
 	}
 
 	@Override

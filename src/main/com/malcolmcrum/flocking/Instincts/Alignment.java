@@ -10,7 +10,7 @@ public class Alignment extends Instinct {
 		super(flock);
 	}
 
-	private static final float factor = 0.25f;
+	private static final float factor = 0.04f;
 
 	@Override
 	public float getNeighbourRadius() {
