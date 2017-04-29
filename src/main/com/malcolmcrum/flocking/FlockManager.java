@@ -6,7 +6,6 @@ import processing.opengl.PShader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FlockManager {
 	private static List<Flock> flocks = new ArrayList<>();
@@ -29,21 +28,30 @@ public class FlockManager {
 
 	void draw() {
 		if (FlockRenderer.debugColours == false) {
-			List<Boid> allBoids = flocks.stream().flatMap(flock -> flock.getBoids().stream()).collect(Collectors.toList());
-			float[] boidPositions = new float[allBoids.size() * 2];
-			for (int i = 0; i < allBoids.size(); ++i) {
-				boidPositions[i * 2] = allBoids.get(i).position.x;
-				boidPositions[i * 2 + 1] = graphics.height - allBoids.get(i).position.y; // negate it to handle coordinate change
+			List<Float> boidData = new ArrayList<>();
+			for (int flockIndex = 0; flockIndex < flocks.size(); ++flockIndex) {
+				for (Boid boid : flocks.get(flockIndex).getBoids()) {
+					float x = boid.position.x;
+					float y = graphics.height - boid.position.y;
+					boidData.add(x);
+					boidData.add(y);
+					boidData.add((float)flockIndex);
+				}
 			}
-			shader.set("totalBoids", allBoids.size());
-			shader.set("boids", boidPositions);
+			float[] boids = new float[boidData.size()];
+			int i = 0;
+			for (Float f : boidData) {
+				boids[i++] = f;
+			}
+			shader.set("totalBoids", boids.length);
+			shader.set("boids", boids);
 			graphics.shader(shader);
 			graphics.background(0);
 			graphics.rect(0, 0, graphics.width, graphics.height);
 		} else {
 			this.graphics.resetShader();
+			flocks.forEach(flock -> new FlockRenderer(graphics, flock).draw());
 		}
-		flocks.forEach(flock -> new FlockRenderer(graphics, flock).draw());
 	}
 
 	public void add(Flock flock) {
