@@ -43,7 +43,7 @@ public class FlockManager {
 			for (Float f : boidData) {
 				boids[i++] = f;
 			}
-			shader.set("totalBoids", boids.length);
+			shader.set("totalBoids", boids.length / 3);
 			shader.set("boids", boids);
 			graphics.shader(shader);
 			graphics.background(0);

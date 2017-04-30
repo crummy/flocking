@@ -24,8 +24,7 @@ vec4 color(int i) {
 
 
 vec4 getColour() {
-    float nearest = 9999.9;
-    int nearestBoidIndex = -1;
+    vec4 flockColour = vec4(0.0, 0.0, 0.0, 1.0);
     for (int i = 0; i < totalBoids; i++) {
         vec2 boid = position(i);
         vec2 pixel = gl_FragCoord.xy;
@@ -33,13 +32,9 @@ vec4 getColour() {
         if (isnan(dist) || isinf(dist)) {
             err = 1;
         }
-        if (dist < nearest) {
-            nearest = dist;
-            nearestBoidIndex = i;
-        }
+        flockColour += color(i) * 1/dist;
     }
-    vec4 flockColour = color(nearestBoidIndex);
-    return flockColour * sqrt(10/nearest);
+    return flockColour;
 }
 
 void main() {
