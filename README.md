@@ -17,4 +17,4 @@ when paused) to view information about its current desires.
 
 ## Preview
 
-![https://giphy.com/embed/3ohzdXYzIsmdw9KH3W]
+https://giphy.com/gifs/processing-flocking-boids-3ohzdXYzIsmdw9KH3W/
