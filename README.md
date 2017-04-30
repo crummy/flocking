@@ -12,3 +12,9 @@ Open in IntelliJ, open com.malcolmcrum.flocking.Main, right click and Run.
 
 Keyboard shortcuts are available in the upper left. You can toggle individual desires, view debug colours, and pause. Click a boid (easier
 when paused) to view information about its current desires.
+
+* C to disable shaders and access debug options
+
+## Preview
+
+![https://giphy.com/embed/3ohzdXYzIsmdw9KH3W]
