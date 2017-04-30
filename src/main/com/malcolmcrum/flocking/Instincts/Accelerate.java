@@ -1,29 +1,31 @@
 package com.malcolmcrum.flocking.Instincts;
 
 import com.malcolmcrum.flocking.Boid;
+import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.Set;
 
-import static processing.core.PApplet.map;
-
 public class Accelerate extends Instinct {
 
-	private static final float maxSpeed = 200;
+	static final float maxSpeed = 100;
+	static final float acceleration = 0.85f;
 
-	public Accelerate(Boid self, Set<Boid> boids) {
-		super(self, boids);
+	public Accelerate(Set<Boid> flock) {
+		super(flock);
 	}
 
 	@Override
-	public Desire calculateDesire() {
-		float speed = self.velocity.mag();
-		float urgency = map(speed, 0, maxSpeed, 1, 0);
-		PVector desiredVelocity = self.velocity.normalize(null).mult(maxSpeed);
-		if (urgency < 0) {
-			return Desire.none;
-		} else {
-			return new Desire(urgency, desiredVelocity);
+	public PVector calculateImpulse(Boid boid) {
+		if (boid.velocity.x == 0 && boid.velocity.y == 0) {
+			throw new RuntimeException();
 		}
+		float speed = boid.velocity.mag();
+		float desiredSpeed = -maxSpeed * PApplet.pow(acceleration, speed) + maxSpeed;
+		PVector desiredVelocity = PVector.mult(boid.velocity.normalize(null), desiredSpeed);
+		if (Float.isInfinite(desiredVelocity.x)) {
+			throw new RuntimeException();
+		}
+		return desiredVelocity;
 	}
 }

@@ -9,17 +9,17 @@ import java.util.Set;
 import static processing.core.PConstants.PI;
 
 public class Random extends Instinct {
-	public Random(Boid self, Set<Boid> boids) {
-		super(self, boids);
+	public Random(Set<Boid> flock) {
+		super(flock);
 	}
 
 	@Override
-	public Desire calculateDesire() {
+	public PVector calculateImpulse(Boid boid) {
 		if (RNG.between(0, 10) == 1) {
 			float offset = RNG.between(-PI/2, PI/2);
-			return new Desire(1f, PVector.fromAngle(self.velocity.heading() + offset));
+			return PVector.fromAngle(boid.velocity.heading() + offset);
 		} else {
-			return Desire.none;
+			return new PVector(0, 0);
 		}
 	}
 }

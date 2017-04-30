@@ -2,13 +2,12 @@ package com.malcolmcrum.flocking.UI;
 
 import com.malcolmcrum.flocking.Boid;
 import com.malcolmcrum.flocking.Flock;
-import com.malcolmcrum.flocking.Instincts.Instinct;
 import processing.core.PApplet;
 
 import static processing.core.PConstants.PI;
 
 public class FlockRenderer implements Renderer {
-	static boolean debugColours = false;
+	public static boolean debugColours = false;
 
 	private final PApplet graphics;
 	private final Flock flock;
@@ -25,13 +24,11 @@ public class FlockRenderer implements Renderer {
 
 	private void draw(Boid boid) {
 		if (debugColours) {
-			int greatestDesire = boid.getInstincts()
+			boid.getDesires()
 					.stream()
-					.sorted((a, b) -> Instinct.comparator(b, a))
+					.sorted((a, b) -> Float.compare(b.velocity.magSq(), a.velocity.magSq()))
 					.findFirst()
-					.get()
-					.getClass().hashCode();
-			setColours(greatestDesire, graphics);
+					.ifPresent(desire -> setColours(desire.name.hashCode(), graphics));
 		} else {
 			setColours(flock.hashCode(), graphics);
 		}

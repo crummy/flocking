@@ -6,21 +6,28 @@ import processing.core.PVector;
 import java.util.Set;
 
 public class Alignment extends Instinct {
-	public Alignment(Boid self, Set<Boid> boids) {
-		super(self, boids);
+	public Alignment(Set<Boid> flock) {
+		super(flock);
+	}
+
+	private static final float factor = 0.04f;
+
+	@Override
+	public float getNeighbourRadius() {
+		return 64;
 	}
 
 	@Override
-	public Desire calculateDesire() {
+	public PVector calculateImpulse(Boid boid) {
 		PVector averageVelocity = new PVector();
-		Set<Boid> neighbours = getNeighbours();
+		Set<Boid> neighbours = getNeighbours(boid);
 		if (neighbours.size() == 0) {
-			return Desire.none;
+			return new PVector(0, 0);
 		}
-		for (Boid boid : neighbours) {
-			averageVelocity.add(boid.velocity);
+		for (Boid neighbour : neighbours) {
+			averageVelocity.add(PVector.mult(neighbour.velocity, factor));
 		}
 		averageVelocity.div(neighbours.size());
-		return new Desire(1f, averageVelocity);
+		return averageVelocity;
 	}
 }

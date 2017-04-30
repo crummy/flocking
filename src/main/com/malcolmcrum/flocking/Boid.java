@@ -5,6 +5,7 @@ import processing.core.PVector;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 import static processing.core.PConstants.PI;
 import static processing.core.PConstants.TWO_PI;
@@ -12,39 +13,33 @@ import static processing.core.PConstants.TWO_PI;
 public class Boid {
 	public PVector position;
 	public PVector velocity;
-	private final Instinct.DesireMultipliers desireMultipliers;
 	public static final float fieldOfView = 3*PI/2;
 
 	private final Collection<Instinct> instincts;
+	private Collection<Desire> desires; // stored on each frame so we can read it later for debug purposes
 
-	Boid(PVector initialPosition, PVector initialVelocity, Instinct.DesireMultipliers desireMultipliers) {
+	public Boid(PVector initialPosition, PVector initialVelocity, Collection<Instinct> instincts) {
 		this.position = initialPosition;
 		this.velocity = initialVelocity;
-		this.desireMultipliers = desireMultipliers;
-		this.instincts = new HashSet<>();
-	}
-
-	void addDesire(Instinct instinct) {
-		instincts.add(instinct);
+		this.instincts = instincts;
+		this.desires = new HashSet<>();
 	}
 
 	void update() {
-		instincts.forEach(Instinct::update);
-		float totalUrgency = (float) instincts.stream()
-				.mapToDouble(Instinct::getUrgency)
-				.sum();
-		instincts.stream()
-				.filter(instinct -> instinct.getUrgency() > 0)
-				.forEach(instinct -> {
-					float desireMultiplier = desireMultipliers.get(instinct.getClass());
-					float balancedUrgency = (instinct.getUrgency() * desireMultiplier) / totalUrgency;
-					velocity.lerp(instinct.getDesiredVelocity(), balancedUrgency);
-				});
+		desires = instincts.stream()
+				.map(instinct -> new Desire(instinct.getClass().getSimpleName(), instinct.calculateImpulse(this), instinct.getNeighbourRadius()))
+				.collect(Collectors.toSet());
+		velocity.x = 0;
+		velocity.y = 0;
+		desires.forEach(desire -> velocity.add(desire.velocity));
+		if (Float.isInfinite(velocity.x)  || Float.isNaN(velocity.x)) {
+			throw new RuntimeException();
+		}
 		position.lerp(PVector.add(position, velocity), 0.05f);
 	}
 
-	public Collection<Instinct> getInstincts() {
-		return instincts;
+	public Collection<Desire> getDesires() {
+		return desires;
 	}
 
 	public boolean canSee(Boid other) {
@@ -52,5 +47,25 @@ public class Boid {
 		float angle = PVector.angleBetween(towardsOther, velocity);
 		angle = angle < 0 ? angle + TWO_PI : angle;
 		return angle < fieldOfView/2;
+	}
+
+	/**
+	 * Just a wrapper class to aid in debug output (otherwise we don't know what the name of each impulse's desire is)
+	 */
+	public class Desire {
+		public final String name;
+		public final PVector velocity;
+		public final float radius;
+
+		Desire(String name, PVector velocity, float radius) {
+			this.name = name;
+			this.velocity = velocity;
+			this.radius = radius;
+		}
+
+		@Override
+		public String toString() {
+			return String.format("%s: (%.1f %.1f)", name, velocity.x, velocity.y);
+		}
 	}
 }
